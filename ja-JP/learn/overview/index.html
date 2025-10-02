@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head id="head">
+    <meta charset="utf-8">
+    <title id="title">
+      詳細な概要
+      ⚡
+      Zig Programming Language
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.svg">
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <link type="text/css" rel="stylesheet" href="/css/navigation.css">
+    
+  <link type="text/css" rel="stylesheet" href="/css/home.css">
+
+  </head>
+  <body>
+    <div class="container">
+      <a href="/ja-JP/"><span id="header-image"></span></a>
+    </div>
+    <nav id="mobile-navbar" class="nav container">
+      <span style="overflow:hidden; max-width: 80%; display: inline-block; vertical-align:bottom;">概要
+      </span>
+      <label for="mobile-toggle" id="hamburger">
+        <svg style="width:2em;height:2em;" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"/>
+        </svg>
+      </label>
+    </nav>
+    <div id="mobile-subnav">
+      <input type="checkbox" name="mobile-toggle" id="mobile-toggle">
+      <div class="" id="menu">
+        
+          <a class="navbar-item" href="/ja-JP/download/">Download</a>
+        
+        
+          <a class="navbar-item" href="/ja-JP/learn/">学ぶ</a>
+        
+        
+          <a class="navbar-item" href="/news/">News</a>
+        
+        <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">ソースコード</a>
+        <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">コミュニティに参加する</a>
+        
+          <a class="navbar-item" href="/ja-JP/zsf/">ZSF</a>
+        
+        
+          <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+        
+      </div>
+    </div>
+    <nav id="navbar" class="nav">
+      <div class="container" style="display:flex; justify-content: space-between;">
+        <div>
+          
+            <a class="navbar-item" href="/ja-JP/download/">Download</a>
+          
+          
+            <a class="navbar-item" href="/ja-JP/learn/">学ぶ</a>
+          
+          
+            <a class="navbar-item" href="/news/">News</a>
+          
+          
+            <a class="navbar-item" href="/ja-JP/zsf/">Zig Software Foundation</a>
+          
+          
+            <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+          
+          <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">ソースコード</a>
+          <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">コミュニティに参加する</a>
+        </div>
+      </div>
+    </nav>
+    <div id="content" role="main">
+      
+  <div class="container">
+    
+      <a id="back" href="/ja-JP/learn/">
+        ← Back to
+        <b>学ぶ</b>
+      </a>
+    
+    <h1 class="title">詳細な概要</h1>
+    
+    <h1>機能ハイライト</h1><h2 id="small-simple-language">小さく、シンプルな言語</h2><p>プログラミング言語の知識をデバッグするよりも、アプリケーションのデバッグに重点を置いてください。</p><p>Zigの全文法は、<a href="https://ziglang.org/documentation/master/#Grammar" target="_blank">580行のPEG文法ファイル</a>で指定されています。</p><p><strong>隠された制御フロー</strong>も、隠されたメモリ確保も、プリプロセッサも、マクロも存在しないのです。もしZigのコードが関数を呼び出すために飛び出しているように見えないなら、それは違います。つまり、次のコードは<code>foo()</code>と<code>bar()</code>のみを呼び出し、何も型を知らなくてもこれが保証されることを意味します：</p><pre><code class="zig"><span class="keyword">var</span> <span class="constant variable_builtin type variable">a</span> <span class="operator">=</span> <span class="constant variable_builtin type variable">b</span> <span class="operator">+</span> <span class="constant variable_builtin type variable">c</span><span class="punctuation_delimiter">.</span><span class="constant variable_builtin type variable_member variable">d</span><span class="punctuation_delimiter">;</span>
+<span class="constant variable_builtin function_call variable type">foo</span><span class="punctuation_bracket">(</span><span class="punctuation_bracket">)</span><span class="punctuation_delimiter">;</span>
+bar<span class="punctuation_bracket">(</span><span class="punctuation_bracket">)</span><span class="punctuation_delimiter">;</span>
+</code></pre>
+<p>隠された制御フローの例：</p><ul><li>Dには<code>@property</code>関数があります。これは、フィールドアクセスのように見えるメソッドで、上記の例では<code>c.d</code>が関数を呼び出すかもしれません。</li><li>C++、D、Rustには演算子のオーバーローディングがあるので、<code>+</code>演算子は関数を呼び出すかもしれません。</li><li>C++、D、Goにはthrow/catch 例外機能があるので、<code>foo()</code>は例外をスローして<code>bar()</code>が呼ばれないようにするかもしれません。</li></ul><p>Zigは、すべての制御フローを言語キーワードと関数呼び出しのみで管理することで、コードの保守性と可読性を高めています。</p><h2>性能と安全性：2つの選択</h2><p>Zigには4つの<a href="https://ziglang.org/documentation/master/#Build-Mode" target="_blank">ビルドモード</a>があり、これらはすべて<a href="https://ziglang.org/documentation/master/#setRuntimeSafety" target="_blank">スコープ粒度</a>に至るまで混在させることが可能です。</p><table><tr><th>パラメータ</th><th><a href="https://ziglang.org/documentation/master/#Debug" target="_blank">Debug</a></th><th><a href="https://ziglang.org/documentation/master/#ReleaseSafe" target="_blank">ReleaseSafe</a></th><th><a href="https://ziglang.org/documentation/master/#ReleaseFast" target="_blank">ReleaseFast</a></th><th><a href="https://ziglang.org/documentation/master/#ReleaseSmall" target="_blank">ReleaseSmall</a></th></tr><tr><td>最適化 - 速度の向上、デバッグの悪影響、コンパイル時の悪影響</td><td></td><td>-O3</td><td>-O3</td><td>-Os</td></tr><tr><td>ランタイムセーフティチェック - 危険速度、危険サイズ、未定義動作の代わりのクラッシュ</td><td>On</td><td>On</td><td></td><td></td></tr></table><p>以下は、ビルドモードに関係なく、コンパイル時の<a href="https://ziglang.org/documentation/master/#Integer-Overflow" target="_blank">整数オーバーフロー</a>の様子です：</p><p><figure><figcaption class="zig-cap"><cite class="file">1-integer-overflow.zig</cite></figcaption><pre><code><span class="tok-kw">test</span> <span class="tok-str">&quot;integer overflow at compile time&quot;</span> {
+    <span class="tok-kw">const</span> x: <span class="tok-type">u8</span> = <span class="tok-number">255</span>;
+    _ = x + <span class="tok-number">1</span>;
+}</code></pre></figure><figure><figcaption class="shell-cap">Shell</figcaption><pre><samp>$ <kbd>zig test 1-integer-overflow.zig</kbd>
+<span class="sgr-1m">zig-code/features/1-integer-overflow.zig:3:11: </span><span class="sgr-31m">error: </span><span class="sgr-1m">overflow of integer type 'u8' with value '256'
+</span>    _ = x + 1;
+        <span class="sgr-32m">~~^~~
+</span>
+</samp></pre></figure></p><p>以下は、安全性を確認したビルドにおける、実行時の様子です：</p><p><figure><figcaption class="zig-cap"><cite class="file">2-integer-overflow-runtime.zig</cite></figcaption><pre><code><span class="tok-kw">test</span> <span class="tok-str">&quot;integer overflow at runtime&quot;</span> {
+    <span class="tok-kw">var</span> x: <span class="tok-type">u8</span> = <span class="tok-number">255</span>;
+    x += <span class="tok-number">1</span>;
+}</code></pre></figure><figure><figcaption class="shell-cap">Shell</figcaption><pre><samp>$ <kbd>zig test 2-integer-overflow-runtime.zig</kbd>
+1/1 2-integer-overflow-runtime.test.integer overflow at runtime...thread 478237 panic: integer overflow
+<span class="sgr-1m">/home/ianic/Code/www.ziglang.org/zig-code/features/2-integer-overflow-runtime.zig:3:7</span>: <span class="sgr-2m">0x102c035 in test.integer overflow at runtime (2-integer-overflow-runtime.zig)</span>
+    x += 1;
+      <span class="sgr-32m">^</span>
+<span class="sgr-1m">/home/ianic/.build/zig/zig-x86_64-linux-0.15.1/lib/compiler/test_runner.zig:218:25</span>: <span class="sgr-2m">0x115cb50 in mainTerminal (test_runner.zig)</span>
+        if (test_fn.func()) |_| {
+                        <span class="sgr-32m">^</span>
+<span class="sgr-1m">/home/ianic/.build/zig/zig-x86_64-linux-0.15.1/lib/compiler/test_runner.zig:66:28</span>: <span class="sgr-2m">0x1155d71 in main (test_runner.zig)</span>
+        return mainTerminal();
+                           <span class="sgr-32m">^</span>
+<span class="sgr-1m">/home/ianic/.build/zig/zig-x86_64-linux-0.15.1/lib/std/start.zig:618:22</span>: <span class="sgr-2m">0x114fb0d in posixCallMainAndExit (std.zig)</span>
+            root.main();
+                     <span class="sgr-32m">^</span>
+<span class="sgr-1m">/home/ianic/.build/zig/zig-x86_64-linux-0.15.1/lib/std/start.zig:232:5</span>: <span class="sgr-2m">0x114f3a1 in _start (std.zig)</span>
+    asm volatile (switch (native_arch) {
+    <span class="sgr-32m">^</span>
+<span class="sgr-1m">???:?:?</span>: <span class="sgr-2m">0x0 in ??? (???)</span>
+error: the following test command crashed:
+.zig-cache/o/41ae9541a328fc1138f9a11076a5ee5a/test --seed=0x3aeddd07
+</samp></pre></figure></p><p>これらは、<a href="https://andrewkelley.me/post/zig-stack-traces-kernel-panic-bare-bones-os.html" target="_blank">freestanding</a>を含む<a href="#stack-traces-on-all-targets">すべてのターゲットでスタックトレースが動作します</a>。</p><p>Zigでは、安全性を有効にしたビルドモードに依存し、パフォーマンスのボトルネックとなる部分の安全性を選択的に無効化することができます。例えば、前の例はこのように修正することができます：</p><p><figure><figcaption class="zig-cap"><cite class="file">3-undefined-behavior.zig</cite></figcaption><pre><code><span class="tok-kw">test</span> <span class="tok-str">&quot;actually undefined behavior&quot;</span> {
+    <span class="tok-builtin">@setRuntimeSafety</span>(<span class="tok-null">false</span>);
+    <span class="tok-kw">var</span> x: <span class="tok-type">u8</span> = <span class="tok-number">255</span>;
+    x += <span class="tok-number">1</span>; <span class="tok-comment">// XXX undefined behavior!</span>
+}</code></pre></figure></p><p>Zigは、<a href="https://ziglang.org/documentation/master/#Undefined-Behavior" target="_blank">未定義の動作</a>を、バグ対策とパフォーマンス向上の両面で、剃刀のように鋭い道具として使っています。</p><p>パフォーマンスについて言えば、ZigはCよりも速いです。</p><ul><li>リファレンス実装では、最先端の最適化のためのバックエンドとしてLLVMを使用しています。</li><li>他のプロジェクトが「リンクタイム最適化」と呼ぶものを、Zigは自動的に行うのです。</li><li>ネイティブターゲットでは、<a href="#cross-compiling-is-a-first-class-use-case">クロスコンパイルは第一級の使用例</a>のおかげで、高度なCPU機能が有効になります(-march=native)。</li><li>未定義の挙動を慎重に選択する。例えば、Zigでは符号付き整数も符号なし整数もオーバーフロー時の挙動が未定義であるのに対し、C言語では符号付き整数だけです。これにより、<a href="https://godbolt.org/z/vhjv9oM1W" target="_blank">C言語ではできない最適化が容易になります</a>。</li><li>Zigは<a href="https://ziglang.org/documentation/master/#Vectors" target="_blank">SIMDベクトル型</a>を直接公開しており、移植性の高いベクトル化コードを簡単に記述することができます。</li></ul><p>Zigは完全な安全言語ではありませんのでご注意ください。Zigの安全性に関するストーリーを追いたい方は、これらの号をご購読ください：</p><ul><li><a href="https://github.com/ziglang/zig/issues/1966" target="_blank">安全確認ができないものも含め、あらゆる種類の未定義の動作を列挙する</a></li><li><a href="https://github.com/ziglang/zig/issues/2301" target="_blank">Debug および ReleaseSafe モードを完全に安全なものにする</a></li></ul><h2>ZigはC言語に依存するのではなく、C言語と競争する</h2><p>Zig標準ライブラリはlibcと統合されていますが、libcに依存しているわけではありません。以下はHello Worldです：</p><p><figure><figcaption class="zig-cap"><cite class="file">4-hello.zig</cite></figcaption><pre><code><span class="tok-kw">const</span> std = <span class="tok-builtin">@import</span>(<span class="tok-str">&quot;std&quot;</span>);
+
+<span class="tok-kw">pub</span> <span class="tok-kw">fn</span> <span class="tok-fn">main</span>() <span class="tok-type">void</span> {
+    std.debug.print(<span class="tok-str">&quot;Hello, world!\n&quot;</span>, .{});
+}</code></pre></figure><figure><figcaption class="shell-cap">Shell</figcaption><pre><samp>$ <kbd>zig build-exe 4-hello.zig</kbd>
+$ <kbd>./4-hello</kbd>
+Hello, world!
+</samp></pre></figure></p><p><code>-O ReleaseSmall</code>、デバッグシンボル除去、シングルスレッドでコンパイルすると、x86_64-linuxターゲットで9.8 KiBの静的実行ファイルが作成されます：</p><pre><code>$ zig build-exe hello.zig -O ReleaseSmall -fstrip -fsingle-threaded
+$ wc -c hello
+9944 hello
+$ ldd hello
+  not a dynamic executable
+</code></pre><p>Windowsでのビルドはさらに小さく、4096バイトになります：</p><pre><code>$ zig build-exe hello.zig -O ReleaseSmall -fstrip -fsingle-threaded -target x86_64-windows
+$ wc -c hello.exe
+4096 hello.exe
+$ file hello.exe
+hello.exe: PE32+ executable (console) x86-64, for MS Windows
+</code></pre><h2>順序に依存しないトップレベル宣言</h2><p>グローバル変数のようなトップレベルの宣言は、順序に依存せず、遅延的に解析される。グローバル変数の初期化値はコンパイル時に評価されます。</p><p><figure><figcaption class="zig-cap"><cite class="file">5-global-variables.zig</cite></figcaption><pre><code><span class="tok-kw">var</span> y: <span class="tok-type">i32</span> = add(<span class="tok-number">10</span>, x);
+<span class="tok-kw">const</span> x: <span class="tok-type">i32</span> = add(<span class="tok-number">12</span>, <span class="tok-number">34</span>);
+
+<span class="tok-kw">test</span> <span class="tok-str">&quot;global variables&quot;</span> {
+    assert(x == <span class="tok-number">46</span>);
+    assert(y == <span class="tok-number">56</span>);
+}
+
+<span class="tok-kw">fn</span> <span class="tok-fn">add</span>(a: <span class="tok-type">i32</span>, b: <span class="tok-type">i32</span>) <span class="tok-type">i32</span> {
+    <span class="tok-kw">return</span> a + b;
+}
+
+<span class="tok-kw">const</span> std = <span class="tok-builtin">@import</span>(<span class="tok-str">&quot;std&quot;</span>);
+<span class="tok-kw">const</span> assert = std.debug.assert;</code></pre></figure><figure><figcaption class="shell-cap">Shell</figcaption><pre><samp>$ <kbd>zig test 5-global-variables.zig</kbd>
+1/1 5-global-variables.test.global variables...OK
+All 1 tests passed.
+</samp></pre></figure></p><h2>nullポインタの代わりにオプショナル型</h2><p>他のプログラミング言語では、null参照は多くの実行時例外の原因となり、<a href="https://www.lucidchart.com/techblog/2015/08/31/the-worst-mistake-of-computer-science/" target="_blank">コンピュータサイエンスの最悪の過ち</a>とまで非難されています。</p><p>飾り気のないZigポインタはnullにできません：</p><p><figure><figcaption class="zig-cap"><cite class="file">6-null-to-ptr.zig</cite></figcaption><pre><code><span class="tok-kw">test</span> <span class="tok-str">&quot;null @intToPtr&quot;</span> {
+    <span class="tok-kw">const</span> foo: *<span class="tok-type">i32</span> = <span class="tok-builtin">@ptrFromInt</span>(<span class="tok-number">0x0</span>);
+    _ = foo;
+}</code></pre></figure><figure><figcaption class="shell-cap">Shell</figcaption><pre><samp>$ <kbd>zig test 6-null-to-ptr.zig</kbd>
+<span class="sgr-1m">zig-code/features/6-null-to-ptr.zig:2:35: </span><span class="sgr-31m">error: </span><span class="sgr-1m">pointer type '*i32' does not allow address zero
+</span>    const foo: *i32 = @ptrFromInt(0x0);
+                                  <span class="sgr-32m">^~~
+</span>
+</samp></pre></figure></p><p>しかし、どのような型でもその前に?を付けることによって<a href="https://ziglang.org/documentation/master/#Optionals" target="_blank">オプショナル型</a>にすることができます：</p><p><figure><figcaption class="zig-cap"><cite class="file">7-optional-syntax.zig</cite></figcaption><pre><code><span class="tok-kw">const</span> std = <span class="tok-builtin">@import</span>(<span class="tok-str">&quot;std&quot;</span>);
+<span class="tok-kw">const</span> assert = std.debug.assert;
+
+<span class="tok-kw">test</span> <span class="tok-str">&quot;null @intToPtr&quot;</span> {
+    <span class="tok-kw">const</span> ptr: ?*<span class="tok-type">i32</span> = <span class="tok-builtin">@ptrFromInt</span>(<span class="tok-number">0x0</span>);
+    assert(ptr == <span class="tok-null">null</span>);
+}</code></pre></figure><figure><figcaption class="shell-cap">Shell</figcaption><pre><samp>$ <kbd>zig test 7-optional-syntax.zig</kbd>
+1/1 7-optional-syntax.test.null @intToPtr...OK
+All 1 tests passed.
+</samp></pre></figure></p><p>オプションの値をアンラップするには、<code>orelse</code>を使ってデフォルト値を指定することができます：</p><p><figure><figcaption class="zig-cap"><cite class="file">8-optional-orelse.zig</cite></figcaption><pre><code><span class="tok-comment">// malloc prototype included for reference</span>
+<span class="tok-kw">extern</span> <span class="tok-kw">fn</span> <span class="tok-fn">malloc</span>(size: size_t) ?*<span class="tok-type">u8</span>;
+
+<span class="tok-kw">fn</span> <span class="tok-fn">doAThing</span>() ?*Foo {
+    <span class="tok-kw">const</span> ptr = malloc(<span class="tok-number">1234</span>) <span class="tok-kw">orelse</span> <span class="tok-kw">return</span> <span class="tok-null">null</span>;
+    <span class="tok-comment">// ...</span>
+}</code></pre></figure></p><p>また、ifを使うという選択肢もあります：</p><p><figure><figcaption class="zig-cap"><cite class="file">9-optional-if.zig</cite></figcaption><pre><code><span class="tok-kw">fn</span> <span class="tok-fn">doAThing</span>(optional_foo: ?*Foo) <span class="tok-type">void</span> {
+    <span class="tok-comment">// do some stuff</span>
+
+    <span class="tok-kw">if</span> (optional_foo) |foo| {
+        doSomethingWithFoo(foo);
+    }
+
+    <span class="tok-comment">// do some stuff</span>
+}</code></pre></figure></p><p><a href="https://ziglang.org/documentation/master/#while" target="_blank">while</a>でも同じ構文が使えます：</p><p><figure><figcaption class="zig-cap"><cite class="file">10-optional-while.zig</cite></figcaption><pre><code><span class="tok-kw">const</span> std = <span class="tok-builtin">@import</span>(<span class="tok-str">&quot;std&quot;</span>);
+
+<span class="tok-kw">pub</span> <span class="tok-kw">fn</span> <span class="tok-fn">main</span>() <span class="tok-type">void</span> {
+    <span class="tok-kw">const</span> msg = <span class="tok-str">&quot;hello this  is dog&quot;</span>;
+    <span class="tok-kw">var</span> it = std.mem.tokenizeAny(<span class="tok-type">u8</span>, msg, <span class="tok-str">&quot; &quot;</span>);
+    <span class="tok-kw">while</span> (it.next()) |item| {
+        std.debug.print(<span class="tok-str">&quot;{s}\n&quot;</span>, .{item});
+    }
+}</code></pre></figure><figure><figcaption class="shell-cap">Shell</figcaption><pre><samp>$ <kbd>zig build-exe 10-optional-while.zig</kbd>
+$ <kbd>./10-optional-while</kbd>
+hello
+this
+is
+dog
+</samp></pre></figure></p><h2>手動のメモリ管理</h2><p>Zigで書かれたライブラリは、どこでも使用することができます：</p><ul><li><a href="https://github.com/TM35-Metronome/" target="_blank">デスクトップアプリケーション</a></li><li>低レイテンシーサーバ</li><li><a href="https://github.com/AndreaOrru/zen" target="_blank">OSカーネル</a></li><li><a href="https://github.com/skyfex/zig-nrf-demo/" target="_blank">組込み機器</a></li><li>リアルタイムソフトウェア（例：ライブ、飛行機、ペースメーカーなど）</li><li><a href="https://shritesh.github.io/zigfmt-web/" target="_blank">WebAssemblyを搭載したWebブラウザやその他プラグイン</a></li><li>CのABIを使用するその他プログラミング言語呼び出し</li></ul><p>これらを実現するために、Zigのプログラマは自分自身のメモリを管理しなければならず、メモリ割り当ての失敗を処理しなければなりません。</p><p>これは、Zig標準ライブラリにも当てはまります。メモリを確保する必要がある関数はすべてアロケータパラメータを受け取ります。その結果、Zig標準ライブラリは、独立したターゲットに対しても使用することができます。</p><p>Zigでは<a href="#a-fresh-take-on-error-handling">エラー処理を見直す</a>に加えて、<a href="https://ziglang.org/documentation/master/#defer" target="_blank">defer</a> と<a href="https://ziglang.org/documentation/master/#errdefer" target="_blank">errdefer</a>を提供して、メモリに限らずあらゆるリソース管理をシンプルかつ容易に検証できるようにしています。</p><p><code>defer</code>の例については、<a href="#integration-with-c-libraries-without-ffibindings">FFI/バインディングを使わないCライブラリとの統合</a>を参照してください。ここでは、<code>errdefer</code>を使用した例を示します：</p><p><figure><figcaption class="zig-cap"><cite class="file">11-errdefer.zig</cite></figcaption><pre><code><span class="tok-kw">const</span> Device = <span class="tok-kw">struct</span> {
+    name: []<span class="tok-type">u8</span>,
+
+    <span class="tok-kw">fn</span> <span class="tok-fn">create</span>(allocator: *Allocator, id: <span class="tok-type">u32</span>) !Device {
+        <span class="tok-kw">const</span> device = <span class="tok-kw">try</span> allocator.create(Device);
+        <span class="tok-kw">errdefer</span> allocator.destroy(device);
+
+        device.name = <span class="tok-kw">try</span> std.fmt.allocPrint(allocator, <span class="tok-str">&quot;Device(id={d})&quot;</span>, id);
+        <span class="tok-kw">errdefer</span> allocator.free(device.name);
+
+        <span class="tok-kw">if</span> (id == <span class="tok-number">0</span>) <span class="tok-kw">return</span> <span class="tok-kw">error</span>.ReservedDeviceId;
+
+        <span class="tok-kw">return</span> device;
+    }
+};</code></pre></figure></p><h2 id="a-fresh-take-on-error-handling">エラー処理を見直す</h2><p>エラーは値であり、無視できない場合があります：</p><p><figure><figcaption class="zig-cap"><cite class="file">12-errors-as-values.zig</cite></figcaption><pre><code><span class="tok-kw">const</span> std = <span class="tok-builtin">@import</span>(<span class="tok-str">&quot;std&quot;</span>);
+
+<span class="tok-kw">pub</span> <span class="tok-kw">fn</span> <span class="tok-fn">main</span>() <span class="tok-type">void</span> {
+    _ = std.fs.cwd().openFile(<span class="tok-str">&quot;does_not_exist/foo.txt&quot;</span>, .{});
+}</code></pre></figure><figure><figcaption class="shell-cap">Shell</figcaption><pre><samp>$ <kbd>zig build-exe 12-errors-as-values.zig</kbd>
+<span class="sgr-1m">/home/ianic/Code/www.ziglang.org/zig-code/features/12-errors-as-values.zig:4:30: </span><span class="sgr-31m">error: </span><span class="sgr-1m">error union is discarded
+</span>    _ = std.fs.cwd().openFile(&quot;does_not_exist/foo.txt&quot;, .{});
+        <span class="sgr-32m">~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+</span><span class="sgr-1m">/home/ianic/Code/www.ziglang.org/zig-code/features/12-errors-as-values.zig:4:30: </span><span class="sgr-36m">note: </span><span class="sgr-1m">consider using 'try', 'catch', or 'if'
+</span><span class="sgr-2m">referenced by:
+    callMain [inlined]: /home/ianic/.build/zig/zig-x86_64-linux-0.15.1/lib/std/start.zig:618:22
+    callMainWithArgs [inlined]: /home/ianic/.build/zig/zig-x86_64-linux-0.15.1/lib/std/start.zig:587:20
+    posixCallMainAndExit: /home/ianic/.build/zig/zig-x86_64-linux-0.15.1/lib/std/start.zig:542:36
+    2 reference(s) hidden; use '-freference-trace=5' to see all references
+</span>
+</samp></pre></figure></p><p>エラーは<a href="https://ziglang.org/documentation/master/#catch" target="_blank">catch</a>で処理することができます：</p><p><figure><figcaption class="zig-cap"><cite class="file">13-errors-catch.zig</cite></figcaption><pre><code><span class="tok-kw">const</span> std = <span class="tok-builtin">@import</span>(<span class="tok-str">&quot;std&quot;</span>);
+
+<span class="tok-kw">pub</span> <span class="tok-kw">fn</span> <span class="tok-fn">main</span>() <span class="tok-type">void</span> {
+    <span class="tok-kw">const</span> file: std.fs.File = std.fs.cwd().openFile(<span class="tok-str">&quot;does_not_exist/foo.txt&quot;</span>, .{}) <span class="tok-kw">catch</span> |err| label: {
+        std.debug.print(<span class="tok-str">&quot;unable to open file: {}\n&quot;</span>, .{err});
+        <span class="tok-kw">break</span> :label .stderr();
+    };
+    file.writeAll(<span class="tok-str">&quot;all your codebase are belong to us\n&quot;</span>) <span class="tok-kw">catch</span> <span class="tok-kw">return</span>;
+}</code></pre></figure><figure><figcaption class="shell-cap">Shell</figcaption><pre><samp>$ <kbd>zig build-exe 13-errors-catch.zig</kbd>
+$ <kbd>./13-errors-catch</kbd>
+unable to open file: error.FileNotFound
+all your codebase are belong to us
+</samp></pre></figure></p><p>キーワード<a href="https://ziglang.org/documentation/master/#try" target="_blank">try</a>は<code>catch |err| return err</code>のショートカットです：</p><p><figure><figcaption class="zig-cap"><cite class="file">14-errors-try.zig</cite></figcaption><pre><code><span class="tok-kw">const</span> std = <span class="tok-builtin">@import</span>(<span class="tok-str">&quot;std&quot;</span>);
+
+<span class="tok-kw">pub</span> <span class="tok-kw">fn</span> <span class="tok-fn">main</span>() !<span class="tok-type">void</span> {
+    <span class="tok-kw">const</span> file = <span class="tok-kw">try</span> std.fs.cwd().openFile(<span class="tok-str">&quot;does_not_exist/foo.txt&quot;</span>, .{});
+    <span class="tok-kw">defer</span> file.close();
+    <span class="tok-kw">try</span> file.writeAll(<span class="tok-str">&quot;all your codebase are belong to us\n&quot;</span>);
+}</code></pre></figure><figure><figcaption class="shell-cap">Shell</figcaption><pre><samp>$ <kbd>zig build-exe 14-errors-try.zig</kbd>
+$ <kbd>./14-errors-try</kbd>
+error: FileNotFound
+<span class="sgr-1m">/home/ianic/.build/zig/zig-x86_64-linux-0.15.1/lib/std/posix.zig:1861:23</span>: <span class="sgr-2m">0x10a55c7 in openatZ (std.zig)</span>
+            .NOENT =&gt; return error.FileNotFound,
+                      <span class="sgr-32m">^</span>
+<span class="sgr-1m">/home/ianic/.build/zig/zig-x86_64-linux-0.15.1/lib/std/fs/Dir.zig:904:16</span>: <span class="sgr-2m">0x108b402 in openFileZ (std.zig)</span>
+    const fd = try posix.openatZ(self.fd, sub_path, os_flags, 0);
+               <span class="sgr-32m">^</span>
+<span class="sgr-1m">/home/ianic/.build/zig/zig-x86_64-linux-0.15.1/lib/std/fs/Dir.zig:851:5</span>: <span class="sgr-2m">0x104f005 in openFile (std.zig)</span>
+    return self.openFileZ(&amp;path_c, flags);
+    <span class="sgr-32m">^</span>
+<span class="sgr-1m">/home/ianic/Code/www.ziglang.org/zig-code/features/14-errors-try.zig:4:18</span>: <span class="sgr-2m">0x113d39f in main (14-errors-try.zig)</span>
+    const file = try std.fs.cwd().openFile(&quot;does_not_exist/foo.txt&quot;, .{});
+                 <span class="sgr-32m">^</span>
+</samp></pre></figure></p><p>これはスタックトレースではなく<a href="https://ziglang.org/documentation/master/#Error-Return-Traces" target="_blank">エラーリターントレース</a>であることに注意しましょう。コードはそのトレースを得るためにスタックを巻き戻すという代償を支払わなかったのです。</p><p>エラー時に使用される<a href="https://ziglang.org/documentation/master/#switch" target="_blank">switch</a>キーワードは、起こりうるすべてのエラーを確実に処理するものです：</p><p><figure><figcaption class="zig-cap"><cite class="file">15-errors-switch.zig</cite></figcaption><pre><code><span class="tok-kw">const</span> std = <span class="tok-builtin">@import</span>(<span class="tok-str">&quot;std&quot;</span>);
+
+<span class="tok-kw">test</span> <span class="tok-str">&quot;switch on error&quot;</span> {
+    _ = parseInt(<span class="tok-str">&quot;hi&quot;</span>, <span class="tok-number">10</span>) <span class="tok-kw">catch</span> |err| <span class="tok-kw">switch</span> (err) {};
+}
+
+<span class="tok-kw">fn</span> <span class="tok-fn">parseInt</span>(buf: []<span class="tok-kw">const</span> <span class="tok-type">u8</span>, radix: <span class="tok-type">u8</span>) !<span class="tok-type">u64</span> {
+    <span class="tok-kw">var</span> x: <span class="tok-type">u64</span> = <span class="tok-number">0</span>;
+
+    <span class="tok-kw">for</span> (buf) |c| {
+        <span class="tok-kw">const</span> digit = <span class="tok-kw">try</span> charToDigit(c);
+
+        <span class="tok-kw">if</span> (digit &gt;= radix) {
+            <span class="tok-kw">return</span> <span class="tok-kw">error</span>.DigitExceedsRadix;
+        }
+
+        x = <span class="tok-kw">try</span> std.math.mul(<span class="tok-type">u64</span>, x, radix);
+        x = <span class="tok-kw">try</span> std.math.add(<span class="tok-type">u64</span>, x, digit);
+    }
+
+    <span class="tok-kw">return</span> x;
+}
+
+<span class="tok-kw">fn</span> <span class="tok-fn">charToDigit</span>(c: <span class="tok-type">u8</span>) !<span class="tok-type">u8</span> {
+    <span class="tok-kw">const</span> value = <span class="tok-kw">switch</span> (c) {
+        <span class="tok-str">'0'</span>...<span class="tok-str">'9'</span> =&gt; c - <span class="tok-str">'0'</span>,
+        <span class="tok-str">'A'</span>...<span class="tok-str">'Z'</span> =&gt; c - <span class="tok-str">'A'</span> + <span class="tok-number">10</span>,
+        <span class="tok-str">'a'</span>...<span class="tok-str">'z'</span> =&gt; c - <span class="tok-str">'a'</span> + <span class="tok-number">10</span>,
+        <span class="tok-kw">else</span> =&gt; <span class="tok-kw">return</span> <span class="tok-kw">error</span>.InvalidCharacter,
+    };
+
+    <span class="tok-kw">return</span> value;
+}</code></pre></figure><figure><figcaption class="shell-cap">Shell</figcaption><pre><samp>$ <kbd>zig test 15-errors-switch.zig</kbd>
+<span class="sgr-1m">zig-code/features/15-errors-switch.zig:4:40: </span><span class="sgr-31m">error: </span><span class="sgr-1m">switch must handle all possibilities
+</span>    _ = parseInt(&quot;hi&quot;, 10) catch |err| switch (err) {};
+                                       <span class="sgr-32m">^~~~~~~~~~~~~~~
+</span><span class="sgr-1m">zig-code/features/15-errors-switch.zig:4:40: </span><span class="sgr-36m">note: </span><span class="sgr-1m">unhandled error value: 'error.InvalidCharacter'
+</span><span class="sgr-1m">zig-code/features/15-errors-switch.zig:4:40: </span><span class="sgr-36m">note: </span><span class="sgr-1m">unhandled error value: 'error.DigitExceedsRadix'
+</span><span class="sgr-1m">zig-code/features/15-errors-switch.zig:4:40: </span><span class="sgr-36m">note: </span><span class="sgr-1m">unhandled error value: 'error.Overflow'
+</span>
+</samp></pre></figure></p><p>キーワード<a href="https://ziglang.org/documentation/master/#unreachable" target="_blank">unreachable</a>は、エラーが発生しないことを表明するために使用されます：</p><p><figure><figcaption class="zig-cap"><cite class="file">16-unreachable.zig</cite></figcaption><pre><code><span class="tok-kw">const</span> std = <span class="tok-builtin">@import</span>(<span class="tok-str">&quot;std&quot;</span>);
+
+<span class="tok-kw">pub</span> <span class="tok-kw">fn</span> <span class="tok-fn">main</span>() <span class="tok-type">void</span> {
+    <span class="tok-kw">const</span> file = std.fs.cwd().openFile(<span class="tok-str">&quot;does_not_exist/foo.txt&quot;</span>, .{}) <span class="tok-kw">catch</span> <span class="tok-kw">unreachable</span>;
+    file.writeAll(<span class="tok-str">&quot;all your codebase are belong to us\n&quot;</span>) <span class="tok-kw">catch</span> <span class="tok-kw">unreachable</span>;
+}</code></pre></figure><figure><figcaption class="shell-cap">Shell</figcaption><pre><samp>$ <kbd>zig build-exe 16-unreachable.zig</kbd>
+$ <kbd>./16-unreachable</kbd>
+thread 478195 panic: attempt to unwrap error: FileNotFound
+<span class="sgr-1m">/home/ianic/.build/zig/zig-x86_64-linux-0.15.1/lib/std/posix.zig:1861:23</span>: <span class="sgr-2m">0x10a55c7 in openatZ (std.zig)</span>
+            .NOENT =&gt; return error.FileNotFound,
+                      <span class="sgr-32m">^</span>
+<span class="sgr-1m">/home/ianic/.build/zig/zig-x86_64-linux-0.15.1/lib/std/fs/Dir.zig:904:16</span>: <span class="sgr-2m">0x108b402 in openFileZ (std.zig)</span>
+    const fd = try posix.openatZ(self.fd, sub_path, os_flags, 0);
+               <span class="sgr-32m">^</span>
+<span class="sgr-1m">/home/ianic/.build/zig/zig-x86_64-linux-0.15.1/lib/std/fs/Dir.zig:851:5</span>: <span class="sgr-2m">0x104f005 in openFile (std.zig)</span>
+    return self.openFileZ(&amp;path_c, flags);
+    <span class="sgr-32m">^</span>
+<span class="sgr-1m">/home/ianic/Code/www.ziglang.org/zig-code/features/16-unreachable.zig:4:77</span>: <span class="sgr-2m">0x113e8ad in main (16-unreachable.zig)</span>
+    const file = std.fs.cwd().openFile(&quot;does_not_exist/foo.txt&quot;, .{}) catch unreachable;
+                                                                            <span class="sgr-32m">^</span>
+<span class="sgr-1m">/home/ianic/.build/zig/zig-x86_64-linux-0.15.1/lib/std/start.zig:618:22</span>: <span class="sgr-2m">0x113da9d in posixCallMainAndExit (std.zig)</span>
+            root.main();
+                     <span class="sgr-32m">^</span>
+<span class="sgr-1m">/home/ianic/.build/zig/zig-x86_64-linux-0.15.1/lib/std/start.zig:232:5</span>: <span class="sgr-2m">0x113d331 in _start (std.zig)</span>
+    asm volatile (switch (native_arch) {
+    <span class="sgr-32m">^</span>
+<span class="sgr-1m">???:?:?</span>: <span class="sgr-2m">0x0 in ??? (???)</span>
+(process terminated by signal)
+</samp></pre></figure></p><p>安全でないビルドモードではundefined behaviorを呼び出すので、成功が保証されている場合にのみ使用するようにしてください。</p><h3 id="stack-traces-on-all-targets">すべてのターゲットのスタックトレース</h3><p>このページで紹介するスタックトレースと<a href="https://ziglang.org/documentation/master/#Error-Return-Traces" target="_blank">エラーリターントレース</a>は、すべてのTier 1サポート及びいくつかのTier 2サポートターゲットで機能します。<a href="https://andrewkelley.me/post/zig-stack-traces-kernel-panic-bare-bones-os.html" target="_blank">自立型も</a>！</p><p>さらに、標準ライブラリには、任意の時点でスタックトレースをキャプチャし、後で標準エラーにダンプする機能があります：</p><p><figure><figcaption class="zig-cap"><cite class="file">17-stack-traces.zig</cite></figcaption><pre><code><span class="tok-kw">const</span> std = <span class="tok-builtin">@import</span>(<span class="tok-str">&quot;std&quot;</span>);
+
+<span class="tok-kw">var</span> address_buffer: [<span class="tok-number">8</span>]<span class="tok-type">usize</span> = <span class="tok-null">undefined</span>;
+
+<span class="tok-kw">var</span> trace1 = std.builtin.StackTrace{
+    .instruction_addresses = address_buffer[<span class="tok-number">0</span>..<span class="tok-number">4</span>],
+    .index = <span class="tok-number">0</span>,
+};
+
+<span class="tok-kw">var</span> trace2 = std.builtin.StackTrace{
+    .instruction_addresses = address_buffer[<span class="tok-number">4</span>..],
+    .index = <span class="tok-number">0</span>,
+};
+
+<span class="tok-kw">pub</span> <span class="tok-kw">fn</span> <span class="tok-fn">main</span>() <span class="tok-type">void</span> {
+    foo();
+    bar();
+
+    std.debug.print(<span class="tok-str">&quot;first one:\n&quot;</span>, .{});
+    std.debug.dumpStackTrace(trace1);
+    std.debug.print(<span class="tok-str">&quot;\n\nsecond one:\n&quot;</span>, .{});
+    std.debug.dumpStackTrace(trace2);
+}
+
+<span class="tok-kw">fn</span> <span class="tok-fn">foo</span>() <span class="tok-type">void</span> {
+    std.debug.captureStackTrace(<span class="tok-null">null</span>, &amp;trace1);
+}
+
+<span class="tok-kw">fn</span> <span class="tok-fn">bar</span>() <span class="tok-type">void</span> {
+    std.debug.captureStackTrace(<span class="tok-null">null</span>, &amp;trace2);
+}</code></pre></figure><figure><figcaption class="shell-cap">Shell</figcaption><pre><samp>$ <kbd>zig build-exe 17-stack-traces.zig</kbd>
+$ <kbd>./17-stack-traces</kbd>
+first one:
+<span class="sgr-1m">/home/ianic/.build/zig/zig-x86_64-linux-0.15.1/lib/std/debug.zig:507:29</span>: <span class="sgr-2m">0x1140282 in captureStackTrace (std.zig)</span>
+            addr.* = it.next() orelse {
+                            <span class="sgr-32m">^</span>
+<span class="sgr-1m">/home/ianic/Code/www.ziglang.org/zig-code/features/17-stack-traces.zig:26:32</span>: <span class="sgr-2m">0x113fb75 in foo (17-stack-traces.zig)</span>
+    std.debug.captureStackTrace(null, &amp;trace1);
+                               <span class="sgr-32m">^</span>
+<span class="sgr-1m">/home/ianic/Code/www.ziglang.org/zig-code/features/17-stack-traces.zig:16:8</span>: <span class="sgr-2m">0x113e84f in main (17-stack-traces.zig)</span>
+    foo();
+       <span class="sgr-32m">^</span>
+<span class="sgr-1m">/home/ianic/.build/zig/zig-x86_64-linux-0.15.1/lib/std/start.zig:618:22</span>: <span class="sgr-2m">0x113da9d in posixCallMainAndExit (std.zig)</span>
+            root.main();
+                     <span class="sgr-32m">^</span>
+
+
+second one:
+<span class="sgr-1m">/home/ianic/.build/zig/zig-x86_64-linux-0.15.1/lib/std/debug.zig:507:29</span>: <span class="sgr-2m">0x1140282 in captureStackTrace (std.zig)</span>
+            addr.* = it.next() orelse {
+                            <span class="sgr-32m">^</span>
+<span class="sgr-1m">/home/ianic/Code/www.ziglang.org/zig-code/features/17-stack-traces.zig:30:32</span>: <span class="sgr-2m">0x113fbb5 in bar (17-stack-traces.zig)</span>
+    std.debug.captureStackTrace(null, &amp;trace2);
+                               <span class="sgr-32m">^</span>
+<span class="sgr-1m">/home/ianic/Code/www.ziglang.org/zig-code/features/17-stack-traces.zig:17:8</span>: <span class="sgr-2m">0x113e854 in main (17-stack-traces.zig)</span>
+    bar();
+       <span class="sgr-32m">^</span>
+<span class="sgr-1m">/home/ianic/.build/zig/zig-x86_64-linux-0.15.1/lib/std/start.zig:618:22</span>: <span class="sgr-2m">0x113da9d in posixCallMainAndExit (std.zig)</span>
+            root.main();
+                     <span class="sgr-32m">^</span>
+</samp></pre></figure></p><p>この手法は、現在進行中の<a href="https://github.com/andrewrk/zig-general-purpose-allocator/#current-status" target="_blank">GeneralPurposeDebugAllocatorプロジェクト</a>で使用されているのを見ることができます。</p><h2>ジェネリックなデータ構造と関数</h2><p>型とは、コンパイル時に知っておかなければならない値です：</p><p><figure><figcaption class="zig-cap"><cite class="file">18-types.zig</cite></figcaption><pre><code><span class="tok-kw">const</span> std = <span class="tok-builtin">@import</span>(<span class="tok-str">&quot;std&quot;</span>);
+<span class="tok-kw">const</span> assert = std.debug.assert;
+
+<span class="tok-kw">test</span> <span class="tok-str">&quot;types are values&quot;</span> {
+    <span class="tok-kw">const</span> T1 = <span class="tok-type">u8</span>;
+    <span class="tok-kw">const</span> T2 = <span class="tok-type">bool</span>;
+    assert(T1 != T2);
+
+    <span class="tok-kw">const</span> x: T2 = <span class="tok-null">true</span>;
+    assert(x);
+}</code></pre></figure><figure><figcaption class="shell-cap">Shell</figcaption><pre><samp>$ <kbd>zig test 18-types.zig</kbd>
+1/1 18-types.test.types are values...OK
+All 1 tests passed.
+</samp></pre></figure></p><p>ジェナリックなデータ構造は、単に<code>type</code>を返す関数です：</p><p><figure><figcaption class="zig-cap"><cite class="file">19-generics.zig</cite></figcaption><pre><code><span class="tok-kw">const</span> std = <span class="tok-builtin">@import</span>(<span class="tok-str">&quot;std&quot;</span>);
+
+<span class="tok-kw">fn</span> <span class="tok-fn">List</span>(<span class="tok-kw">comptime</span> T: <span class="tok-type">type</span>) <span class="tok-type">type</span> {
+    <span class="tok-kw">return</span> <span class="tok-kw">struct</span> {
+        items: []T,
+        len: <span class="tok-type">usize</span>,
+    };
+}
+
+<span class="tok-kw">pub</span> <span class="tok-kw">fn</span> <span class="tok-fn">main</span>() <span class="tok-type">void</span> {
+    <span class="tok-kw">var</span> buffer: [<span class="tok-number">10</span>]<span class="tok-type">i32</span> = <span class="tok-null">undefined</span>;
+    <span class="tok-kw">var</span> list = List(<span class="tok-type">i32</span>){
+        .items = &amp;buffer,
+        .len = <span class="tok-number">0</span>,
+    };
+    list.items[<span class="tok-number">0</span>] = <span class="tok-number">1234</span>;
+    list.len += <span class="tok-number">1</span>;
+
+    std.debug.print(<span class="tok-str">&quot;{d}\n&quot;</span>, .{list.items.len});
+}</code></pre></figure><figure><figcaption class="shell-cap">Shell</figcaption><pre><samp>$ <kbd>zig build-exe 19-generics.zig</kbd>
+$ <kbd>./19-generics</kbd>
+10
+</samp></pre></figure></p><h2>コンパイル時反映とコンパイル時コード実行</h2><p><a href="https://ziglang.org/documentation/master/#typeInfo" target="_blank">@typeInfo</a>ビルトイン関数でリフレクションを実現します：</p><p><figure><figcaption class="zig-cap"><cite class="file">20-reflection.zig</cite></figcaption><pre><code><span class="tok-kw">const</span> std = <span class="tok-builtin">@import</span>(<span class="tok-str">&quot;std&quot;</span>);
+
+<span class="tok-kw">const</span> Header = <span class="tok-kw">struct</span> {
+    magic: <span class="tok-type">u32</span>,
+    name: []<span class="tok-kw">const</span> <span class="tok-type">u8</span>,
+};
+
+<span class="tok-kw">pub</span> <span class="tok-kw">fn</span> <span class="tok-fn">main</span>() <span class="tok-type">void</span> {
+    printInfoAboutStruct(Header);
+}
+
+<span class="tok-kw">fn</span> <span class="tok-fn">printInfoAboutStruct</span>(<span class="tok-kw">comptime</span> T: <span class="tok-type">type</span>) <span class="tok-type">void</span> {
+    <span class="tok-kw">const</span> info = <span class="tok-builtin">@typeInfo</span>(T);
+    <span class="tok-kw">inline</span> <span class="tok-kw">for</span> (info.@&quot;struct&quot;.fields) |field| {
+        std.debug.print(
+            <span class="tok-str">&quot;{s} has a field called {s} with type {s}\n&quot;</span>,
+            .{
+                <span class="tok-builtin">@typeName</span>(T),
+                field.name,
+                <span class="tok-builtin">@typeName</span>(field.<span class="tok-type">type</span>),
+            },
+        );
+    }
+}</code></pre></figure><figure><figcaption class="shell-cap">Shell</figcaption><pre><samp>$ <kbd>zig build-exe 20-reflection.zig</kbd>
+$ <kbd>./20-reflection</kbd>
+20-reflection.Header has a field called magic with type u32
+20-reflection.Header has a field called name with type []const u8
+</samp></pre></figure></p><p>Zig標準ライブラリは、この手法でフォーマットprintを実装しています。<a href="#small-simple-language">小さくシンプルな言語</a>であるにもかかわらず、ZigのフォーマットprintはすべてZigで実装されているのです。一方、C言語では、printfのコンパイルエラーはコンパイラにハードコードされています。同様に、Rustでは、整形印刷マクロはコンパイラにハードコーディングされています。</p><p>Zigは関数やコードのブロックをコンパイル時に評価することもできます。グローバル変数の初期化など、いくつかのコンテキストでは、式は暗黙のうちにコンパイル時に評価されます。そうでなければ、<a href="https://ziglang.org/documentation/master/#comptime" target="_blank">comptime</a>というキーワードを使って、明示的にコンパイル時にコードを評価することができます。これは、アサーションと組み合わせたときに特に強力になります：</p><p><figure><figcaption class="zig-cap"><cite class="file">21-comptime.zig</cite></figcaption><pre><code><span class="tok-kw">const</span> std = <span class="tok-builtin">@import</span>(<span class="tok-str">&quot;std&quot;</span>);
+<span class="tok-kw">const</span> assert = std.debug.assert;
+
+<span class="tok-kw">fn</span> <span class="tok-fn">fibonacci</span>(x: <span class="tok-type">u32</span>) <span class="tok-type">u32</span> {
+    <span class="tok-kw">if</span> (x &lt;= <span class="tok-number">1</span>) <span class="tok-kw">return</span> x;
+    <span class="tok-kw">return</span> fibonacci(x - <span class="tok-number">1</span>) + fibonacci(x - <span class="tok-number">2</span>);
+}
+
+<span class="tok-kw">test</span> <span class="tok-str">&quot;compile-time evaluation&quot;</span> {
+    <span class="tok-kw">var</span> array: [fibonacci(<span class="tok-number">6</span>)]<span class="tok-type">i32</span> = <span class="tok-null">undefined</span>;
+
+    <span class="tok-builtin">@memset</span>(&amp;array, <span class="tok-number">42</span>);
+
+    <span class="tok-kw">comptime</span> {
+        assert(array.len == <span class="tok-number">12345</span>);
+    }
+}</code></pre></figure><figure><figcaption class="shell-cap">Shell</figcaption><pre><samp>$ <kbd>zig test 21-comptime.zig</kbd>
+<span class="sgr-1m">/home/ianic/.build/zig/zig-x86_64-linux-0.15.1/lib/std/debug.zig:559:14: </span><span class="sgr-31m">error: </span><span class="sgr-1m">reached unreachable code
+</span>    if (!ok) unreachable; // assertion failure
+             <span class="sgr-32m">^~~~~~~~~~~
+</span><span class="sgr-1m">zig-code/features/21-comptime.zig:15:15: </span><span class="sgr-36m">note: </span><span class="sgr-1m">called at comptime here
+</span>        assert(array.len == 12345);
+        <span class="sgr-32m">~~~~~~^~~~~~~~~~~~~~~~~~~~
+</span>
+</samp></pre></figure></p><h2 id="integration-with-c-libraries-without-ffibindings">FFI/バインディングを使用しないCライブラリとの統合</h2><p><a href="https://ziglang.org/documentation/master/#cImport" target="_blank">@cImport</a>は、型、変数、関数、簡単なマクロを直接インポートして、Zigで使用することができます。また、インライン関数をC言語からZigに変換することもできます。</p><p><a href="http://libsound.io/" target="_blank">libsoundio</a>使って正弦波を出す例です：</p><p><figure><figcaption class="zig-cap"><cite class="file">22-sine-wave.zig</cite></figcaption><pre><code><span class="tok-kw">const</span> c = <span class="tok-builtin">@cImport</span>(<span class="tok-builtin">@cInclude</span>(<span class="tok-str">&quot;soundio/soundio.h&quot;</span>));
+<span class="tok-kw">const</span> std = <span class="tok-builtin">@import</span>(<span class="tok-str">&quot;std&quot;</span>);
+
+<span class="tok-kw">fn</span> <span class="tok-fn">sio_err</span>(err: <span class="tok-type">c_int</span>) !<span class="tok-type">void</span> {
+    <span class="tok-kw">switch</span> (err) {
+        c.SoundIoErrorNone =&gt; {},
+        c.SoundIoErrorNoMem =&gt; <span class="tok-kw">return</span> <span class="tok-kw">error</span>.NoMem,
+        c.SoundIoErrorInitAudioBackend =&gt; <span class="tok-kw">return</span> <span class="tok-kw">error</span>.InitAudioBackend,
+        c.SoundIoErrorSystemResources =&gt; <span class="tok-kw">return</span> <span class="tok-kw">error</span>.SystemResources,
+        c.SoundIoErrorOpeningDevice =&gt; <span class="tok-kw">return</span> <span class="tok-kw">error</span>.OpeningDevice,
+        c.SoundIoErrorNoSuchDevice =&gt; <span class="tok-kw">return</span> <span class="tok-kw">error</span>.NoSuchDevice,
+        c.SoundIoErrorInvalid =&gt; <span class="tok-kw">return</span> <span class="tok-kw">error</span>.Invalid,
+        c.SoundIoErrorBackendUnavailable =&gt; <span class="tok-kw">return</span> <span class="tok-kw">error</span>.BackendUnavailable,
+        c.SoundIoErrorStreaming =&gt; <span class="tok-kw">return</span> <span class="tok-kw">error</span>.Streaming,
+        c.SoundIoErrorIncompatibleDevice =&gt; <span class="tok-kw">return</span> <span class="tok-kw">error</span>.IncompatibleDevice,
+        c.SoundIoErrorNoSuchClient =&gt; <span class="tok-kw">return</span> <span class="tok-kw">error</span>.NoSuchClient,
+        c.SoundIoErrorIncompatibleBackend =&gt; <span class="tok-kw">return</span> <span class="tok-kw">error</span>.IncompatibleBackend,
+        c.SoundIoErrorBackendDisconnected =&gt; <span class="tok-kw">return</span> <span class="tok-kw">error</span>.BackendDisconnected,
+        c.SoundIoErrorInterrupted =&gt; <span class="tok-kw">return</span> <span class="tok-kw">error</span>.Interrupted,
+        c.SoundIoErrorUnderflow =&gt; <span class="tok-kw">return</span> <span class="tok-kw">error</span>.Underflow,
+        c.SoundIoErrorEncodingString =&gt; <span class="tok-kw">return</span> <span class="tok-kw">error</span>.EncodingString,
+        <span class="tok-kw">else</span> =&gt; <span class="tok-kw">return</span> <span class="tok-kw">error</span>.Unknown,
+    }
+}
+
+<span class="tok-kw">var</span> seconds_offset: <span class="tok-type">f32</span> = <span class="tok-number">0</span>;
+
+<span class="tok-kw">fn</span> <span class="tok-fn">write_callback</span>(
+    maybe_outstream: ?[*]c.SoundIoOutStream,
+    frame_count_min: <span class="tok-type">c_int</span>,
+    frame_count_max: <span class="tok-type">c_int</span>,
+) <span class="tok-kw">callconv</span>(.C) <span class="tok-type">void</span> {
+    _ = frame_count_min;
+    <span class="tok-kw">const</span> outstream: *c.SoundIoOutStream = &amp;maybe_outstream.?[<span class="tok-number">0</span>];
+    <span class="tok-kw">const</span> layout = &amp;outstream.layout;
+    <span class="tok-kw">const</span> float_sample_rate: <span class="tok-type">f32</span> = <span class="tok-builtin">@floatFromInt</span>(outstream.sample_rate);
+    <span class="tok-kw">const</span> seconds_per_frame = <span class="tok-number">1.0</span> / float_sample_rate;
+    <span class="tok-kw">var</span> frames_left = frame_count_max;
+
+    <span class="tok-kw">while</span> (frames_left &gt; <span class="tok-number">0</span>) {
+        <span class="tok-kw">var</span> frame_count = frames_left;
+
+        <span class="tok-kw">var</span> areas: [*]c.SoundIoChannelArea = <span class="tok-null">undefined</span>;
+        sio_err(c.soundio_outstream_begin_write(
+            maybe_outstream,
+            <span class="tok-builtin">@ptrCast</span>(&amp;areas),
+            &amp;frame_count,
+        )) <span class="tok-kw">catch</span> |err| std.debug.panic(<span class="tok-str">&quot;write failed: {s}&quot;</span>, .{<span class="tok-builtin">@errorName</span>(err)});
+
+        <span class="tok-kw">if</span> (frame_count == <span class="tok-number">0</span>) <span class="tok-kw">break</span>;
+
+        <span class="tok-kw">const</span> pitch = <span class="tok-number">440.0</span>;
+        <span class="tok-kw">const</span> radians_per_second = pitch * <span class="tok-number">2.0</span> * std.math.pi;
+        <span class="tok-kw">var</span> frame: <span class="tok-type">c_int</span> = <span class="tok-number">0</span>;
+        <span class="tok-kw">while</span> (frame &lt; frame_count) : (frame += <span class="tok-number">1</span>) {
+            <span class="tok-kw">const</span> float_frame: <span class="tok-type">f32</span> = <span class="tok-builtin">@floatFromInt</span>(frame);
+            <span class="tok-kw">const</span> sample = std.math.sin((seconds_offset + float_frame *
+                seconds_per_frame) * radians_per_second);
+            {
+                <span class="tok-kw">var</span> channel: <span class="tok-type">usize</span> = <span class="tok-number">0</span>;
+                <span class="tok-kw">while</span> (channel &lt; <span class="tok-builtin">@as</span>(<span class="tok-type">usize</span>, <span class="tok-builtin">@intCast</span>(layout.channel_count))) : (channel += <span class="tok-number">1</span>) {
+                    <span class="tok-kw">const</span> channel_ptr = areas[channel].ptr;
+                    <span class="tok-kw">const</span> sample_ptr: *<span class="tok-type">f32</span> = <span class="tok-builtin">@alignCast</span>(<span class="tok-builtin">@ptrCast</span>(&amp;channel_ptr[<span class="tok-builtin">@intCast</span>(areas[channel].step * frame)]));
+                    sample_ptr.* = sample;
+                }
+            }
+        }
+        <span class="tok-kw">const</span> float_frame_count: <span class="tok-type">f32</span> = <span class="tok-builtin">@floatFromInt</span>(frame_count);
+        seconds_offset += seconds_per_frame * float_frame_count;
+
+        sio_err(c.soundio_outstream_end_write(maybe_outstream)) <span class="tok-kw">catch</span> |err| std.debug.panic(<span class="tok-str">&quot;end write failed: {s}&quot;</span>, .{<span class="tok-builtin">@errorName</span>(err)});
+
+        frames_left -= frame_count;
+    }
+}
+
+<span class="tok-kw">pub</span> <span class="tok-kw">fn</span> <span class="tok-fn">main</span>() !<span class="tok-type">void</span> {
+    <span class="tok-kw">const</span> soundio = c.soundio_create();
+    <span class="tok-kw">defer</span> c.soundio_destroy(soundio);
+
+    <span class="tok-kw">try</span> sio_err(c.soundio_connect(soundio));
+
+    c.soundio_flush_events(soundio);
+
+    <span class="tok-kw">const</span> default_output_index = c.soundio_default_output_device_index(soundio);
+    <span class="tok-kw">if</span> (default_output_index &lt; <span class="tok-number">0</span>) <span class="tok-kw">return</span> <span class="tok-kw">error</span>.NoOutputDeviceFound;
+
+    <span class="tok-kw">const</span> device = c.soundio_get_output_device(soundio, default_output_index) <span class="tok-kw">orelse</span> <span class="tok-kw">return</span> <span class="tok-kw">error</span>.OutOfMemory;
+    <span class="tok-kw">defer</span> c.soundio_device_unref(device);
+
+    std.debug.print(<span class="tok-str">&quot;Output device: {s}\n&quot;</span>, .{device.*.name});
+
+    <span class="tok-kw">const</span> outstream = c.soundio_outstream_create(device) <span class="tok-kw">orelse</span> <span class="tok-kw">return</span> <span class="tok-kw">error</span>.OutOfMemory;
+    <span class="tok-kw">defer</span> c.soundio_outstream_destroy(outstream);
+
+    outstream.*.format = c.SoundIoFormatFloat32NE;
+    outstream.*.write_callback = write_callback;
+
+    <span class="tok-kw">try</span> sio_err(c.soundio_outstream_open(outstream));
+
+    <span class="tok-kw">try</span> sio_err(c.soundio_outstream_start(outstream));
+
+    <span class="tok-kw">while</span> (<span class="tok-null">true</span>) c.soundio_wait_events(soundio);
+}</code></pre></figure></p><pre><code>$ zig build-exe sine.zig -lsoundio -lc
+$ ./sine
+Output device: Built-in Audio Analog Stereo
+^C
+</code></pre><p><a href="https://gist.github.com/andrewrk/d285c8f912169329e5e28c3d0a63c1d8" target="_blank">このZigのコードは、同等のC言語のコードよりもかなりシンプルです</a>また、より多くの安全保護機能を備えており、これらはすべてCのヘッダーファイルを直接インポートすることで実現されています（APIバインディングなし）。</p><p><em>Zigは、C言語がC言語のライブラリを使うより、Cのライブラリを使う方が得意です。</em></p><h3>ZigはC言語コンパイラでもある</h3><p>ここでは、ZigがC言語のコードを構築する例を紹介します：</p><pre><code class="c"><span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="type">int</span> <span class="constant variable function">main</span>(<span class="type">int</span> <span class="constant variable">argc</span>, <span class="type">char</span> <span class="operator">*</span><span class="operator">*</span><span class="constant variable">argv</span>) {
+    <span class="constant variable function">printf</span>(<span class="string">&quot;Hello world\n&quot;</span>)<span class="delimiter">;</span>
+    <span class="keyword">return</span> <span class="number">0</span><span class="delimiter">;</span>
+}
+</code></pre>
+<pre><code>$ zig build-exe hello.c --library c
+$ ./hello
+Hello world
+</code></pre><p>このとき実行されたC言語コンパイラのコマンドは<code>--verbose-cc</code>で確認することができます：</p><pre><code>$ zig build-exe hello.c --library c --verbose-cc
+zig cc -MD -MV -MF .zig-cache/tmp/42zL6fBH8fSo-hello.o.d -nostdinc -fno-spell-checking -isystem /home/andy/dev/zig/build/lib/zig/include -isystem /home/andy/dev/zig/build/lib/zig/libc/include/x86_64-linux-gnu -isystem /home/andy/dev/zig/build/lib/zig/libc/include/generic-glibc -isystem /home/andy/dev/zig/build/lib/zig/libc/include/x86_64-linux-any -isystem /home/andy/dev/zig/build/lib/zig/libc/include/any-linux-any -march=native -g -fstack-protector-strong --param ssp-buffer-size=4 -fno-omit-frame-pointer -o .zig-cache/tmp/42zL6fBH8fSo-hello.o -c hello.c -fPIC
+</code></pre><p>なお、もう一度コマンドを実行すると、出力はなく、即座に終了します：</p><pre><code>$ time zig build-exe hello.c --library c --verbose-cc
+
+real	0m0.027s
+user	0m0.018s
+sys	0m0.009s
+</code></pre><p>これは、<a href="https://ziglang.org/download/0.4.0/release-notes.html#Build-Artifact-Caching" target="_blank">Build Artifact Caching</a>のおかげです。Zigは.dファイルを自動的に解析し、作業の重複を避けるために堅牢なキャッシュシステムを使用します。</p><p>ZigはC言語コードをコンパイルできるだけでなく、ZigをC言語コンパイラとして使用する非常に良い理由があります：Zigはlibcと一緒に出荷されています.</p><h3>C言語コードに依存する関数、変数、型のエクスポート</h3><p>Zigの主な使用例の1つは、他のプログラミング言語から呼び出せるように、C言語のABIを持つライブラリをエクスポートすることです。関数、変数、型の前に<code>export</code>キーワードを付けると、それらがライブラリAPIの一部となります：</p><p><figure><figcaption class="zig-cap"><cite class="file">23-math-test.zig</cite></figcaption><pre><code><span class="tok-kw">export</span> <span class="tok-kw">fn</span> <span class="tok-fn">add</span>(a: <span class="tok-type">i32</span>, b: <span class="tok-type">i32</span>) <span class="tok-type">i32</span> {
+    <span class="tok-kw">return</span> a + b;
+}</code></pre></figure></p><p>静的ライブラリを作成するには：</p><pre><code>$ zig build-lib mathtest.zig
+</code></pre><p>シェアードライブラリを作成するには：</p><pre><code>$ zig build-lib mathtest.zig -dynamic
+</code></pre><p>ここでは、Zig Build Systemを使った例を紹介します：</p><pre><code class="c"><span class="keyword">#include</span> <span class="string">&quot;mathtest.h&quot;</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="type">int</span> <span class="constant variable function">main</span>(<span class="type">int</span> <span class="constant variable">argc</span>, <span class="type">char</span> <span class="operator">*</span><span class="operator">*</span><span class="constant variable">argv</span>) {
+    <span class="type">int32_t</span> <span class="constant variable">result</span> <span class="operator">=</span> <span class="constant variable function">add</span>(<span class="number">42</span>, <span class="number">1337</span>)<span class="delimiter">;</span>
+    <span class="constant variable function">printf</span>(<span class="string">&quot;%d\n&quot;</span>, <span class="constant variable">result</span>)<span class="delimiter">;</span>
+    <span class="keyword">return</span> <span class="number">0</span><span class="delimiter">;</span>
+}
+</code></pre>
+<p><figure><figcaption class="zig-cap"><cite class="file">24-build.zig</cite></figcaption><pre><code><span class="tok-kw">const</span> Builder = <span class="tok-builtin">@import</span>(<span class="tok-str">&quot;std&quot;</span>).build.Builder;
+
+<span class="tok-kw">pub</span> <span class="tok-kw">fn</span> <span class="tok-fn">build</span>(b: *Builder) <span class="tok-type">void</span> {
+    <span class="tok-kw">const</span> lib = b.addSharedLibrary(<span class="tok-str">&quot;mathtest&quot;</span>, <span class="tok-str">&quot;mathtest.zig&quot;</span>, b.version(<span class="tok-number">1</span>, <span class="tok-number">0</span>, <span class="tok-number">0</span>));
+
+    <span class="tok-kw">const</span> exe = b.addExecutable(<span class="tok-str">&quot;test&quot;</span>, <span class="tok-null">null</span>);
+    exe.addCSourceFile(<span class="tok-str">&quot;test.c&quot;</span>, &amp;[_][]<span class="tok-kw">const</span> <span class="tok-type">u8</span>{<span class="tok-str">&quot;-std=c99&quot;</span>});
+    exe.linkLibrary(lib);
+    exe.linkSystemLibrary(<span class="tok-str">&quot;c&quot;</span>);
+
+    b.default_step.dependOn(&amp;exe.step);
+
+    <span class="tok-kw">const</span> run_cmd = exe.run();
+
+    <span class="tok-kw">const</span> test_step = b.step(<span class="tok-str">&quot;test&quot;</span>, <span class="tok-str">&quot;Test the program&quot;</span>);
+    test_step.dependOn(&amp;run_cmd.step);
+}</code></pre></figure></p><pre><code>$ zig build test
+1379
+</code></pre><h2 id="cross-compiling-is-a-first-class-use-case">クロスコンパイルは第一級のユースケース</h2><p>Zigはサポート表(see latest release notes)にあるどのターゲットに対しても、Tier3サポート以上の条件でビルドすることが可能です。「クロスツールチェーン」をインストールしたりする必要はありません。以下は、ネイティブなHello Worldです：</p><p><figure><figcaption class="zig-cap"><cite class="file">4-hello.zig</cite></figcaption><pre><code><span class="tok-kw">const</span> std = <span class="tok-builtin">@import</span>(<span class="tok-str">&quot;std&quot;</span>);
+
+<span class="tok-kw">pub</span> <span class="tok-kw">fn</span> <span class="tok-fn">main</span>() <span class="tok-type">void</span> {
+    std.debug.print(<span class="tok-str">&quot;Hello, world!\n&quot;</span>, .{});
+}</code></pre></figure><figure><figcaption class="shell-cap">Shell</figcaption><pre><samp>$ <kbd>zig build-exe 4-hello.zig</kbd>
+$ <kbd>./4-hello</kbd>
+Hello, world!
+</samp></pre></figure></p><p>あとは、x86_64-windows, x86_64-macos, aarch64-linux用にビルドします：</p><pre><code>$ zig build-exe hello.zig -target x86_64-windows
+$ file hello.exe
+hello.exe: PE32+ executable (console) x86-64, for MS Windows
+$ zig build-exe hello.zig -target x86_64-macos
+$ file hello
+hello: Mach-O 64-bit x86_64 executable, flags:&lt;NOUNDEFS|DYLDLINK|TWOLEVEL|PIE&gt;
+$ zig build-exe hello.zig -target aarch64-linux
+$ file hello
+hello: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, with debug_info, not stripped
+</code></pre><p>Tier 3以上のターゲットであれば、どのようなターゲットにも有効である。</p><h3>Zigにはlibcが付属しています</h3><p>利用可能なlibcのターゲットは<code>zig targets</code>で見つけることができます：</p><pre><code>...
+ &quot;libc&quot;: [
+  &quot;aarch64_be-linux-gnu&quot;,
+  &quot;aarch64_be-linux-musl&quot;,
+  &quot;aarch64_be-windows-gnu&quot;,
+  &quot;aarch64-linux-gnu&quot;,
+  &quot;aarch64-linux-musl&quot;,
+  &quot;aarch64-windows-gnu&quot;,
+  &quot;armeb-linux-gnueabi&quot;,
+  &quot;armeb-linux-gnueabihf&quot;,
+  &quot;armeb-linux-musleabi&quot;,
+  &quot;armeb-linux-musleabihf&quot;,
+  &quot;armeb-windows-gnu&quot;,
+  &quot;arm-linux-gnueabi&quot;,
+  &quot;arm-linux-gnueabihf&quot;,
+  &quot;arm-linux-musleabi&quot;,
+  &quot;arm-linux-musleabihf&quot;,
+  &quot;arm-windows-gnu&quot;,
+  &quot;mips64el-linux-gnuabi64&quot;,
+  &quot;mips64el-linux-gnuabin32&quot;,
+  &quot;mips64el-linux-musl&quot;,
+  &quot;mips64-linux-gnuabi64&quot;,
+  &quot;mips64-linux-gnuabin32&quot;,
+  &quot;mips64-linux-musl&quot;,
+  &quot;mipsel-linux-gnu&quot;,
+  &quot;mipsel-linux-musl&quot;,
+  &quot;mips-linux-gnu&quot;,
+  &quot;mips-linux-musl&quot;,
+  &quot;powerpc64le-linux-gnu&quot;,
+  &quot;powerpc64le-linux-musl&quot;,
+  &quot;powerpc64-linux-gnu&quot;,
+  &quot;powerpc64-linux-musl&quot;,
+  &quot;powerpc-linux-gnu&quot;,
+  &quot;powerpc-linux-musl&quot;,
+  &quot;riscv64-linux-gnu&quot;,
+  &quot;riscv64-linux-musl&quot;,
+  &quot;s390x-linux-gnu&quot;,
+  &quot;s390x-linux-musl&quot;,
+  &quot;sparc-linux-gnu&quot;,
+  &quot;sparcv9-linux-gnu&quot;,
+  &quot;wasm32-freestanding-musl&quot;,
+  &quot;x86-linux-gnu&quot;,
+  &quot;x86-linux-musl&quot;,
+  &quot;x86-windows-gnu&quot;,
+  &quot;x86_64-linux-gnu&quot;,
+  &quot;x86_64-linux-gnux32&quot;,
+  &quot;x86_64-linux-musl&quot;,
+  &quot;x86_64-windows-gnu&quot;
+ ],
+</code></pre><p>このことは、これらのターゲットの<code>--library c</code>は<em>どのシステムファイルにも依存しない</em>ということを意味します！</p><p>もう一度、Cのhello worldの例を見てみましょう：</p><pre><code>$ zig build-exe hello.c --library c
+$ ./hello
+Hello world
+$ ldd ./hello
+	linux-vdso.so.1 (0x00007ffd03dc9000)
+	libc.so.6 =&gt; /lib/libc.so.6 (0x00007fc4b62be000)
+	libm.so.6 =&gt; /lib/libm.so.6 (0x00007fc4b5f29000)
+	libpthread.so.0 =&gt; /lib/libpthread.so.0 (0x00007fc4b5d0a000)
+	libdl.so.2 =&gt; /lib/libdl.so.2 (0x00007fc4b5b06000)
+	librt.so.1 =&gt; /lib/librt.so.1 (0x00007fc4b58fe000)
+	/lib/ld-linux-x86-64.so.2 =&gt; /lib64/ld-linux-x86-64.so.2 (0x00007fc4b6672000)
+</code></pre><p><a href="https://www.gnu.org/software/libc/" target="_blank">glibc</a>は静的ビルドをサポートしていませんが、<a href="https://www.musl-libc.org/" target="_blank">musl</a>はサポートしています：</p><pre><code>$ zig build-exe hello.c --library c -target x86_64-linux-musl
+$ ./hello
+Hello world
+$ ldd hello
+  not a dynamic executable
+</code></pre><p>この例では、Zigはmusl libcをソースからビルドし、それに対してリンクしています。x86_64-linux用のmusl libcのビルドは<a href="https://ziglang.org/download/0.4.0/release-notes.html#Build-Artifact-Caching" target="_blank">caching system</a>のおかげで利用可能なままなので、このlibcが再び必要になったときには即座に利用可能な状態になります。</p><p>つまり、この機能はどのプラットフォームでも利用できるのです。WindowsとmacOSのユーザーは、上記のどのターゲットに対しても、ZigとCのコードをビルドし、libcに対してリンクすることができます。同様に、他のアーキテクチャ用にクロスコンパイルすることも可能です：</p><pre><code>$ zig build-exe hello.c --library c -target aarch64-linux-gnu
+$ file hello
+hello: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux-aarch64.so.1, for GNU/Linux 2.0.0, with debug_info, not stripped
+</code></pre><p>ある意味、ZigはCコンパイラーよりも優れたCコンパイラーです！</p><p>この機能は、Zigと一緒にクロスコンパイルツールチェーンをバンドルしている以上のものです。例えば、Zigが出荷するlibcのヘッダの総サイズは、非圧縮で22MiBです。一方、x86_64のmusl libc + linux headersだけで8MiB、glibcでは3.1MiB（glibcにはlinux headersがない）ですが、Zigには現在40のlibcsが同梱されています。素朴なバンドルでは、444MiBになります。しかし、この<a href="https://github.com/ziglang/zig/blob/0.4.0/libc/process_headers.zig" target="_blank">process_headers tool</a>と、いくつかの<a href="https://github.com/ziglang/zig/wiki/Updating-libc" target="_blank">good old manual labor</a>のおかげで、Zigのバイナリtarballは、これらすべてのターゲットに対してlibcをサポートし、さらにcompiler-rt、libunwind、libcxx、そしてclang互換のC言語コンパイラにもかかわらず、およそ30 MiBのままになっています。比較のために、llvm.orgからclang 8.0.0自体のWindowsバイナリビルドは、132MiBです。</p><p>なお、Tier 1 Supportターゲットのみが徹底的にテストされています。今後、<a href="https://github.com/ziglang/zig/issues/514" target="_blank">libcsの追加</a>(Windows用も含む)及び<a href="https://github.com/ziglang/zig/issues/2058" target="_blank">すべてのlibcsに対してビルドするためのテストカバレッジの追加</a>が予定されています。</p><p><a href="https://github.com/ziglang/zig/issues/943" target="_blank">Zigパッケージマネージャを搭載する予定</a>ですがまだできていません。そのひとつは、Cライブラリのパッケージを作ることです。これによって、ZigビルドシステムZigプログラマにとってもCプログラマにとっても魅力的なものになるはずです。</p><h2>Zigビルドシステム</h2><p>Zigにはビルドシステムが付属しているので、makeやcmakeなどは必要ありません。</p><pre><code>$ zig init-exe
+Created build.zig
+Created src/main.zig
+
+Next, try `zig build --help` or `zig build run`
+</code></pre><p><figure><figcaption class="zig-cap"><cite class="file">25-all-bases.zig</cite></figcaption><pre><code><span class="tok-kw">const</span> std = <span class="tok-builtin">@import</span>(<span class="tok-str">&quot;std&quot;</span>);
+
+<span class="tok-kw">pub</span> <span class="tok-kw">fn</span> <span class="tok-fn">main</span>() <span class="tok-type">anyerror</span>!<span class="tok-type">void</span> {
+    std.debug.print(<span class="tok-str">&quot;All your base are belong to us.\n&quot;</span>);
+}</code></pre></figure></p><p><figure><figcaption class="zig-cap"><cite class="file">26-build.zig</cite></figcaption><pre><code><span class="tok-kw">const</span> Builder = <span class="tok-builtin">@import</span>(<span class="tok-str">&quot;std&quot;</span>).build.Builder;
+
+<span class="tok-kw">pub</span> <span class="tok-kw">fn</span> <span class="tok-fn">build</span>(b: *Builder) <span class="tok-type">void</span> {
+    <span class="tok-kw">const</span> mode = b.standardReleaseOptions();
+    <span class="tok-kw">const</span> exe = b.addExecutable(<span class="tok-str">&quot;example&quot;</span>, <span class="tok-str">&quot;src/main.zig&quot;</span>);
+    exe.setBuildMode(mode);
+
+    <span class="tok-kw">const</span> run_cmd = exe.run();
+
+    <span class="tok-kw">const</span> run_step = b.step(<span class="tok-str">&quot;run&quot;</span>, <span class="tok-str">&quot;Run the app&quot;</span>);
+    run_step.dependOn(&amp;run_cmd.step);
+
+    b.default_step.dependOn(&amp;exe.step);
+    b.installArtifact(exe);
+}</code></pre></figure></p><p>その<code>--help</code>メニューを見てみましょう。</p><pre><code>$ zig build --help
+Usage: zig build [steps] [options]
+
+Steps:
+  install (default)      Copy build artifacts to prefix path
+  uninstall              Remove build artifacts from prefix path
+  run                    Run the app
+
+General Options:
+  --help                 Print this help and exit
+  --verbose              Print commands before executing them
+  --prefix [path]        Override default install prefix
+  --search-prefix [path] Add a path to look for binaries, libraries, headers
+
+Project-Specific Options:
+  -Dtarget=[string]      The CPU architecture, OS, and ABI to build for.
+  -Drelease-safe=[bool]  optimizations on and safety on
+  -Drelease-fast=[bool]  optimizations on and safety off
+  -Drelease-small=[bool] size optimizations on and safety off
+
+Advanced Options:
+  --build-file [file]         Override path to build.zig
+  --cache-dir [path]          Override path to zig cache directory
+  --override-lib-dir [arg]    Override path to Zig lib directory
+  --verbose-tokenize          Enable compiler debug output for tokenization
+  --verbose-ast               Enable compiler debug output for parsing into an AST
+  --verbose-link              Enable compiler debug output for linking
+  --verbose-ir                Enable compiler debug output for Zig IR
+  --verbose-llvm-ir           Enable compiler debug output for LLVM IR
+  --verbose-cimport           Enable compiler debug output for C imports
+  --verbose-cc                Enable compiler debug output for C compilation
+  --verbose-llvm-cpu-features Enable compiler debug output for LLVM CPU features
+</code></pre><p>利用可能なステップの1つが実行されていることがわかります。</p><pre><code>$ zig build run
+All your base are belong to us.
+</code></pre><p>以下は、ビルドスクリプトの例です：</p><ul><li><a href="https://github.com/andrewrk/tetris/blob/master/build.zig" target="_blank">OpenGLテトリスゲームのビルドスクリプト</a></li><li><a href="https://github.com/andrewrk/clashos/blob/master/build.zig" target="_blank">ベアメタルRaspberry Pi 3アーケードゲーム構築スクリプト</a></li><li><a href="https://github.com/ziglang/zig/blob/master/build.zig" target="_blank">自作Zigコンパイラのビルドスクリプト</a></li></ul><h2>非同期関数による並行処理</h2><p>Zig 0.5.0<a href="https://ziglang.org/download/0.5.0/release-notes.html#Async-Functions" target="_blank">非同期関数の導入</a>。この機能はホストOSに依存せず、ヒープで確保されたメモリにも依存しない。つまり、自立したターゲットで非同期関数が利用できるのです。</p><p>Zigは関数が非同期かどうかを推測し、非同期でない関数では<code>async</code>/<code>await</code>を許可します。これは、<strong>Zigライブラリはブロッキングと非同期I/Oの区別がつかない</strong>ということを意味します。<a href="http://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/" target="_blank">Zigは関数カラーを避ける</a>.</p><p>Zig標準ライブラリは、非同期関数をスレッドプールに多重化するイベントループを実装し、M:N並列を実現しています。マルチスレッドの安全性と競合検出は、現在活発に研究されている分野です。</p><h2>幅広いターゲットへの対応</h2><p>Zigは、ターゲットごとにサポートレベルを伝える「サポートティア」制度を採用しています。</p><p><a href="https://ziglang.org/download/0.8.0/release-notes.html#Support-Table" target="_blank">Zig 0.8.0時点でのサポート表</a></p><h2>パッケージメンテナへのフレンドリーな対応</h2><p>リファレンスのZigコンパイラはまだ完全にセルフホスティングされていませんが、何があっても、システムC++コンパイラを持つことから、どんなターゲットに対しても完全にセルフホスティングされたZigコンパイラを持つことまでは、<a href="https://github.com/ziglang/zig/issues/853" target="_blank">ちょうど3ステップ</a>で済みます。Maya Rashishが指摘するように、<a href="http://coypu.sdf.org/porting-zig.html" target="_blank">Zigの他のプラットフォームへの移植は楽しくてスピーディ</a>なのです。</p><p>非デバッグ<a href="https://ziglang.org/documentation/master/#Build-Mode" target="_blank">ビルドモード</a>は再現性/決定性があります。</p><p><a href="https://ziglang.org/download/index.json" target="_blank">JSON版ダウンロードページ</a>があります。</p><p>Zigチームには、パッケージの保守を経験したメンバーが何人もいます。</p><ul><li><a href="https://github.com/daurnimator" target="_blank">Daurnimator</a>は<a href="https://archlinux.org/packages/extra/x86_64/zig/" target="_blank">Arch Linuxパッケージ</a>を保守しています。</li><li><a href="https://tiehuis.github.io/" target="_blank">Marc Tiehuis</a>は、Visual Studio Codeパッケージを管理しています。</li><li><a href="https://andrewkelley.me/" target="_blank">Andrew Kelley</a>は、1年ほどかけて<a href="https://qa.debian.org/developer.php?login=superjoe30%40gmail.com&comaint=yes" target="_blank">DebianとUbuntuのパッケージング</a>を行い、さりげなく<a href="https://github.com/NixOS/nixpkgs/" target="_blank">nixpkgs</a>にコントリビュートしています。</li><li><a href="https://blog.jfo.click/" target="_blank">Jeff Fowler</a>はHomebrewパッケージを保守し、<a href="https://github.com/ziglang/sublime-zig-language" target="_blank">Sublimeパッケージ</a>を開始しました(現在は<a href="https://github.com/emekoi" target="_blank">emekoi</a>が保守しています)。</li></ul>
+  </div>
+
+    </div>
+    <div class="container" style="text-align: center; padding: 2em 0;">
+      <div id="languages-menu">
+  
+    <div class="container">
+      <span>This page was translated by the Zig community,
+        <a href="/learn/overview/">see the original version</a>
+        or
+        <a href="https://github.com/ziglang/www.ziglang.org/" class="external-link" target="_blank" rel="noopener">report errors</a>.</span>
+    </div>
+    <br>
+  
+  <span>This page is also available in the following languages:</span>
+  <br>
+  <div>
+    <a href="/learn/overview/" style="white-space: nowrap;">English (original)</a>
+  
+    <a href="/es-AR/learn/overview/" style="white-space: nowrap;">Español</a>
+  
+    <a href="/ru-RU/learn/overview/" style="white-space: nowrap;">Русский</a>
+  
+    <a href="/it-IT/learn/overview/" style="white-space: nowrap;">Italiano</a>
+  
+    <a href="/de-DE/learn/overview/" style="white-space: nowrap;">Deutsch</a>
+  
+    <a href="/uk-UA/learn/overview/" style="white-space: nowrap;">Українська</a>
+  
+    <a href="/ja-JP/learn/overview/" style="white-space: nowrap;">日本語</a>
+  
+    <a href="/zh-CN/learn/overview/" style="white-space: nowrap;">中文</a>
+  
+    <a href="/ko-KR/learn/overview/" style="white-space: nowrap;">한국어</a>
+  </div>
+</div>
+    </div>
+  </body>
+</html>

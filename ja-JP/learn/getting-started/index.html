@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head id="head">
+    <meta charset="utf-8">
+    <title id="title">
+      始めましょう
+      ⚡
+      Zig Programming Language
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.svg">
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <link type="text/css" rel="stylesheet" href="/css/navigation.css">
+    
+  <link type="text/css" rel="stylesheet" href="/css/home.css">
+
+  </head>
+  <body>
+    <div class="container">
+      <a href="/ja-JP/"><span id="header-image"></span></a>
+    </div>
+    <nav id="mobile-navbar" class="nav container">
+      <span style="overflow:hidden; max-width: 80%; display: inline-block; vertical-align:bottom;">始めましょう
+      </span>
+      <label for="mobile-toggle" id="hamburger">
+        <svg style="width:2em;height:2em;" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"/>
+        </svg>
+      </label>
+    </nav>
+    <div id="mobile-subnav">
+      <input type="checkbox" name="mobile-toggle" id="mobile-toggle">
+      <div class="" id="menu">
+        
+          <a class="navbar-item" href="/ja-JP/download/">Download</a>
+        
+        
+          <a class="navbar-item" href="/ja-JP/learn/">学ぶ</a>
+        
+        
+          <a class="navbar-item" href="/news/">News</a>
+        
+        <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">ソースコード</a>
+        <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">コミュニティに参加する</a>
+        
+          <a class="navbar-item" href="/ja-JP/zsf/">ZSF</a>
+        
+        
+          <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+        
+      </div>
+    </div>
+    <nav id="navbar" class="nav">
+      <div class="container" style="display:flex; justify-content: space-between;">
+        <div>
+          
+            <a class="navbar-item" href="/ja-JP/download/">Download</a>
+          
+          
+            <a class="navbar-item" href="/ja-JP/learn/">学ぶ</a>
+          
+          
+            <a class="navbar-item" href="/news/">News</a>
+          
+          
+            <a class="navbar-item" href="/ja-JP/zsf/">Zig Software Foundation</a>
+          
+          
+            <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+          
+          <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">ソースコード</a>
+          <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">コミュニティに参加する</a>
+        </div>
+      </div>
+    </nav>
+    <div id="content" role="main">
+      
+  <div class="container">
+    
+      <a id="back" href="/ja-JP/learn/">
+        ← Back to
+        <b>学ぶ</b>
+      </a>
+    
+    <h1 class="title">始めましょう</h1>
+    <ul>
+<li>タグ付きリリースかナイトリービルドか？</li><li>Zigをインストールする<ul><li>
+直接ダウンロード<ul><li>
+WindowsでのPATHの設定</li><li>Linux、macOS、BSDでのPATHの設定</li></ul></li><li>パッケージマネージャ<ul><li>
+Windows</li><li>macOS</li><li>Linux</li></ul></li><li>ソースからのビルド</li></ul></li><li>推奨ツール<ul><li>
+シンタックスハイライターとLSP</li></ul></li><li>Hello Worldを実行する</li><li>次のステップ</ul>
+    
+    <h1>タグ付きリリースかナイトリービルドか？</h1><p>Zigはまだv1.0に到達しておらず、現在のリリースサイクルはLLVMの新リリースに連動しており、その周期は6ヶ月程度となっています。 現実的には、<strong>Zigのリリースは間隔が開きがちで、現在の開発スピードからするといずれ陳腐化する</strong>と言われています。</p><p>タグ付きバージョンを使ってZigを評価するのは良いのですが、もしZigが好きでもっと深く知りたいと思ったら <strong>ナイトリービルドにアップグレードすることをお勧めします</strong> 。 そうすれば、助けを得るのがより簡単になるからです：<a href="https://zig.guide" target="_blank">zig.guide</a>のようなサイトは、上記の理由から master ブランチを追跡しています。</p><p>Zigのバージョンを切り替えるのはとても簡単で、同時に複数のバージョンをシステム上に存在させることも可能です。Zigのリリースは自己完結型のアーカイブで、システムのどこにでも配置することができます。</p><h1>Zigをインストールする</h1><h2>直接ダウンロード</h2><p>これが最もストレートなZigの入手方法です：<a href="/ja-JP/download/">Downloads</a>ページから、あなたのプラットフォーム用のZigバンドルを取得し、 ディレクトリに解凍して<code>PATH</code>に追加すれば、どの場所からでも<code>zig</code>を呼び出すことができるようになります。</p><h3>WindowsでのPATHの設定</h3><p>Windowsでパスを設定するには、Powershellインスタンスで次のコードのスニペットのうち<strong>1つ</strong>を実行します。 この変更をシステム全体に適用するか（管理者権限でPowershellを実行する必要があります）、自分のユーザーだけに適用するかを選択します。 また、<strong>必ず、あなたのZigのコピーがある場所を指すようにスニペットを変更してください</strong>。 <code>C:</code>の前の<code>;</code>はタイプミスではありません。</p><p>システム全体(<strong>管理者</strong> Powershell):</p><pre><code>[Environment]::SetEnvironmentVariable(
+   &quot;Path&quot;,
+   [Environment]::GetEnvironmentVariable(&quot;Path&quot;, &quot;Machine&quot;) + &quot;;C:\your-path\zig-windows-x86_64-your-version&quot;,
+   &quot;Machine&quot;
+)
+</code></pre><p>ユーザーレベル（Powershell）：</p><pre><code>[Environment]::SetEnvironmentVariable(
+   &quot;Path&quot;,
+   [Environment]::GetEnvironmentVariable(&quot;Path&quot;, &quot;User&quot;) + &quot;;C:\your-path\zig-windows-x86_64-your-version&quot;,
+   &quot;User&quot;
+)
+</code></pre><p>完了後、Powershellインスタンスを再起動します。</p><h3>Linux、macOS、BSDでのPATHの設定</h3><p>zigバイナリの場所をPATH環境変数に追加してください。</p><p>これは通常、シェルのスタートアップスクリプト(<code>.profile</code>, <code>.zshrc</code>, …)にexport行を追加することで行われます。</p><pre><code class="bash"><span class="keyword">export</span> <span class="property">PATH</span>=<span class="operator">$</span><span class="property">PATH</span>:~/path/to/zig
+</code></pre>
+<p>終了後、スタートアップファイルを<code>source</code>するか、シェルを再起動します。</p><h2>パッケージマネージャ</h2><h3>Windows</h3><p><strong>WinGet</strong><br>Zigは<a href="https://github.com/microsoft/winget-pkgs/tree/master/manifests/z/zig/zig" target="_blank">WinGet</a>で使用できます。</p><pre><code>winget install -e --id zig.zig
+</code></pre><p><strong>Chocolatey</strong><br>Zigは<a href="https://chocolatey.org/packages/zig" target="_blank">Chocolatey</a>で使用できます。</p><pre><code>choco install zig
+</code></pre><p><strong>Scoop</strong><br>Zigは<a href="https://scoop.sh/#/apps?q=zig&id=7e124d6047c32d426e4143ab395d863fc9d6d491" target="_blank">Scoop</a>で使用できます。</p><pre><code>scoop install zig
+</code></pre><p>最新の<a href="https://scoop.sh/#/apps?q=zig&id=921df07e75042de645204262e784a17c2421944c" target="_blank">開発版</a>：</p><pre><code>scoop bucket add versions
+scoop install versions/zig-dev
+</code></pre><h3>macOS</h3><p><strong>Homebrew</strong> 最新のタグ付きリリース：</p><pre><code>brew install zig
+</code></pre><p><strong>MacPorts</strong></p><pre><code>sudo port install zig
+</code></pre><h3>Linux</h3><p>ZigはLinux用の多くのパッケージマネージャにも含まれています。<a href="https://github.com/ziglang/zig/wiki/Install-Zig-from-a-Package-Manager" target="_blank">こちら</a>には最新のリストがありますが、 パッケージによっては古いバージョンのZigがバンドルされている場合があることに留意してください。</p><h2>ソースからのビルド</h2><p><a href="https://github.com/ziglang/zig/wiki/Building-Zig-From-Source" target="_blank">こちら</a>には、 Linux、macOS、Windows用のZigをソースからビルドする方法についての詳細情報が掲載されています。</p><h1>推奨ツール</h1><h2>シンタックスハイライターとLSP</h2><p>主要なテキストエディタは、Zigのシンタックスハイライトをサポートしています。 バンドルされているものもあれば、プラグインをインストールする必要があるものもあります。</p><p>もし、Zigとエディタとのより深い統合に興味があるなら、 <a href="https://github.com/zigtools/zls" target="_blank">zigtools/zls</a>をチェックアウトしてください。</p><p>他にどんなものがあるか興味がある方は、<a href="/ja-JP/learn/tools/">ツール</a>のセクションをチェックしてみてください。</p><h1>Hello Worldを実行する</h1><p>インストールが正しく完了すれば、シェルからZigコンパイラを呼び出すことができるはずです。 それでは、最初のZigプログラムを作ってテストしてみましょう!</p><p>プロジェクトディレクトリに移動し、実行します：</p><pre><code class="bash"><span class="constant function">mkdir</span> <span class="constant">hello-world</span>
+<span class="constant function">cd</span> <span class="constant">hello-world</span>
+<span class="constant function">zig</span> <span class="constant">init</span>
+</code></pre>
+<p>これが出力されるはずです：</p><pre><code>info: created build.zig
+info: created build.zig.zon
+info: created src/main.zig
+info: created src/root.zig
+info: see `zig build --help` for a menu of options
+</code></pre><p><code>zig build run</code>を実行すると、実行ファイルがコンパイルされて実行され、最終的に以下のような結果になります：</p><pre><code>All your codebase are belong to us.
+Run `zig build test` to run the tests.
+</code></pre><p>おめでとうございます！これでZigのインストールは完了です！</p><h1>次のステップ</h1><p><strong>学ぶ セクションにある他のリソースもチェックし</strong>、あなたのバージョンのZigのドキュメントを見つけてください（注意：ナイトリービルドは <code>master</code> ドキュメントを使うべきです）、 そして、<a href="https://zig.guide" target="_blank">zig.guide</a>を読んでみてください。</p><p>Zigは若いプロジェクトであり、残念ながら、すべてのことについて広範な文書や学習資料を作成する能力はまだありません。 したがって、行き詰まったときに助けを得るために<a href="https://github.com/ziglang/zig/wiki/Community" target="_blank">既存のZigコミュニティのいずれかに参加すること</a>や、 <a href="https://zig.show" target="_blank">Zig SHOWTIME</a>といった取り組みも検討してみてください。</p><p>最後に、もしあなたがZigを楽しんでいて開発のスピードアップに貢献したいとお考えなら、<a href="/ja-JP/zsf/">Zigソフトウェア財団への寄付をご検討ください</a> <img src="../../heart.svg" style="vertical-align:middle; margin-right: 5px">.</p>
+  </div>
+
+    </div>
+    <div class="container" style="text-align: center; padding: 2em 0;">
+      <div id="languages-menu">
+  
+    <div class="container">
+      <span>This page was translated by the Zig community,
+        <a href="/learn/getting-started/">see the original version</a>
+        or
+        <a href="https://github.com/ziglang/www.ziglang.org/" class="external-link" target="_blank" rel="noopener">report errors</a>.</span>
+    </div>
+    <br>
+  
+  <span>This page is also available in the following languages:</span>
+  <br>
+  <div>
+    <a href="/learn/getting-started/" style="white-space: nowrap;">English (original)</a>
+  
+    <a href="/es-AR/learn/getting-started/" style="white-space: nowrap;">Español</a>
+  
+    <a href="/ru-RU/learn/getting-started/" style="white-space: nowrap;">Русский</a>
+  
+    <a href="/it-IT/learn/getting-started/" style="white-space: nowrap;">Italiano</a>
+  
+    <a href="/de-DE/learn/getting-started/" style="white-space: nowrap;">Deutsch</a>
+  
+    <a href="/uk-UA/learn/getting-started/" style="white-space: nowrap;">Українська</a>
+  
+    <a href="/ja-JP/learn/getting-started/" style="white-space: nowrap;">日本語</a>
+  
+    <a href="/zh-CN/learn/getting-started/" style="white-space: nowrap;">中文</a>
+  
+    <a href="/ko-KR/learn/getting-started/" style="white-space: nowrap;">한국어</a>
+  </div>
+</div>
+    </div>
+  </body>
+</html>

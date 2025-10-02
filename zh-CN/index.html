@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head id="head">
+    <meta charset="utf-8">
+    <title id="title">
+      主页
+      ⚡
+      Zig 编程语言
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.svg">
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <link type="text/css" rel="stylesheet" href="/css/navigation.css">
+    
+  <link type="text/css" rel="stylesheet" href="/css/home.css">
+
+  </head>
+  <body>
+    <div class="container">
+      <a href="/zh-CN/"><span id="header-image"></span></a>
+    </div>
+    <nav id="mobile-navbar" class="nav container">
+      <span style="overflow:hidden; max-width: 80%; display: inline-block; vertical-align:bottom;">主页
+      </span>
+      <label for="mobile-toggle" id="hamburger">
+        <svg style="width:2em;height:2em;" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"/>
+        </svg>
+      </label>
+    </nav>
+    <div id="mobile-subnav">
+      <input type="checkbox" name="mobile-toggle" id="mobile-toggle">
+      <div class="" id="menu">
+        
+          <a class="navbar-item" href="/zh-CN/download/">下载</a>
+        
+        
+          <a class="navbar-item" href="/zh-CN/learn/">学习</a>
+        
+        
+          <a class="navbar-item" href="/news/">News</a>
+        
+        <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">源代码</a>
+        <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">加入社区</a>
+        
+          <a class="navbar-item" href="/zh-CN/zsf/">Zig 软件基金会</a>
+        
+        
+          <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+        
+      </div>
+    </div>
+    <nav id="navbar" class="nav">
+      <div class="container" style="display:flex; justify-content: space-between;">
+        <div>
+          
+            <a class="navbar-item" href="/zh-CN/download/">下载</a>
+          
+          
+            <a class="navbar-item" href="/zh-CN/learn/">学习</a>
+          
+          
+            <a class="navbar-item" href="/news/">News</a>
+          
+          
+            <a class="navbar-item" href="/zh-CN/zsf/">Zig 软件基金会</a>
+          
+          
+            <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+          
+          <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">源代码</a>
+          <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">加入社区</a>
+        </div>
+      </div>
+    </nav>
+    <div id="content" role="main">
+      
+  <div class="slogan alt-background">
+    <div class="container slogan-message">
+      <div style="max-width:790px;margin:10px 0;padding:0 5px"><div id="slogan"><p> Zig 是一种通用的编程语言和工具链，用于维护<strong>健壮</strong>、<strong>高效</strong>和<strong>可重用</strong>的软件。</p></div>
+      </div>
+      <div class="cta-buttons">
+        
+          
+            <a href="/zh-CN/learn/getting-started/" class="button main" style="margin-bottom:5px">立即开始</a>
+            <span class="slogan-separator" style="font-size:.5em">
+              最新版本：
+               &nbsp;<span>0.15.1</span>
+            </span>
+            <div style="display:flex;flex-direction:row;margin-top:5px">
+              <a href="https://ziglang.org/documentation/0.15.1/" class="button" style="flex-grow:1;margin-top:0">文档</a>
+              <a href="/download/0.15.1/release-notes.html" class="button" style="margin-left:5px;margin-top:0">变化</a>
+            </div>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </div>
+  </div>
+  <div class="container" style="display:flex;flex-direction:row;flex-wrap:wrap;padding:30px 0 20px; justify-content:space-between;">
+    <div class="features">
+      <div><div id="features"><h2>⚡ 一种简单的语言</h2><p>专注于调试你的应用程序，而不是调试你的编程语言知识。</p><ul><li>没有隐式控制流。</li><li>没有隐式内存分配。</li><li>没有预处理器，没有宏。</li></ul><h2>⚡ 编译期代码执行</h2><p>基于编译期代码执行和惰性求值的全新元编程方法。</p><ul><li>编译期调用任意函数。</li><li>在没有运行时开销的情况下，将类型作为值进行操作。</li><li>编译期模拟目标架构。</li></ul><h2>⚡ 用 Zig 维护代码</h2><p>逐步改善你的 C/C++/Zig 代码库。</p><ul><li>将 Zig 作为一个零依赖的，支持开箱即用交叉编译的 C/C++ 编译器。</li><li>利用 <code>zig build</code> 在所有平台上创建一个一致的开发环境。</li><li>在 C/C++ 项目中添加一个 Zig 编译单元，跨语言 LTO 默认启用。</li></ul></div></div>
+      <div style="display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center">
+        <div>
+          <h1>
+            <a href="learn/overview/" class="button" style="display:inline">深入了解</a>
+          </h1>
+        </div>
+        <div style="margin-left:5px">
+          <h1>
+            <a href="learn/samples/" class="button" style="display:inline">更多示例</a>
+          </h1>
+        </div>
+      </div>
+    </div>
+    <div class="codesample"><figure><figcaption class="zig-cap"><cite class="file">index.zig</cite></figcaption><pre><code><span class="tok-kw">const</span> std = <span class="tok-builtin">@import</span>(<span class="tok-str">&quot;std&quot;</span>);
+<span class="tok-kw">const</span> parseInt = std.fmt.parseInt;
+
+<span class="tok-kw">test</span> <span class="tok-str">&quot;parse integers&quot;</span> {
+    <span class="tok-kw">const</span> input = <span class="tok-str">&quot;123 67 89,99&quot;</span>;
+    <span class="tok-kw">const</span> gpa = std.testing.allocator;
+
+    <span class="tok-kw">var</span> list: std.ArrayList(<span class="tok-type">u32</span>) = .empty;
+    <span class="tok-comment">// Ensure the list is freed at scope exit.</span>
+    <span class="tok-comment">// Try commenting out this line!</span>
+    <span class="tok-kw">defer</span> list.deinit(gpa);
+
+    <span class="tok-kw">var</span> it = std.mem.tokenizeAny(<span class="tok-type">u8</span>, input, <span class="tok-str">&quot; ,&quot;</span>);
+    <span class="tok-kw">while</span> (it.next()) |num| {
+        <span class="tok-kw">const</span> n = <span class="tok-kw">try</span> parseInt(<span class="tok-type">u32</span>, num, <span class="tok-number">10</span>);
+        <span class="tok-kw">try</span> list.append(gpa, n);
+    }
+
+    <span class="tok-kw">const</span> expected = [_]<span class="tok-type">u32</span>{ <span class="tok-number">123</span>, <span class="tok-number">67</span>, <span class="tok-number">89</span>, <span class="tok-number">99</span> };
+
+    <span class="tok-kw">for</span> (expected, list.items) |exp, actual| {
+        <span class="tok-kw">try</span> std.testing.expectEqual(exp, actual);
+    }
+}</code></pre></figure><figure><figcaption class="shell-cap">Shell</figcaption><pre><samp>$ <kbd>zig test index.zig</kbd>
+1/1 index.test.parse integers...OK
+All 1 tests passed.
+</samp></pre></figure>
+    </div>
+  </div>
+  <div class="alt-background">
+    <div
+      class="container"
+      style="display:flex;flex-direction:column;justify-content:center;text-align:center;padding:20px 0"
+    >
+      <div id="community" class="section-title "><h1><a class="" href="#community">社区</a></h1></div>
+      <div class="container" style="display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center">
+        <div style="width:25%">
+          <img src="/ziggy.svg" style="max-height:200px">
+        </div>
+        <div class="community-message">
+          <div><div id="decentralized"><h2><a class="" href="#decentralized">Zig 社区是去中心化的</a></h2><p>任何人都可以自由创建和维护自己的社区空间。没有“官方”或“非官方”的概念，但是，每个社区都有自己的版主和规则。</p></div></div>
+          <div>
+            <h1>
+              <a href="https://github.com/ziglang/zig/wiki/Community" class="button" style="display:inline">查看所有社区</a>
+            </h1>
+          </div>
+        </div>
+      </div>
+      <div style="height: 50px;"></div>
+      <div class="container" style="display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center">
+        <div class="main-development-message"><div id="main-development"><h2><a class="" href="#main-development">开发动态</a></h2><p>Zig 源码仓库可以在 <a href="https://github.com/ziglang/zig" target="_blank">https://github.com/ziglang/zig</a> 找到，我们同时也在那里跟踪问题和讨论提案。贡献者应该遵守 Zig 的<a href="https://github.com/ziglang/zig/blob/master/.github/CODE_OF_CONDUCT.md" target="_blank">行为准则</a>。</p></div></div>
+        <div style="width:40%">
+          <img src="/zero.svg" style="max-height:200px">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container" style="display:flex;flex-direction:column;justify-content:center;text-align:center;padding:20px 0">
+    <div><div id="zsf" class="section-title "><h1><a class="" href="#zsf">Zig 软件基金会</a></h1><h2>ZSF 是一家 501(c)(3) 非营利公司</h2><p>Zig 软件基金会是由 Zig 的创造者 Andrew Kelley 在 2020 年成立的非营利性公司，目标是支持该语言的发展。目前，ZSF 能够以有竞争力的价格向少数核心贡献者提供有偿工作。我们希望在未来能够将这一优惠扩大到更多的核心贡献者。</p><p>Zig 软件基金会由捐款维持。</p></div></div>
+    <h1>
+      <a href="/zh-CN/zsf/" class="button" style="display: inline">
+        了解更多
+      </a>
+    </h1>
+  </div>
+  <div class="alt-background" style="padding:20px 0">
+    <div class="container">
+      <div id="sponsors" class="section-title "><h1><a class="" href="#sponsors">赞助者</a></h1></div>
+      <div><div id="corporate-sponsors"><h2><a class="" href="#corporate-sponsors">企业赞助商</a></h2><p>以下公司为 Zig 软件基金会提供直接的资金支持。</p></div></div>
+      <div class="monetary-logos">
+  <a href="https://tigerbeetle.com" rel="noopener nofollow" target="_blank" class="span2">
+    <picture>
+      <source
+      srcset="/sponsors/tb-logo-white.png"
+      media="(prefers-color-scheme: dark)"
+    ><img src="/sponsors/tb-logo-black.png">
+    </picture>
+  </a>
+  <a href="https://blacksmith.sh/" rel="noopener nofollow" target="_blank" class="span2">
+    <picture>
+      <source
+      srcset="/sponsors/Blacksmith_Logo-White.svg"
+      media="(prefers-color-scheme: dark)"
+    ><img src="/sponsors/Blacksmith_Logo-Black.svg">
+    </picture>
+  </a>
+  <a href="https://zml.ai" rel="noopener nofollow" target="_blank" class="span2">
+    <style>
+      @media (prefers-color-scheme:light) {
+        #zml {
+          filter: invert();
+        }
+      }
+    </style>
+    <picture id="zml">
+      <source srcset="/sponsors/zml.svg" media="(prefers-color-scheme: dark)">
+      <img src="/sponsors/zml.svg">
+    </picture>
+  </a>
+</div>
+      <div><div id="github-sponsors"><h2><a class="" href="#github-sponsors">GitHub 赞助者</a></h2><p>感谢那些<a href="/zh-CN/zsf/">赞助 Zig</a> 的人，该项目对开源社区而不是公司股东负责。特别地，这些好心人以每月 200 美元或更高的金额赞助了 Zig：</p></div></div>
+      <div><li><a href="https://github.com/drfuchs" rel="nofollow noopener" target="_blank" class="external-link">drfuchs</a></li>
+<li><a href="https://scheibo.com" rel="nofollow noopener" target="_blank" class="external-link">Kirk Scheibelhut</a></li>
+<li><a href="https://bun.com/" rel="nofollow noopener" target="_blank" class="external-link">Bun</a></li>
+<li><a href="https://huly.io" rel="nofollow noopener" target="_blank" class="external-link">Huly® Platform™</a></li>
+<li>Stevie Hryciw</li>
+<li>Karrick McDermott</li>
+<li>José M Rico</li>
+<li>Joran Dirk Greef</li>
+<li>bfredl</li>
+<li>Emi</li>
+<li>Derek Collison</li>
+<li>Paul Harrington</li>
+<li>Clark Gaebel</li>
+<li>Marcus Eagan</li>
+<li>Ken Chilton</li>
+<li>Will Manning</li>
+<li>Spiral</li>
+<li>Alok Parlikar</li>
+<li>Numan</li>
+
+      </div>
+      <p>本表单每日更新。</p>
+    </div>
+  </div>
+
+    </div>
+    <div class="container" style="text-align: center; padding: 2em 0;">
+      <div id="languages-menu">
+  
+    <div class="container">
+      <span>This page was translated by the Zig community,
+        <a href="/">see the original version</a>
+        or
+        <a href="https://github.com/ziglang/www.ziglang.org/" class="external-link" target="_blank" rel="noopener">report errors</a>.</span>
+    </div>
+    <br>
+  
+  <span>此页面还提供以下语言的版本：</span>
+  <br>
+  <div>
+    <a href="/" style="white-space: nowrap;">English (original)</a>
+  
+    <a href="/es-AR/" style="white-space: nowrap;">Español</a>
+  
+    <a href="/ru-RU/" style="white-space: nowrap;">Русский</a>
+  
+    <a href="/it-IT/" style="white-space: nowrap;">Italiano</a>
+  
+    <a href="/de-DE/" style="white-space: nowrap;">Deutsch</a>
+  
+    <a href="/uk-UA/" style="white-space: nowrap;">Українська</a>
+  
+    <a href="/ja-JP/" style="white-space: nowrap;">日本語</a>
+  
+    <a href="/zh-CN/" style="white-space: nowrap;">中文</a>
+  
+    <a href="/ko-KR/" style="white-space: nowrap;">한국어</a>
+  </div>
+</div>
+    </div>
+  </body>
+</html>

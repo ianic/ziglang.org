@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head id="head">
+    <meta charset="utf-8">
+    <title id="title">
+      学习
+      ⚡
+      Zig 编程语言
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.svg">
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <link type="text/css" rel="stylesheet" href="/css/navigation.css">
+    
+  <link type="text/css" rel="stylesheet" href="/css/home.css">
+
+  </head>
+  <body>
+    <div class="container">
+      <a href="/zh-CN/"><span id="header-image"></span></a>
+    </div>
+    <nav id="mobile-navbar" class="nav container">
+      <span style="overflow:hidden; max-width: 80%; display: inline-block; vertical-align:bottom;">学习
+      </span>
+      <label for="mobile-toggle" id="hamburger">
+        <svg style="width:2em;height:2em;" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"/>
+        </svg>
+      </label>
+    </nav>
+    <div id="mobile-subnav">
+      <input type="checkbox" name="mobile-toggle" id="mobile-toggle">
+      <div class="" id="menu">
+        
+          <a class="navbar-item" href="/zh-CN/download/">下载</a>
+        
+        
+          <a class="navbar-item" href="/zh-CN/learn/">学习</a>
+        
+        
+          <a class="navbar-item" href="/news/">News</a>
+        
+        <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">源代码</a>
+        <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">加入社区</a>
+        
+          <a class="navbar-item" href="/zh-CN/zsf/">Zig 软件基金会</a>
+        
+        
+          <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+        
+      </div>
+    </div>
+    <nav id="navbar" class="nav">
+      <div class="container" style="display:flex; justify-content: space-between;">
+        <div>
+          
+            <a class="navbar-item" href="/zh-CN/download/">下载</a>
+          
+          
+            <a class="navbar-item" href="/zh-CN/learn/">学习</a>
+          
+          
+            <a class="navbar-item" href="/news/">News</a>
+          
+          
+            <a class="navbar-item" href="/zh-CN/zsf/">Zig 软件基金会</a>
+          
+          
+            <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+          
+          <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">源代码</a>
+          <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">加入社区</a>
+        </div>
+      </div>
+    </nav>
+    <div id="content" role="main">
+      
+  <div class="container">
+    
+      <a id="back" href="/zh-CN/">
+        ← 返回
+        <b>主页</b>
+      </a>
+    
+    <div id="learn"><h1><a class="" href="#learn">学习 Zig</a></h1><p>本节列出了从对 Zig 一无所知到理解其哲学的有用资源。</p></div>
+    
+      <h2>文档</h2>
+      
+        <h3>
+          不稳定版本
+          (master)
+        </h3>
+        <p>
+          <ul>
+            <li>
+              <a href="https://ziglang.org/documentation/master/">
+                语言参考
+              </a>
+            </li>
+            <li>
+              <a href="https://ziglang.org/documentation/master/std/">
+                标准库文档
+              </a>
+            </li>
+          </ul>
+        </p>
+      
+      
+        
+          <h3>
+            最新稳定版本
+            (0.15.1)
+          </h3>
+          <p>
+            <ul>
+              <li>
+                <a href="https://ziglang.org/documentation/0.15.1/">
+                  语言参考
+                </a>
+              </li>
+              <li>
+                <a href="https://ziglang.org/documentation/0.15.1/std/">
+                  标准库文档
+                </a>
+              </li>
+            </ul>
+          </p>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    <div id="guides"><h2><a class="" href="#guides">指南</a></h2><p>这一部分最终将连同 Zig 的标准库文档一起打包，但在此期间，你可以从这里浏览。</p><ul><li><a href="/zh-CN/learn/build-system/">Zig 构建系统</a><br>Zig 构建系统的介绍。</li></ul><h2>介绍</h2><p>这些都是针对不同背景的程序员对 Zig 的介绍。</p><ul><li><a href="/zh-CN/learn/overview/">深入了解</a><br>从系统编程的角度对 Zig 进行深入的功能了解。</li><li><a href="/zh-CN/learn/why_zig_rust_d_cpp/">有了 C++、D 和 Rust，为什么还需要 Zig？</a><br>针对 C++、D 和 Rust 程序员的 Zig 介绍。</li><li><a href="/zh-CN/learn/samples/">代码范例</a><br>一些可以让你感受 Zig 的代码片段。</li><li><a href="/zh-CN/learn/tools/">工具</a><br>一些可以帮助你编写 Zig 代码的有用工具列表。</li></ul><h2>快速入门</h2><p>如果你已经准备好开始用 Zig 编程，本指南将帮助你设置你的环境。</p><ul><li><a href="/zh-CN/learn/getting-started/">快速入门</a></li></ul><h2>在线学习资源</h2><ul><li><a href="https://github.com/pedropark99/zig-book" target="_blank">Introduction to Zig: a project-based book</a> Zig 的一本開放式科技入門書。</li><li><a href="https://zig.guide" target="_blank">zig.guide</a><br>Zig 的结构化介绍，由 <a href="https://github.com/sobeston" target="_blank">Sobeston</a> 编写。</li><li><a href="https://ziglings.org" target="_blank">Ziglings</a><br>通过修补与调试一系列带有故障的小程序来学习 Zig。</li><li><a href="https://exercism.org/tracks/zig" target="_blank">Zig on Exercism</a><br>解决编程练习并通过指导培养对 Zig 的熟练度。</li><li><a href="https://www.openmymind.net/learning_zig/" target="_blank">Learning Zig</a><br>适合来自垃圾收集语言开发者的 Zig 简短介绍。</li></ul><h2>相关视频和博客文章</h2><ul><li><a href="https://www.youtube.com/watch?v=Gv2I7qTux7g" target="_blank">Zig 1.0 之路（英文）</a> [video]<br><a href="https://andrewkelley.me" target="_blank">Andrew Kelley</a> 介绍 Zig 及其理念的视频。</li><li><a href="https://kristoff.it/blog/zig-new-relationship-llvm/" target="_blank">Zig 与 LLVM 的新关系（英文）</a><br>一篇关于构建 Zig 自托管编译器的博客文章，也被<a href="https://lwn.net/Articles/833400/" target="_blank"> lwn.net 的一篇文章（英文）</a>所介绍。</li></ul></div>
+  </div>
+
+    </div>
+    <div class="container" style="text-align: center; padding: 2em 0;">
+      <div id="languages-menu">
+  
+    <div class="container">
+      <span>This page was translated by the Zig community,
+        <a href="/learn/">see the original version</a>
+        or
+        <a href="https://github.com/ziglang/www.ziglang.org/" class="external-link" target="_blank" rel="noopener">report errors</a>.</span>
+    </div>
+    <br>
+  
+  <span>此页面还提供以下语言的版本：</span>
+  <br>
+  <div>
+    <a href="/learn/" style="white-space: nowrap;">English (original)</a>
+  
+    <a href="/es-AR/learn/" style="white-space: nowrap;">Español</a>
+  
+    <a href="/ru-RU/learn/" style="white-space: nowrap;">Русский</a>
+  
+    <a href="/it-IT/learn/" style="white-space: nowrap;">Italiano</a>
+  
+    <a href="/de-DE/learn/" style="white-space: nowrap;">Deutsch</a>
+  
+    <a href="/uk-UA/learn/" style="white-space: nowrap;">Українська</a>
+  
+    <a href="/ja-JP/learn/" style="white-space: nowrap;">日本語</a>
+  
+    <a href="/zh-CN/learn/" style="white-space: nowrap;">中文</a>
+  
+    <a href="/ko-KR/learn/" style="white-space: nowrap;">한국어</a>
+  </div>
+</div>
+    </div>
+  </body>
+</html>

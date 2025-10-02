@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+  <head id="head">
+    <meta charset="utf-8">
+    <title id="title">
+      Главная
+      ⚡
+      Язык программирования Zig
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.svg">
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <link type="text/css" rel="stylesheet" href="/css/navigation.css">
+    
+  <link type="text/css" rel="stylesheet" href="/css/home.css">
+
+  </head>
+  <body>
+    <div class="container">
+      <a href="/ru-RU/"><span id="header-image"></span></a>
+    </div>
+    <nav id="mobile-navbar" class="nav container">
+      <span style="overflow:hidden; max-width: 80%; display: inline-block; vertical-align:bottom;">Главная
+      </span>
+      <label for="mobile-toggle" id="hamburger">
+        <svg style="width:2em;height:2em;" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"/>
+        </svg>
+      </label>
+    </nav>
+    <div id="mobile-subnav">
+      <input type="checkbox" name="mobile-toggle" id="mobile-toggle">
+      <div class="" id="menu">
+        
+          <a class="navbar-item" href="/ru-RU/download/">Скачать</a>
+        
+        
+          <a class="navbar-item" href="/ru-RU/learn/">Изучение</a>
+        
+        
+          <a class="navbar-item" href="/news/">News</a>
+        
+        <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">Исходный код</a>
+        <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">Присоединиться к сообществу</a>
+        
+          <a class="navbar-item" href="/ru-RU/zsf/">ZSF</a>
+        
+        
+          <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+        
+      </div>
+    </div>
+    <nav id="navbar" class="nav">
+      <div class="container" style="display:flex; justify-content: space-between;">
+        <div>
+          
+            <a class="navbar-item" href="/ru-RU/download/">Скачать</a>
+          
+          
+            <a class="navbar-item" href="/ru-RU/learn/">Изучение</a>
+          
+          
+            <a class="navbar-item" href="/news/">News</a>
+          
+          
+            <a class="navbar-item" href="/ru-RU/zsf/">Zig Software Foundation</a>
+          
+          
+            <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+          
+          <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">Исходный код</a>
+          <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">Присоединиться к сообществу</a>
+        </div>
+      </div>
+    </nav>
+    <div id="content" role="main">
+      
+  <div class="slogan alt-background">
+    <div class="container slogan-message">
+      <div style="max-width:790px;margin:10px 0;padding:0 5px"><div id="slogan"><p> Zig — это язык программирования общего назначения и набор инструментов для создания <strong>надёжного</strong>, <strong>оптимального</strong> и <strong>переиспользуемого</strong> программного обеспечения.</p></div>
+      </div>
+      <div class="cta-buttons">
+        
+          
+            <a href="/ru-RU/learn/getting-started/" class="button main" style="margin-bottom:5px">НАЧАТЬ</a>
+            <span class="slogan-separator" style="font-size:.5em">
+              Последний релиз:
+               &nbsp;<span>0.15.1</span>
+            </span>
+            <div style="display:flex;flex-direction:row;margin-top:5px">
+              <a href="https://ziglang.org/documentation/0.15.1/" class="button" style="flex-grow:1;margin-top:0">Документация</a>
+              <a href="/download/0.15.1/release-notes.html" class="button" style="margin-left:5px;margin-top:0">Изменения</a>
+            </div>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </div>
+  </div>
+  <div class="container" style="display:flex;flex-direction:row;flex-wrap:wrap;padding:30px 0 20px; justify-content:space-between;">
+    <div class="features">
+      <div><div id="features"><h2>⚡ Простой язык</h2><p>Сосредоточьтесь на отладке вашего приложения, а не на борьбе с особенностями языка.</p><ul><li>Нет скрытых потоков управления.</li><li>Нет скрытых выделений памяти.</li><li>Нет препроцессора, нет макросов.</li></ul><h2>⚡ Comptime</h2><p>Новый подход к метапрограммированию на основе выполнения кода во время компиляции и ленивых (отложенных) вычислений.</p><ul><li>Вызов любой функции на этапе компиляции.</li><li>Манипуляция типами как значениями без накладных расходов во время выполнения программы.</li><li>Comptime эмулирует целевую архитектуру.</li></ul><h2>⚡ Поддерживайте существующий код с помощью Zig</h2><p>Поэтапно улучшайте кодовую базу на C/C++/Zig.</p><ul><li>Применяйте Zig в качестве компилятора для C/C++, который поддерживает кросс-компиляцию «из коробки».</li><li>Используйте <code>zig build</code> для создания единой среды разработки на всех платформах.</li><li>Интегрируйте Zig в проекты на C/C++, открывая доступ к богатой стандартной библиотеке для всего кода на C/C++.</li></ul></div></div>
+      <div style="display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center">
+        <div>
+          <h1>
+            <a href="learn/overview/" class="button" style="display:inline">Полный обзор</a>
+          </h1>
+        </div>
+        <div style="margin-left:5px">
+          <h1>
+            <a href="learn/samples/" class="button" style="display:inline">Больше примеров кода</a>
+          </h1>
+        </div>
+      </div>
+    </div>
+    <div class="codesample"><figure><figcaption class="zig-cap"><cite class="file">index.zig</cite></figcaption><pre><code><span class="tok-kw">const</span> std = <span class="tok-builtin">@import</span>(<span class="tok-str">&quot;std&quot;</span>);
+<span class="tok-kw">const</span> parseInt = std.fmt.parseInt;
+
+<span class="tok-kw">test</span> <span class="tok-str">&quot;parse integers&quot;</span> {
+    <span class="tok-kw">const</span> input = <span class="tok-str">&quot;123 67 89,99&quot;</span>;
+    <span class="tok-kw">const</span> gpa = std.testing.allocator;
+
+    <span class="tok-kw">var</span> list: std.ArrayList(<span class="tok-type">u32</span>) = .empty;
+    <span class="tok-comment">// Ensure the list is freed at scope exit.</span>
+    <span class="tok-comment">// Try commenting out this line!</span>
+    <span class="tok-kw">defer</span> list.deinit(gpa);
+
+    <span class="tok-kw">var</span> it = std.mem.tokenizeAny(<span class="tok-type">u8</span>, input, <span class="tok-str">&quot; ,&quot;</span>);
+    <span class="tok-kw">while</span> (it.next()) |num| {
+        <span class="tok-kw">const</span> n = <span class="tok-kw">try</span> parseInt(<span class="tok-type">u32</span>, num, <span class="tok-number">10</span>);
+        <span class="tok-kw">try</span> list.append(gpa, n);
+    }
+
+    <span class="tok-kw">const</span> expected = [_]<span class="tok-type">u32</span>{ <span class="tok-number">123</span>, <span class="tok-number">67</span>, <span class="tok-number">89</span>, <span class="tok-number">99</span> };
+
+    <span class="tok-kw">for</span> (expected, list.items) |exp, actual| {
+        <span class="tok-kw">try</span> std.testing.expectEqual(exp, actual);
+    }
+}</code></pre></figure><figure><figcaption class="shell-cap">Shell</figcaption><pre><samp>$ <kbd>zig test index.zig</kbd>
+1/1 index.test.parse integers...OK
+All 1 tests passed.
+</samp></pre></figure>
+    </div>
+  </div>
+  <div class="alt-background">
+    <div
+      class="container"
+      style="display:flex;flex-direction:column;justify-content:center;text-align:center;padding:20px 0"
+    >
+      <div id="community" class="section-title "><h1><a class="" href="#community">Сообщество</a></h1></div>
+      <div class="container" style="display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center">
+        <div style="width:25%">
+          <img src="/ziggy.svg" style="max-height:200px">
+        </div>
+        <div class="community-message">
+          <div><div id="decentralized"><h2><a class="" href="#decentralized">Сообщество Zig децентрализовано</a></h2><p>Любой может создать и поддерживать своё собственное сообщество.<br>Не существует понятия “официальное” или “неофициальное” — каждое сообщество имеет своих модераторов и правила.</p></div></div>
+          <div>
+            <h1>
+              <a href="https://github.com/ziglang/zig/wiki/Community" class="button" style="display:inline">Посмотреть все сообщества</a>
+            </h1>
+          </div>
+        </div>
+      </div>
+      <div style="height: 50px;"></div>
+      <div class="container" style="display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center">
+        <div class="main-development-message"><div id="main-development"><h2><a class="" href="#main-development">Разработка</a></h2><p>Репозиторий Zig можно найти на <a href="https://github.com/ziglang/zig" target="_blank">https://github.com/ziglang/zig</a>, где мы также ведём трекер проблем и обсуждаем предложения.<br>От участников ожидается соблюдение <a href="https://github.com/ziglang/zig/blob/master/.github/CODE_OF_CONDUCT.md" target="_blank">Кодекса поведения Zig</a>.</p></div></div>
+        <div style="width:40%">
+          <img src="/zero.svg" style="max-height:200px">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container" style="display:flex;flex-direction:column;justify-content:center;text-align:center;padding:20px 0">
+    <div><div id="zsf" class="section-title "><h1><a class="" href="#zsf">Zig Software Foundation</a></h1><h2>ZSF — это некоммерческая организация 501(c)(3).</h2><p>Zig Software Foundation — это некоммерческая организация, основанная в 2020 году Эндрю Келли, создателем Zig, с целью поддержания развития языка. В настоящее время Zig Software Foundation может предложить оплачиваемую работу на конкурентных ставках небольшому числу ключевых контрибьюторов. Мы надеемся в будущем расширить это предложение для большего круга людей.</p><p>Zig Software Foundation существует за счёт пожертвований.</p></div></div>
+    <h1>
+      <a href="/ru-RU/zsf/" class="button" style="display: inline">
+        Узнать больше
+      </a>
+    </h1>
+  </div>
+  <div class="alt-background" style="padding:20px 0">
+    <div class="container">
+      <div id="sponsors" class="section-title "><h1><a class="" href="#sponsors">Спонсоры</a></h1></div>
+      <div><div id="corporate-sponsors"><h2><a class="" href="#corporate-sponsors">Корпоративные спонсоры</a></h2><p>Следующие компании оказывают финансовую поддержку Zig Software Foundation.</p></div></div>
+      <div class="monetary-logos">
+  <a href="https://tigerbeetle.com" rel="noopener nofollow" target="_blank" class="span2">
+    <picture>
+      <source
+      srcset="/sponsors/tb-logo-white.png"
+      media="(prefers-color-scheme: dark)"
+    ><img src="/sponsors/tb-logo-black.png">
+    </picture>
+  </a>
+  <a href="https://blacksmith.sh/" rel="noopener nofollow" target="_blank" class="span2">
+    <picture>
+      <source
+      srcset="/sponsors/Blacksmith_Logo-White.svg"
+      media="(prefers-color-scheme: dark)"
+    ><img src="/sponsors/Blacksmith_Logo-Black.svg">
+    </picture>
+  </a>
+  <a href="https://zml.ai" rel="noopener nofollow" target="_blank" class="span2">
+    <style>
+      @media (prefers-color-scheme:light) {
+        #zml {
+          filter: invert();
+        }
+      }
+    </style>
+    <picture id="zml">
+      <source srcset="/sponsors/zml.svg" media="(prefers-color-scheme: dark)">
+      <img src="/sponsors/zml.svg">
+    </picture>
+  </a>
+</div>
+      <div><div id="github-sponsors"><h2><a class="" href="#github-sponsors">GitHub-спонсоры</a></h2><p>Благодаря людям, которые <a href="/ru-RU/zsf/">спонсируют Zig</a>, проект остаётся подконтрольным open-source сообществу, а не корпоративным акционерам. В частности, эти замечательные люди спонсируют Zig на сумму 200 долларов в месяц или более:</p></div></div>
+      <div><li><a href="https://github.com/drfuchs" rel="nofollow noopener" target="_blank" class="external-link">drfuchs</a></li>
+<li><a href="https://scheibo.com" rel="nofollow noopener" target="_blank" class="external-link">Kirk Scheibelhut</a></li>
+<li><a href="https://bun.com/" rel="nofollow noopener" target="_blank" class="external-link">Bun</a></li>
+<li><a href="https://huly.io" rel="nofollow noopener" target="_blank" class="external-link">Huly® Platform™</a></li>
+<li>Stevie Hryciw</li>
+<li>Karrick McDermott</li>
+<li>José M Rico</li>
+<li>Joran Dirk Greef</li>
+<li>bfredl</li>
+<li>Emi</li>
+<li>Derek Collison</li>
+<li>Paul Harrington</li>
+<li>Clark Gaebel</li>
+<li>Marcus Eagan</li>
+<li>Ken Chilton</li>
+<li>Will Manning</li>
+<li>Spiral</li>
+<li>Alok Parlikar</li>
+<li>Numan</li>
+
+      </div>
+      <p>Этот раздел обновляется ежедневно.</p>
+    </div>
+  </div>
+
+    </div>
+    <div class="container" style="text-align: center; padding: 2em 0;">
+      <div id="languages-menu">
+  
+    <div class="container">
+      <span>This page was translated by the Zig community,
+        <a href="/">see the original version</a>
+        or
+        <a href="https://github.com/ziglang/www.ziglang.org/" class="external-link" target="_blank" rel="noopener">report errors</a>.</span>
+    </div>
+    <br>
+  
+  <span>Эта страница также доступна на следующих языках:</span>
+  <br>
+  <div>
+    <a href="/" style="white-space: nowrap;">English (original)</a>
+  
+    <a href="/es-AR/" style="white-space: nowrap;">Español</a>
+  
+    <a href="/ru-RU/" style="white-space: nowrap;">Русский</a>
+  
+    <a href="/it-IT/" style="white-space: nowrap;">Italiano</a>
+  
+    <a href="/de-DE/" style="white-space: nowrap;">Deutsch</a>
+  
+    <a href="/uk-UA/" style="white-space: nowrap;">Українська</a>
+  
+    <a href="/ja-JP/" style="white-space: nowrap;">日本語</a>
+  
+    <a href="/zh-CN/" style="white-space: nowrap;">中文</a>
+  
+    <a href="/ko-KR/" style="white-space: nowrap;">한국어</a>
+  </div>
+</div>
+    </div>
+  </body>
+</html>

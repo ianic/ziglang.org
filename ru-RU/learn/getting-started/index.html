@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+  <head id="head">
+    <meta charset="utf-8">
+    <title id="title">
+      Начало работы
+      ⚡
+      Язык программирования Zig
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.svg">
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <link type="text/css" rel="stylesheet" href="/css/navigation.css">
+    
+  <link type="text/css" rel="stylesheet" href="/css/home.css">
+
+  </head>
+  <body>
+    <div class="container">
+      <a href="/ru-RU/"><span id="header-image"></span></a>
+    </div>
+    <nav id="mobile-navbar" class="nav container">
+      <span style="overflow:hidden; max-width: 80%; display: inline-block; vertical-align:bottom;">Начало работы
+      </span>
+      <label for="mobile-toggle" id="hamburger">
+        <svg style="width:2em;height:2em;" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"/>
+        </svg>
+      </label>
+    </nav>
+    <div id="mobile-subnav">
+      <input type="checkbox" name="mobile-toggle" id="mobile-toggle">
+      <div class="" id="menu">
+        
+          <a class="navbar-item" href="/ru-RU/download/">Скачать</a>
+        
+        
+          <a class="navbar-item" href="/ru-RU/learn/">Изучение</a>
+        
+        
+          <a class="navbar-item" href="/news/">News</a>
+        
+        <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">Исходный код</a>
+        <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">Присоединиться к сообществу</a>
+        
+          <a class="navbar-item" href="/ru-RU/zsf/">ZSF</a>
+        
+        
+          <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+        
+      </div>
+    </div>
+    <nav id="navbar" class="nav">
+      <div class="container" style="display:flex; justify-content: space-between;">
+        <div>
+          
+            <a class="navbar-item" href="/ru-RU/download/">Скачать</a>
+          
+          
+            <a class="navbar-item" href="/ru-RU/learn/">Изучение</a>
+          
+          
+            <a class="navbar-item" href="/news/">News</a>
+          
+          
+            <a class="navbar-item" href="/ru-RU/zsf/">Zig Software Foundation</a>
+          
+          
+            <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+          
+          <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">Исходный код</a>
+          <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">Присоединиться к сообществу</a>
+        </div>
+      </div>
+    </nav>
+    <div id="content" role="main">
+      
+  <div class="container">
+    
+      <a id="back" href="/ru-RU/learn/">
+        ← Вернуться обратно на
+        <b>Изучение</b>
+      </a>
+    
+    <h1 class="title">Начало работы</h1>
+    <ul>
+<li>Релиз или ночная сборка?</li><li>Установка Zig<ul><li>
+<a href="#direct">Прямое скачивание</a><ul><li>
+Настройка PATH в Windows</li><li>Настройка PATH в Linux, macOS, BSD</li></ul></li><li><a href="#managers">Менеджеры пакетов</a><ul><li>
+Windows</li><li>macOS</li><li>Linux</li></ul></li><li><a href="#source">Сборка из исходников</a></li></ul></li><li>Рекомендуемые инструменты<ul><li>
+Подсветка синтаксиса и языковые серверы (LSP)</li></ul></li><li>Запуск Hello, World!</li><li>Следующие шаги</ul>
+    
+    <h1>Релиз или ночная сборка?</h1><p>Zig еще не достиг версии 1.0, и текущий цикл релизов связан с новыми версиями LLVM, которые выходят примерно раз в шесть месяцев. На практике это означает, что <strong>релизы Zig происходят с большими промежутками и быстро устаревают, учитывая текущую скорость разработки</strong>.</p><p>Чтобы оценить Zig, можно воспользоваться релизом, но если вы решите, что вам нравится Zig и захотите в него углубиться, <strong>мы рекомендуем обновиться до ночной сборки</strong>. В основном потому, что таким образом вам будет легче получать помощь: большинство сообществ и такие сайты, как <a href="https://zig.guide" target="_blank">zig.guide</a>, отслеживают ветку <code>master</code> по указанным выше причинам.</p><p>Хорошая новость заключается в том, что очень легко переключаться с одной версии Zig на другую или даже иметь несколько версий на системе одновременно: релизы Zig — это автономные архивы, которые можно разместить в любом месте вашей системы.</p><h1>Установка Zig</h1><h2 id="direct">Прямое скачивание</h2><p>Это самый простой способ получения Zig: скачайте пакет Zig для вашей платформы со <a href="/ru-RU/download/">страницы загрузок</a>, распакуйте его и добавьте в переменную <code>PATH</code>, чтобы <code>zig</code> можно было вызывать из любого места.</p><h3>Настройка PATH в Windows</h3><p>Чтобы настроить PATH в Windows, выполните <strong>один</strong> из следующих фрагментов кода в Powershell. Выберите, хотите ли вы применить это изменение на уровне всей системы (необходимо запустить Powershell с правами администратора) или только для текущего пользователя. <strong>Убедитесь, что вы правильно указали расположение вашей копии Zig</strong>. <code>;</code> перед <code>C:</code> — это не ошибка.</p><p>На уровне всей системы (Powershell с правами администратора):</p><pre><code>[Environment]::SetEnvironmentVariable(
+   &quot;Path&quot;,
+   [Environment]::GetEnvironmentVariable(&quot;Path&quot;, &quot;Machine&quot;) + &quot;;C:\your-path\zig-windows-x86_64-your-version&quot;,
+   &quot;Machine&quot;
+)
+</code></pre><p>Только для текущего пользователя (Powershell):</p><pre><code>[Environment]::SetEnvironmentVariable(
+   &quot;Path&quot;,
+   [Environment]::GetEnvironmentVariable(&quot;Path&quot;, &quot;User&quot;) + &quot;;C:\your-path\zig-windows-x86_64-your-version&quot;,
+   &quot;User&quot;
+)
+</code></pre><p>По завершении перезапустите Powershell.</p><h3>Настройка PATH в Linux, macOS, BSD</h3><p>Добавьте расположение исполняемого файла zig в переменную окружения PATH.</p><p>Это обычно делается добавлением строки export в файл инициализации командной оболочки (например, <code>.profile</code> или <code>.zshrc</code>).</p><pre><code class="bash"><span class="keyword">export</span> <span class="property">PATH</span>=<span class="operator">$</span><span class="property">PATH</span>:~/path/to/zig
+</code></pre>
+<p>По завершении выполните <code>source</code> файла инициализации командной оболочки или просто перезапустите командную оболочку.</p><h2 id="managers">Менеджеры пакетов</h2><h3>Windows</h3><p><strong>WinGet</strong><br>Zig доступен в <a href="https://github.com/microsoft/winget-pkgs/tree/master/manifests/z/zig/zig" target="_blank">WinGet</a>.</p><pre><code>winget install -e --id zig.zig
+</code></pre><p><strong>Chocolatey</strong><br>Zig доступен на <a href="https://chocolatey.org/packages/zig" target="_blank">Chocolatey</a>.</p><pre><code>choco install zig
+</code></pre><p><strong>Scoop</strong><br>Zig доступен на <a href="https://scoop.sh/#/apps?q=zig&id=7e124d6047c32d426e4143ab395d863fc9d6d491" target="_blank">Scoop</a>.</p><pre><code>scoop install zig
+</code></pre><p>Последняя <a href="https://scoop.sh/#/apps?q=zig&id=921df07e75042de645204262e784a17c2421944c" target="_blank">dev-сборка</a>:</p><pre><code>scoop bucket add versions
+scoop install versions/zig-dev
+</code></pre><h3>macOS</h3><p><strong>Homebrew</strong><br>Последний релиз:</p><pre><code>brew install zig
+</code></pre><p><strong>MacPorts</strong></p><pre><code>sudo port install zig
+</code></pre><h3>Linux</h3><p>Zig также представлен во многих менеджерах пакетов для Linux. <a href="https://github.com/ziglang/zig/wiki/Install-Zig-from-a-Package-Manager" target="_blank">Здесь</a> можно найти обновлённый список, но имейте в виду, что некоторые пакеты могут содержать устаревшие версии Zig.</p><h2 id="source">Сборка из исходников</h2><p><a href="https://github.com/ziglang/zig/wiki/Building-Zig-From-Source" target="_blank">Здесь</a> можно найти больше информации о том, как собрать Zig из исходников на Linux, macOS и Windows.</p><h1>Рекомендуемые инструменты</h1><h2>Подсветка синтаксиса и языковые серверы (LSP)</h2><p>Все основные текстовые редакторы поддерживают подсветку синтаксиса для Zig. Некоторые поставляются сразу с ним, для других требуется установка соответствующего плагина.</p><p>Если вас интересует более глубокая интеграция между Zig и вашим редактором, ознакомьтесь с <a href="https://github.com/zigtools/zls" target="_blank">zigtools/zls</a>.</p><p>Если вас интересует, что доступно ещё, ознакомьтесь с разделом <a href="/ru-RU/learn/tools/">Инструменты</a>.</p><h1>Запуск Hello, World!</h1><p>Если процесс установки прошёл успешно, вы должны иметь возможность вызвать компилятор Zig из вашей командной оболочки. Давайте проверим это, создав вашу первую программу!</p><p>Перейдите в директорию вашего проекта и выполните:</p><pre><code class="bash"><span class="constant function">mkdir</span> <span class="constant">hello-world</span>
+<span class="constant function">cd</span> <span class="constant">hello-world</span>
+<span class="constant function">zig</span> <span class="constant">init</span>
+</code></pre>
+<p>Это должно вывести:</p><pre><code>info: created build.zig
+info: created build.zig.zon
+info: created src/main.zig
+info: created src/root.zig
+info: see `zig build --help` for a menu of options
+</code></pre><p>Выполнение команды <code>zig build run</code> должно скомпилировать исполняемый файл и запустить его, выведя:</p><pre><code>All your codebase are belong to us.
+Run `zig build test` to run the tests.
+</code></pre><p>Поздравляем, вы успешно установили Zig!</p><h1>Следующие шаги</h1><p><strong>Изучите дополнительные ресурсы, представленные в разделе <a href="/ru-RU/learn/">Изучение</a></strong>. Не забудьте выбрать документацию для вашей версии Zig (для ночных сборок используйте документацию <code>master</code>). Также рекомендуется ознакомиться с <a href="https://zig.guide" target="_blank">zig.guide</a> для более глубокого изучения языка.</p><p>Zig — это молодой проект, и, к сожалению, у нас пока нет возможности создать обширную документацию и учебные материалы на все случаи жизни. Поэтому рекомендуется <a href="https://github.com/ziglang/zig/wiki/Community" target="_blank">присоединиться к одному из сообществ Zig</a>, чтобы получать помощь в случае затруднений. Также рекомендуем ознакомиться с такими инициативами, как<a href="https://zig.show" target="_blank">Zig SHOWTIME</a>.</p><p>И в заключение, если Zig вызывает у вас интерес и вы хотите внести свой вклад в его развитие, мы будем признательны за любую поддержку. Рассмотрите возможность сделать пожертвование в <a href="/ru-RU/zsf/">Zig Software Foundation</a> <img src="/heart.svg" style="vertical-align:middle; margin-right: 5px">, чтобы помочь проекту ещё более активно расти и развиваться.</p>
+  </div>
+
+    </div>
+    <div class="container" style="text-align: center; padding: 2em 0;">
+      <div id="languages-menu">
+  
+    <div class="container">
+      <span>This page was translated by the Zig community,
+        <a href="/learn/getting-started/">see the original version</a>
+        or
+        <a href="https://github.com/ziglang/www.ziglang.org/" class="external-link" target="_blank" rel="noopener">report errors</a>.</span>
+    </div>
+    <br>
+  
+  <span>Эта страница также доступна на следующих языках:</span>
+  <br>
+  <div>
+    <a href="/learn/getting-started/" style="white-space: nowrap;">English (original)</a>
+  
+    <a href="/es-AR/learn/getting-started/" style="white-space: nowrap;">Español</a>
+  
+    <a href="/ru-RU/learn/getting-started/" style="white-space: nowrap;">Русский</a>
+  
+    <a href="/it-IT/learn/getting-started/" style="white-space: nowrap;">Italiano</a>
+  
+    <a href="/de-DE/learn/getting-started/" style="white-space: nowrap;">Deutsch</a>
+  
+    <a href="/uk-UA/learn/getting-started/" style="white-space: nowrap;">Українська</a>
+  
+    <a href="/ja-JP/learn/getting-started/" style="white-space: nowrap;">日本語</a>
+  
+    <a href="/zh-CN/learn/getting-started/" style="white-space: nowrap;">中文</a>
+  
+    <a href="/ko-KR/learn/getting-started/" style="white-space: nowrap;">한국어</a>
+  </div>
+</div>
+    </div>
+  </body>
+</html>

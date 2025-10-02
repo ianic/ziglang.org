@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head id="head">
+    <meta charset="utf-8">
+    <title id="title">
+      The First ziglang.org Outage
+      ⚡
+      Zig Programming Language
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.svg">
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <link type="text/css" rel="stylesheet" href="/css/navigation.css">
+    
+  <link type="text/css" rel="stylesheet" href="/css/home.css">
+  <style>
+    #footer p {
+      display: inline;
+    }
+  </style>
+
+  </head>
+  <body>
+    <div class="container">
+      <a href="/"><span id="header-image"></span></a>
+    </div>
+    <nav id="mobile-navbar" class="nav container">
+      <span style="overflow:hidden; max-width: 80%; display: inline-block; vertical-align:bottom;">ziglang.org outage
+      </span>
+      <label for="mobile-toggle" id="hamburger">
+        <svg style="width:2em;height:2em;" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"/>
+        </svg>
+      </label>
+    </nav>
+    <div id="mobile-subnav">
+      <input type="checkbox" name="mobile-toggle" id="mobile-toggle">
+      <div class="" id="menu">
+        
+          <a class="navbar-item" href="/download/">Download</a>
+        
+        
+          <a class="navbar-item" href="/learn/">Learn</a>
+        
+        
+          <a class="navbar-item" href="/news/">News</a>
+        
+        <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">Source</a>
+        <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">Join a Community</a>
+        
+          <a class="navbar-item" href="/zsf/">ZSF</a>
+        
+        
+          <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+        
+      </div>
+    </div>
+    <nav id="navbar" class="nav">
+      <div class="container" style="display:flex; justify-content: space-between;">
+        <div>
+          
+            <a class="navbar-item" href="/download/">Download</a>
+          
+          
+            <a class="navbar-item" href="/learn/">Learn</a>
+          
+          
+            <a class="navbar-item" href="/news/">News</a>
+          
+          
+            <a class="navbar-item" href="/zsf/">Zig Software Foundation</a>
+          
+          
+            <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+          
+          <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">Source</a>
+          <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">Join a Community</a>
+        </div>
+      </div>
+    </nav>
+    <div id="content" role="main">
+      
+  <div class="container">
+    
+      <a id="back" href="/news/">
+        ← Back to
+        <b>News</b>
+        page
+      </a>
+    
+    <h1 class="title">The First ziglang.org Outage</h1>
+    <h3>September 08, 2025</h3>
+    
+    <p>On September 1st a community member notified us (<a href="https://github.com/ziglang/www.ziglang.org/issues/529" target="_blank">#529</a>) that ziglang.org was having issues (slow loading pages, HTTP 500 replies).</p><p>Looking at the dashboards showed a drastic increase of data transmission in the previous 24 hours:</p><p><img src="/news/first-outage/peak.png" alt="a graph of data usage over time, showing a big peak at the very end (from an average of about 1000GB daily, up to six times as much)"></p><p>Looking at access logs showed a frenetic amount of activity by clients using <code>facebookexternalhit/1.1</code> as their user agent:</p><p><figure><video controls>
+<source src="/news/first-outage/facebook_bot.mp4">
+</video>
+<figcaption><em>Running <code>tail -f</code> on the access log to see requests in realtime.</em></figcaption></figure></p><p>Frank Denis had initially theorized that this could have been an instance of an incident <a href="https://x.com/jedisct1/status/1961822114358444520" target="_blank">he already reported on social media</a>, and the access log immediately confirmed his suspicions.</p><p>Grepping the access log showed that the bot had been going circles while crawling the website and, in the ~36 hours it was active, <strong>it had downloaded the same tarball more than one million times</strong>.</p><p>Soon after we started returning 403 for the user agent used by the bot and the website returned to normal levels of operation.</p><p>Today we can still see activity from <code>facebookexternalhit/1.1</code>, which will eventually force us to issue IP-level bans (in order to minimize the load caused by the bot).</p><h2>Community Mirrors During the Outage</h2><p>At the peak of crawling activity the official Zig website had reduced performance and would occasionally return HTTP 500 replies, which caused a disruption of activity for some Zig users.</p><p>I would like to personally thank all the people that showed concern for the situation and that offered alternative solutions (and especially those who setup a community mirror in response to this event!), but I would also like to re-iterate that ziglang.org is <a href="/news/migrate-to-self-hosting/">designed to break rather than bend when put under stress</a>.</p><p>To explain in more concrete terms what I mean, I’ll go through some solutions that were suggested to prevent downtime:</p><ul><li>Use AWS S3 or another autoscaling/serverless solution: we would have wasted money to feed the Facebook bot instead of paying contributors to work on Zig.</li><li>Use some free CDN bandwidth or get free credits from AWS:  we don’t want a hard dependency on the goodwill of any one cloud company, especially not in order to feed bots of another big tech company.</li><li>Use GitHub for hosting releases: given the long list of issues (<a href="https://github.com/actions/runner/issues/3792" target="_blank">e.g.</a>) we’ve been having with GitHub, we’re in the process of minimizing our reliance on it, not the other way around.</li></ul><p>In summary, we believe that preventing this kind of event from surfacing is the wrong approach because nobody’s resources (be ones we pay for or not) should be silently wasted on poorly coded bots (or poorly cached CI jobs, for that matter).</p><p>That said, we don’t believe that ziglang.org outages should impact the whole Zig community, which is why we announced previously the <a href="/news/announcing-community-mirrors/">Community Mirrors</a> initiative.</p><p>This was our first time experiencing what would happen to the ecosystem if the official Zig website became partially unavailable.</p><p>Users of tagged versions of Zig were likely to not encounter any disruption because community mirrors are very likely to keep the relative artifacts in cache. Anecdotally none of my CI jobs encountered any issue thanks to <a href="https://github.com/mlugg/setup-zig" target="_blank">mlugg/setup-zig</a>.</p><p>Some users of unstable builds of Zig did experience disruption when they requested a specific unstable build that was not cached by some community mirrors. More specifically one issue we discovered is that some community mirrors would retry fetching from ziglang.org the missing tarball multiple times, which in turn caused very long time outs and prevented clients from promptly trying other mirrors.</p><p>Experiencing disruption because mirrors don’t have in cache a specific unstable build of Zig is to be expected, but the very long time outs were not.</p><p>So, while not perfect, our first outage showed that community mirrors are a viable path forward, we just need to learn from our experience.</p><h2>Plans for the Future</h2><p>As a result of this outage we have <a href="https://github.com/ziglang/www.ziglang.org/commit/ce29c74bc1faf8a3f43ee5387e16dfcd528d6a89" target="_blank">amended</a> the community mirrors specification to suggest time out limits for both clients and mirrors (alongside other improvements).</p><p>Once async I/O lands in master branch we plan to work on an official mirror reference implementation in Zig so that community mirror maintainers can easily deploy a spec-conformant mirror<sup class="footnote-ref"><a href="#fn-1" id="fn-1-ref-1">1</a></sup>.</p><p>To some this might look like a lot of work just for a matter of principle, but in reality being mindful about resource consumption is critical when it comes to finance, even more than when it comes to designing software.</p><p>Today Zig is still small enough that we could easily rely on any free service thrown our way, but looking at our growth curve this won’t stay true for long. There will be a point where there will be too much activity for any one business to be willing to sponsor us in exchange for nothing.</p><p>Being resource efficient is maybe the single most important detail the Zig project got right, and it’s what is allowing us to innovate compiler infrastructure in a way that would be impossible without our independence.</p><p>Year after year, more than 90% of our donation income has been used to pay contributors to work on Zig, and we plan to keep this true for as long as possible, which includes being vigilant about how the community (and Facebook bots) make use of our shared resources, like the official Zig website.</p><p><strong>In 2024 <a href="/news/2025-financials/">our budget increased by 13%</a> and we still spent 92% of our income on paying contributors.</strong></p><p>We currently have a running fundraiser, please consider supporting our work in order to reach Zig v1.0 faster.</p><p>– Loris</p>
+    <div style="margin-top:25px;">
+      
+        <hr>
+        <ol id="footer">
+          <li id="fn-1">
+            <p>As the Zig HTTP server implementation has not yet been audited nor is it battletested, we will recommend to keep it behind a reverse proxy and in an isolated environment.</p>
+            
+              <a href="#fn-1-ref-1">1</a>
+            
+          </li>
+        </ol>
+      
+    </div>
+  </div>
+
+    </div>
+    <div class="container" style="text-align: center; padding: 2em 0;">
+      <div id="languages-menu"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head id="head">
+    <meta charset="utf-8">
+    <title id="title">
+      Community Mirrors
+      ⚡
+      Zig Programming Language
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.svg">
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <link type="text/css" rel="stylesheet" href="/css/navigation.css">
+    
+  <link type="text/css" rel="stylesheet" href="/css/home.css">
+  <style>
+.block {
+  border: 2px solid grey;
+}
+.block h1 {
+  margin: 0;
+  font-size: 1.1em;
+  background: #f7a41d;
+  padding: 0.4em 0.7em;
+  color: black;
+}
+.block p {
+  margin: 0;
+  padding: 0.5em 0 0.5em 1.0em;
+}
+  </style>
+
+  </head>
+  <body>
+    <div class="container">
+      <a href="/"><span id="header-image"></span></a>
+    </div>
+    <nav id="mobile-navbar" class="nav container">
+      <span style="overflow:hidden; max-width: 80%; display: inline-block; vertical-align:bottom;">Mirrors
+      </span>
+      <label for="mobile-toggle" id="hamburger">
+        <svg style="width:2em;height:2em;" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"/>
+        </svg>
+      </label>
+    </nav>
+    <div id="mobile-subnav">
+      <input type="checkbox" name="mobile-toggle" id="mobile-toggle">
+      <div class="" id="menu">
+        
+          <a class="navbar-item" href="/download/">Download</a>
+        
+        
+          <a class="navbar-item" href="/learn/">Learn</a>
+        
+        
+          <a class="navbar-item" href="/news/">News</a>
+        
+        <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">Source</a>
+        <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">Join a Community</a>
+        
+          <a class="navbar-item" href="/zsf/">ZSF</a>
+        
+        
+          <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+        
+      </div>
+    </div>
+    <nav id="navbar" class="nav">
+      <div class="container" style="display:flex; justify-content: space-between;">
+        <div>
+          
+            <a class="navbar-item" href="/download/">Download</a>
+          
+          
+            <a class="navbar-item" href="/learn/">Learn</a>
+          
+          
+            <a class="navbar-item" href="/news/">News</a>
+          
+          
+            <a class="navbar-item" href="/zsf/">Zig Software Foundation</a>
+          
+          
+            <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+          
+          <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">Source</a>
+          <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">Join a Community</a>
+        </div>
+      </div>
+    </nav>
+    <div id="content" role="main">
+      
+  <div class="container">
+    
+      <a id="back" href="/">
+        ← Back to
+        <b>Home</b>
+      </a>
+    
+    <h1 class="title">Community Mirrors</h1>
+    
+    <p>If you’re setting something up which will automatically download Zig, like CI, you might be interested in using community mirrors instead of downloading from ziglang.org.</p><p>The ziglang.org website does not offer any uptime or speed guarantees, meaning that your CI will sporadically fail or have slower runs if it hardcodes it as a download URL. In fact, configuring your CI to fetch from ziglang.org directly contributes to uptime and speed issues, because this site is <a href="/news/migrate-to-self-hosting/">intentionally hosted on a simple one-computer configuration</a>. Instead, it is often a good idea to fetch Zig from one of many community-maintained mirrors. These mirrors are not officially endorsed by the Zig Software Foundation, but they can be used without security risks thanks to our signing of archives. While no individual mirror has an uptime or speed guarantee, configuring your automation to cycle through the list of available mirrors can effectively guarantee high uptime in practice.</p><div class="block"><h1>Security Notice</h1><p>Community mirrors are not officially trusted or endorsed by the Zig Software Foundation, and could in theory serve malicious binaries. If you are using them, you <strong>must</strong> make sure to validate the minisign signature for every tarball you download against the ZSF’s public key, available on <a href="/download/">the download page</a>.</p></div><h2>GitHub Actions</h2><p>If you are setting up an automation using GitHub Actions, you may be interested in the <a href="https://github.com/marketplace/actions/setup-zig-compiler" target="_blank">mlugg/setup-zig</a> Action (note that this is not an official ZSF project). Not only does it install a Zig version of your choice from a community mirror, but it also saves your Zig cache directory between workflow runs, allowing for faster rebuilds.</p><h2>Using Mirrors</h2><p>The list of community mirrors is available in a newline-separated ASCII text file at <a href="https://ziglang.org/download/community-mirrors.txt" target="_blank">https://ziglang.org/download/community-mirrors.txt</a>. Tooling is recommended to fetch this list and try mirrors in a randomized order (to avoid putting excessive load on any one mirror, as this slows it down for everyone).</p><p>Every Zig tarball is associated with a <a href="https://jedisct1.github.io/minisign/" target="_blank">minisign</a> signature file, which can also be downloaded from mirrors. <strong>When you download a tarball from a mirror, you must also download its associated signature and verify the tarball against it.</strong> Failing to check the signature could theoretically leave you vulnerable to malicious mirrors hosting modified tarballs.</p><p>Put simply, the recommended strategy is approximately this pseudocode:</p><pre><code class="python"><span class="constructor constant variable">pubkey</span> <span class="operator">=</span> <span class="string">&quot;(copy this from https://ziglang.org/download)&quot;</span>
+<span class="constructor constant variable">tarball_name</span> <span class="operator">=</span> <span class="string">&quot;zig-x86_64-linux-0.14.1.tar.xz&quot;</span>
+<span class="comment"># To improve uptime, optionally cache this GET:</span>
+<span class="constructor constant variable">mirrors</span> <span class="operator">=</span> <span class="constructor function_builtin constant variable function">http_get</span>(<span class="string">&quot;https://ziglang.org/download/community-mirrors.txt&quot;</span>)
+<span class="comment"># ASCII-encoded, one mirror per line, newlines are LF, there is a trailing newline.</span>
+<span class="constructor constant variable">shuffled</span> <span class="operator">=</span> <span class="constructor function_builtin constant variable function">shuffle_lines</span>(<span class="constructor constant variable">mirrors</span>)
+<span class="keyword">for</span> <span class="constructor constant variable">mirror_url</span> <span class="operator">in</span> <span class="constructor constant variable">shuffled</span>:
+    <span class="constructor constant variable">tarball</span> <span class="operator">=</span> <span class="constructor function_builtin constant variable function">http_get</span>(<span class="string">f&quot;</span><span class="string embedded punctuation_special">{</span><span class="string embedded constructor constant variable">mirror_url</span><span class="string embedded punctuation_special">}</span><span class="string">/</span><span class="string embedded punctuation_special">{</span><span class="string embedded constructor constant variable">tarball_name</span><span class="string embedded punctuation_special">}</span><span class="string">?source=my_automation_name&quot;</span>)
+    <span class="keyword">if</span> <span class="constructor constant variable">success</span>:
+        <span class="comment"># NEVER SKIP THIS STEP. The signature must be verified before the tarball is deemed safe.</span>
+        <span class="constructor constant variable">signature</span> <span class="operator">=</span> <span class="constructor function_builtin constant variable function">http_get</span>(<span class="string">f&quot;</span><span class="string embedded punctuation_special">{</span><span class="string embedded constructor constant variable">mirror_url</span><span class="string embedded punctuation_special">}</span><span class="string">/</span><span class="string embedded punctuation_special">{</span><span class="string embedded constructor constant variable">tarball_name</span><span class="string embedded punctuation_special">}</span><span class="string">.minisig?source=my_automation_name&quot;</span>)
+        <span class="keyword">if</span> <span class="constructor constant variable">success</span> <span class="operator">and</span> <span class="constructor function_builtin constant variable function">minisign_verify</span>(<span class="constructor constant variable">tarball</span>, <span class="constructor constant variable">signature</span>, <span class="constructor constant variable">pubkey</span>):
+            <span class="constructor function_builtin constant variable function">print</span>(<span class="string">&quot;Successfully fetched Zig 0.14.1!&quot;</span>)
+</code></pre>
+<p>Because ziglang.org does not have guaranteed uptime, the <code>community-mirrors.txt</code> file may at times become inaccessible. For this reason, you may wish to consider caching its contents to prevent disruption in the event that ziglang.org encounters downtime. The recommended refetch interval is approximately once per day. At this point in time, mirrors may be added or removed on a monthly basis as the ecosystem evolves, so periodic re-fetching is essential.</p><p>Written more precisely, here is the key information and recommend workflow for downloading Zig tarballs:</p><ul><li>The mirror list file is available at <a href="https://ziglang.org/download/community-mirrors.txt" target="_blank">https://ziglang.org/download/community-mirrors.txt</a>.<ul><li>Because ziglang.org does not guarantee uptime, it may be desirable to cache this file.</li></ul></li><li>The mirror list file contains ASCII-encoded mirror URLs, separated with newline characters (ASCII LF 0x20). There is a trailing newline. There is no other whitespace. There are no blank lines.</li><li>Mirrors are required to support HTTPS. Every line in the mirror list file begins with “https://”.</li><li>Mirrors cannot guarantee uptime, so if one fails to serve you a tarball, you should try another. Ideally, shuffle the list, and try each mirror in turn.<ul><li>Usually, the first one will work. If no mirror works, you may choose to try <code>ziglang.org</code> as a final fallback.</li></ul></li><li>To download a tarball from a mirror, perform a GET request to “mirror/filename”, where “mirror” is the mirror URL, and “filename” is the basename of the corresponding tarball on ziglang.org (e.g. <code>zig-x86_64-linux-0.14.1.tar.xz</code>).<ul><li>You are highly encouraged to include in your request a query parameter named <code>source</code> containing a string indicating what is making this request. For instance, the <code>mlugg/setup-zig</code> GitHub Action passes it as <code>?source=github-mlugg-setup-zig</code>.</li><li>Source tarballs, bootstrap tarballs, and binary tarballs are available from all listed mirrors, as well as minisign signatures for all such files.</li><li>Binary tarballs for recent Zig versions are of the form <code>zig-x86_64-linux-0.14.1.tar.xz</code>.</li><li>If a mirror responds with a HTTP status code other than 200 OK:<ul><li><code>503 Unavailable</code> may indicate scheduled downtime.</li><li><code>429 Too Many Requests</code> may indicate intentional rate-limiting.</li><li><code>404 Not Found</code> is a permitted response when requesting Zig releases 0.5.0 or earlier, or Zig development builds earlier than the current latest release.</li><li><code>504 Gateway Timeout</code> indicates that the tarball is unavailable because <code>https://ziglang.org/</code> is currently inaccessible (and the tarball is not in the mirror’s cache).</li><li>Otherwise, feel free to <a href="https://github.com/ziglang/www.ziglang.org/issues/new" target="_blank">open an issue</a> to inform us of the problem.</li></ul></li></ul></li><li>The Zig Software Foundation can never guarantee the security of any mirror, so every time a tarball is downloaded, it is <strong>essential</strong> to also download the minisign signature (suffix the filename with “.minisig”) and verify it against the ZSF’s public key (which you should copy from the ziglang.org/download page). <strong>Never skip this step.</strong><ul><li>If a mirror responds with <code>200 OK</code> but signature validation fails on the returned tarball, feel free to <a href="https://github.com/ziglang/www.ziglang.org/issues/new" target="_blank">open an issue</a> to inform us of the problem.</li></ul></li><li>When the minisig signature is verified, it is also necessary to validate its <strong>trusted comment</strong> (which the reference implementation <code>minisign</code> always does), and ensure that its “file” field matches the name of the requested tarball, to prevent downgrade attacks.</li></ul><h2>Hosting a Mirror</h2><p>If you are interested in hosting a mirror, please consult the <a href="https://github.com/ziglang/www.ziglang.org/blob/main/MIRRORS.md" target="_blank">documentation in the www.ziglang.org repository</a>. Thank you for helping to improve and decentralize the Zig ecosystem!</p>
+  </div>
+
+    </div>
+    <div class="container" style="text-align: center; padding: 2em 0;">
+      <div id="languages-menu">
+  
+  <span>This page is also available in the following languages:</span>
+  <br>
+  <div>
+    <a href="/download/community-mirrors/" style="white-space: nowrap;">English (original)</a>
+  </div>
+</div>
+    </div>
+  </body>
+</html>

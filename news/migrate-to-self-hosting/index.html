@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head id="head">
+    <meta charset="utf-8">
+    <title id="title">
+      Migrating from AWS to Self-Hosting
+      ⚡
+      Zig Programming Language
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.svg">
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <link type="text/css" rel="stylesheet" href="/css/navigation.css">
+    
+  <link type="text/css" rel="stylesheet" href="/css/home.css">
+  <style>
+    #footer p {
+      display: inline;
+    }
+  </style>
+
+  </head>
+  <body>
+    <div class="container">
+      <a href="/"><span id="header-image"></span></a>
+    </div>
+    <nav id="mobile-navbar" class="nav container">
+      <span style="overflow:hidden; max-width: 80%; display: inline-block; vertical-align:bottom;">Website Migration
+      </span>
+      <label for="mobile-toggle" id="hamburger">
+        <svg style="width:2em;height:2em;" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"/>
+        </svg>
+      </label>
+    </nav>
+    <div id="mobile-subnav">
+      <input type="checkbox" name="mobile-toggle" id="mobile-toggle">
+      <div class="" id="menu">
+        
+          <a class="navbar-item" href="/download/">Download</a>
+        
+        
+          <a class="navbar-item" href="/learn/">Learn</a>
+        
+        
+          <a class="navbar-item" href="/news/">News</a>
+        
+        <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">Source</a>
+        <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">Join a Community</a>
+        
+          <a class="navbar-item" href="/zsf/">ZSF</a>
+        
+        
+          <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+        
+      </div>
+    </div>
+    <nav id="navbar" class="nav">
+      <div class="container" style="display:flex; justify-content: space-between;">
+        <div>
+          
+            <a class="navbar-item" href="/download/">Download</a>
+          
+          
+            <a class="navbar-item" href="/learn/">Learn</a>
+          
+          
+            <a class="navbar-item" href="/news/">News</a>
+          
+          
+            <a class="navbar-item" href="/zsf/">Zig Software Foundation</a>
+          
+          
+            <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+          
+          <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">Source</a>
+          <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">Join a Community</a>
+        </div>
+      </div>
+    </nav>
+    <div id="content" role="main">
+      
+  <div class="container">
+    
+      <a id="back" href="/news/">
+        ← Back to
+        <b>News</b>
+        page
+      </a>
+    
+    <h1 class="title">Migrating from AWS to Self-Hosting</h1>
+    <h3>September 12, 2024</h3>
+    
+    <p>You often hear this story in tech news: some project got increasingly popular, so they had to migrate from their simple, one-computer setup to some kind of autoscaling cloud hosting solution to meet demands.</p><p>The Rust Foundation for example, reports that they spent <a href="https://foundation.rust-lang.org/static/publications/annual-reports/annual-report-2023.pdf" target="_blank">$404,400 on infrastructure costs in 2023</a>. That’s 88% of ZSF’s <a href="https://ziglang.org/news/2024-financials/" target="_blank">entire operating costs in 2024</a>. It’s hard to find the exact number from Python Software Foundation’s financials because their infrastructure costs are sponsored, but suffice to say <a href="https://www.youtube.com/watch?v=HPmefnqirHk" target="_blank">PyPI wheel storage is huge and exponentially growing</a>:</p><p><figure><img src="/news/migrate-to-self-hosting/pypi.png">
+<figcaption>PyPI data storage over time</figcaption></figure></p><p><a href="https://py-code.org/stats" target="_blank">source</a></p><p>In this story, however, we take the opposite approach.</p><p>ziglang.org used to be hosted on Amazon S3 + CloudFront, but as it became more expensive to run due to increased traffic, we have migrated to a one-computer solution for the website and tarball hosting.</p><p>Our AWS costs over the last 6 years looks like this:</p><p><img src="/news/migrate-to-self-hosting/aws-expenses.png" alt="graph of ZSF AWS monthly costs going up"></p><p>Amazon sometimes offers free credits to organizations like ours, but despite being a non-profit with our primary source of income being unrestricted donations, we don’t like begging for money, especially from Jeff Bezos and his ilk. We like the idea of increasing overall computing efficiency rather than externalizing costs onto someone with deep pockets.</p><p>The thing is, ziglang.org is not an essential service. It’s not really an emergency if it goes down, and 99% uptime is perfectly fine for this use case. The funny thing about that <a href="https://en.wikipedia.org/wiki/Pareto_principle" target="_blank">last 1% of uptime is that it represents 99% of the costs</a>.</p><p>With that in mind, here is the plan. As traffic to ziglang.org continues to increase, we will continue to host the website and tarballs on the same €36 Hetzner instance, perhaps someday upgrading it to a €100-200 beefier machine, but not more than that.</p><p>If the website is temporarily unavailable because of too much traffic, so be it. If it gets accidentally DDoS’d by too many people not <a href="https://ziggit.dev/t/github-actions-mlugg-setup-zig/4659" target="_blank">properly caching their CI runs</a>, so be it. That’s why we sign artifacts with a static public key, so that you can use mirrors.</p><p>Instead of spending donation money eating these costs which are ultimately due to inefficient use of computing resources, we push those otherwise hidden costs onto users of Zig, causing Zig users in general to avoid waste, and then we have more money to spend on paying contributors for their time.</p><p>So far, so good. We’re enjoying instant website deploys rather than waiting 5 minutes after pushing.</p><p><figure><img src="/news/migrate-to-self-hosting/deploy-before.png">
+<figcaption>Before: 5 minutes</figcaption></figure></p><p><figure><img src="/news/migrate-to-self-hosting/deploy-after.png">
+<figcaption>After: instant</figcaption></figure></p><p>Moving forward, we’ll look into providing torrent files for releases. In the meantime, big thanks to <a href="https://slimsag.com/" target="_blank">slimsag</a> and <a href="https://hryx.net/" target="_blank">hryx</a> for <a href="https://github.com/mlugg/setup-zig/blob/45d39f8bb4d61ccfb37ea3bd0ad319a5f20e4e77/main.js#L18-L21" target="_blank">providing mirrors of Zig releases</a>. If you want to join them, please submit a pull request to <a href="https://github.com/marketplace/actions/setup-zig-compiler" target="_blank">Setup Zig Compiler</a>. In any case, by using this particular GitHub Action that integrates with mirrors, you’ll not only be doing us a favor, but you’ll make your own CI more resilient.</p><p>Happy hacking,</p><p>Andrew</p>
+    <div style="margin-top:25px;">
+      
+    </div>
+  </div>
+
+    </div>
+    <div class="container" style="text-align: center; padding: 2em 0;">
+      <div id="languages-menu"></div>
+    </div>
+  </body>
+</html>

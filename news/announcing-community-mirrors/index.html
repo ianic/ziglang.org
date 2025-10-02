@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head id="head">
+    <meta charset="utf-8">
+    <title id="title">
+      Community Mirrors: A Better Way To Download Zig
+      ⚡
+      Zig Programming Language
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.svg">
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <link type="text/css" rel="stylesheet" href="/css/navigation.css">
+    
+  <link type="text/css" rel="stylesheet" href="/css/home.css">
+  <style>
+    #footer p {
+      display: inline;
+    }
+  </style>
+
+  </head>
+  <body>
+    <div class="container">
+      <a href="/"><span id="header-image"></span></a>
+    </div>
+    <nav id="mobile-navbar" class="nav container">
+      <span style="overflow:hidden; max-width: 80%; display: inline-block; vertical-align:bottom;">Community Mirrors
+      </span>
+      <label for="mobile-toggle" id="hamburger">
+        <svg style="width:2em;height:2em;" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"/>
+        </svg>
+      </label>
+    </nav>
+    <div id="mobile-subnav">
+      <input type="checkbox" name="mobile-toggle" id="mobile-toggle">
+      <div class="" id="menu">
+        
+          <a class="navbar-item" href="/download/">Download</a>
+        
+        
+          <a class="navbar-item" href="/learn/">Learn</a>
+        
+        
+          <a class="navbar-item" href="/news/">News</a>
+        
+        <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">Source</a>
+        <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">Join a Community</a>
+        
+          <a class="navbar-item" href="/zsf/">ZSF</a>
+        
+        
+          <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+        
+      </div>
+    </div>
+    <nav id="navbar" class="nav">
+      <div class="container" style="display:flex; justify-content: space-between;">
+        <div>
+          
+            <a class="navbar-item" href="/download/">Download</a>
+          
+          
+            <a class="navbar-item" href="/learn/">Learn</a>
+          
+          
+            <a class="navbar-item" href="/news/">News</a>
+          
+          
+            <a class="navbar-item" href="/zsf/">Zig Software Foundation</a>
+          
+          
+            <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+          
+          <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">Source</a>
+          <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">Join a Community</a>
+        </div>
+      </div>
+    </nav>
+    <div id="content" role="main">
+      
+  <div class="container">
+    
+      <a id="back" href="/news/">
+        ← Back to
+        <b>News</b>
+        page
+      </a>
+    
+    <h1 class="title">Community Mirrors: A Better Way To Download Zig</h1>
+    <h3>June 30, 2025</h3>
+    
+    <p>With Zig being in active development, it’s pretty common to need to download new Zig compiler releases, particularly if you track the “master” pre-releases instead of tagged releases. There are also some situations where you might want to re-fetch the <em>same</em> Zig version, such as stateless CI runs. This brings us to what might seem like a trivial problem: <em>how do you actually download Zig</em>?</p><p>The obvious way to do this has always been to download the tarball from ziglang.org. However, this website is hosted on an <a href="/news/migrate-to-self-hosting/">intentionally simple configuration</a>, with the intention of optimizing overall efficiency rather than expending huge amounts of resources on web hosting. So, to avoid excessive load, we’ve previously publicly recommended that people use mirrors to download Zig where possible, and we <a href="https://jedisct1.github.io/minisign/" target="_blank">cryptographically sign our tarballs</a> to make this approach more viable. The official Zig website doesn’t provide any uptime or bandwidth guarantees, so download mirrors actually <em>directly benefit users</em> by potentially improving availability and speed.</p><p>There’s just one problem: so far, there haven’t really been any mirrors available to use. This began to change last year, when the <a href="https://github.com/marketplace/actions/setup-zig-compiler" target="_blank">setup-zig</a> project became the first widely-used project to actually utilize download mirrors for Zig tarballs. However, they weren’t easily accessible to other projects, who didn’t want to take on the burden of maintaining their own mirror lists.</p><p><strong>To solve this, we’re introducing Community Mirrors.</strong></p><p>The idea is simple. Instead of downloading tarballs from ziglang.org, automations should instead fetch from it a small text file, maintained by the Zig core team, which contains URLs of community-run mirrors. This takes the burden off of others to maintain their own lists of mirrors, so makes it simpler for tools to <em>efficiently</em> download Zig. We also have some <a href="https://github.com/ziglang/www.ziglang.org/actions/runs/15976134096#summary-45058979620" target="_blank">nifty automated testing</a> to make sure that all of the mirrors are behaving, so there’s no risk of problems with a mirror going unnoticed.</p><p>The Download page now contains a link to the new <a href="/download/community-mirrors/">Community Mirrors</a> page, which explains how to use the mirrors in your code – please check it out if you’ve written code which downloads Zig. The process boils down to fetching the mirror list (which is just plaintext ASCII with one URL per line), shuffling it, and attempting each mirror in turn before falling back to ziglang.org. <strong>You must verify the cryptographic signature of tarballs downloaded from mirrors</strong> – because they are hosted by third parties, a mirror could theoretically serve you malicious or corrupted files.</p><p>If you have the resources and time, a great way to contribute to the Zig ecosystem is now to <a href="https://github.com/ziglang/www.ziglang.org/blob/main/MIRRORS.md" target="_blank">host your own mirror</a>. You don’t need any specific experience or permission: just check out that link. Hosting a download mirror helps to keep Zig accessible as it grows in popularity, and shouldn’t need too much ongoing maintenance.</p><p>That’s all for today. Thanks folks!</p><p>Matthew</p>
+    <div style="margin-top:25px;">
+      
+    </div>
+  </div>
+
+    </div>
+    <div class="container" style="text-align: center; padding: 2em 0;">
+      <div id="languages-menu"></div>
+    </div>
+  </body>
+</html>

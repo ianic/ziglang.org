@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head id="head">
+    <meta charset="utf-8">
+    <title id="title">
+      Zig 软件基金会
+      ⚡
+      Zig 编程语言
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.svg">
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <link type="text/css" rel="stylesheet" href="/css/navigation.css">
+    
+  <link type="text/css" rel="stylesheet" href="/css/home.css">
+
+  </head>
+  <body>
+    <div class="container">
+      <a href="/zh-CN/"><span id="header-image"></span></a>
+    </div>
+    <nav id="mobile-navbar" class="nav container">
+      <span style="overflow:hidden; max-width: 80%; display: inline-block; vertical-align:bottom;">Zig 软件基金会
+      </span>
+      <label for="mobile-toggle" id="hamburger">
+        <svg style="width:2em;height:2em;" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"/>
+        </svg>
+      </label>
+    </nav>
+    <div id="mobile-subnav">
+      <input type="checkbox" name="mobile-toggle" id="mobile-toggle">
+      <div class="" id="menu">
+        
+          <a class="navbar-item" href="/zh-CN/download/">下载</a>
+        
+        
+          <a class="navbar-item" href="/zh-CN/learn/">学习</a>
+        
+        
+          <a class="navbar-item" href="/news/">News</a>
+        
+        <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">源代码</a>
+        <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">加入社区</a>
+        
+          <a class="navbar-item" href="/zh-CN/zsf/">Zig 软件基金会</a>
+        
+        
+          <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+        
+      </div>
+    </div>
+    <nav id="navbar" class="nav">
+      <div class="container" style="display:flex; justify-content: space-between;">
+        <div>
+          
+            <a class="navbar-item" href="/zh-CN/download/">下载</a>
+          
+          
+            <a class="navbar-item" href="/zh-CN/learn/">学习</a>
+          
+          
+            <a class="navbar-item" href="/news/">News</a>
+          
+          
+            <a class="navbar-item" href="/zh-CN/zsf/">Zig 软件基金会</a>
+          
+          
+            <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+          
+          <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">源代码</a>
+          <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">加入社区</a>
+        </div>
+      </div>
+    </nav>
+    <div id="content" role="main">
+      
+  <div class="container">
+    
+      <a id="back" href="/zh-CN/">
+        ← 返回
+        <b>主页</b>
+      </a>
+    
+    <h1 class="title">Zig 软件基金会</h1>
+    
+    <h1>赞助 Zig 软件基金会</h1><p>请考虑进行定期捐赠。维护和支持高质量软件需要持续的努力！</p><div id="zsf-every-donate-btn">
+  <a href="https://www.every.org/zig-software-foundation-inc?utm_campaign=zsf_homepage#/donate">捐赠</a>
+
+  <script async defer src="https://embeds.every.org/0.4/button.js?explicit=1" id="every-donate-btn-js"></script>
+  <script>
+    function zsfCreateWidget() {
+      everyDotOrgDonateButton.createButton({
+        selector: "#zsf-every-donate-btn",
+        nonprofitSlug: "zig-software-foundation-inc",
+        fontSize: "32px",
+        label: "Sponsor"
+      });
+      everyDotOrgDonateButton.createWidget({
+        selector: "#zsf-every-donate-btn",
+        nonprofitSlug: "zig-software-foundation-inc",
+        defaultDonationAmount: 10,
+        defaultFrequency: 'monthly'
+      });
+      // Workaround for https://github.com/everydotorg/donate-button/issues/384
+      let style = document.createElement('style');
+      style.innerHTML = '#donation-input { color: black; } #privateNote { color: black }';
+      document.getElementById("shadow-wrapper").shadowRoot.appendChild(style);
+    }
+    if (window.everyDotOrgDonateButton) {
+      zsfCreateWidget();
+    } else {
+      document.getElementById("every-donate-btn-js").addEventListener('load', zsfCreateWidget);
+    }
+  </script>
+</div>
+<h1>目标说明</h1><p>Zig 软件基金会的使命是促进、保护和发展 Zig 编程语言，支持和促进 Zig 程序员的多元化和国际化社区的发展，并为学生提供教育和指导，教育下一代程序员具备能力，有道德，并相互保持高标准。</p><p><strong>ZSF 是一家 501(c)(3) 非营利公司。</strong> 财务、会议记录和其他细节都是<a href="https://drive.google.com/drive/folders/1ucHARxVbhrBbuZDbhrGHYDTsYAs8_bMH?usp=sharing" target="_blank">公开的</a>.</p><h1>董事会成员</h1><ul><li><a href="https://andrewkelley.me/" target="_blank">Andrew Kelley</a> (主席)</li><li><a href="https://github.com/thejoshwolfe/" target="_blank">Josh Wolfe</a> (秘书)</li><li><a href="https://www.masonremaley.com/" target="_blank">Mason Remaley</a> (财务主管)</li></ul><h1>赞助活动</h1><p>通过向 ZSF 捐款，你是在资助 Zig 编程语言及其生态系统的开发，从而使广大开源社区受益。Zig 社区成员已经在 <a href="https://llvm.org/" target="_blank">LLVM</a>, <a href="https://winehq.org/" target="_blank">Wine</a>, <a href="https://qemu.org/" target="_blank">QEMU</a>, <a href="https://musl.libc.org/" target="_blank">musl libc</a>, <a href="https://www.gnu.org/software/gdb/" target="_blank">GDB</a> 等项目中提交了大量 bug 的修复。</p><p>ZSF 是一个小组织，并且有效地利用了货币资源。我们的计划是保持这种方式，但我们确实想把我们的无偿志愿者变成有偿的维护者，以帮助合并拉取请求，使 1.0 的进展更加迅速。ZSF 作为一个非营利性的组织，其目的就是为了造福于人们。我们正在尝试让开源维护者为他们的时间获得报酬。</p><h1>捐赠信息</h1><p>这里有一些有用的信息，可以通过 GitHub 赞助商以外的方式进行捐赠。请确认你所在地的法律，以确定你是否可以从你的税收中扣除捐款。</p><h2>EIN</h2><p>84-5105214</p><h2>地址</h2><p>Zig Software Foundation 1632 1st Ave #21385 New York, NY 10028</p><h2>其他支持的捐赠方式</h2><ul><li><a href="https://www.every.org/zig-software-foundation-inc/" target="_blank">Every</a></li><li><a href="https://github.com/sponsors/ziglang" target="_blank">GitHub Sponsors</a></li><li><a href="https://benevity.com" target="_blank">Benevity</a> (如果你的雇主想要捐款，建议使用这个方法！)</li><li>Bank transfers (包括美国以外的银行，请联系我们了解更多信息)</li><li>Physical checks (见上述传统邮件地址)</li><li><a href="https://wise.com" target="_blank">Wise</a></li></ul><p><strong>如果您有任何问题或特殊需求，请毫不犹豫地与我们联系：<a href="mailto:donations@ziglang.org" target="_blank">donations@ziglang.org</a>。</strong></p><h1>企业赞助商</h1><h2>货币捐款</h2><p>以下公司通过捐赠 1000 美元/月以上的方式，为 Zig 软件基金会提供直接的资金支持。 <div class="monetary-logos">
+  <a href="https://tigerbeetle.com" rel="noopener nofollow" target="_blank" class="span2">
+    <picture>
+      <source
+      srcset="/sponsors/tb-logo-white.png"
+      media="(prefers-color-scheme: dark)"
+    ><img src="/sponsors/tb-logo-black.png">
+    </picture>
+  </a>
+  <a href="https://blacksmith.sh/" rel="noopener nofollow" target="_blank" class="span2">
+    <picture>
+      <source
+      srcset="/sponsors/Blacksmith_Logo-White.svg"
+      media="(prefers-color-scheme: dark)"
+    ><img src="/sponsors/Blacksmith_Logo-Black.svg">
+    </picture>
+  </a>
+  <a href="https://zml.ai" rel="noopener nofollow" target="_blank" class="span2">
+    <style>
+      @media (prefers-color-scheme:light) {
+        #zml {
+          filter: invert();
+        }
+      }
+    </style>
+    <picture id="zml">
+      <source srcset="/sponsors/zml.svg" media="(prefers-color-scheme: dark)">
+      <img src="/sponsors/zml.svg">
+    </picture>
+  </a>
+</div></p>
+  </div>
+
+    </div>
+    <div class="container" style="text-align: center; padding: 2em 0;">
+      <div id="languages-menu">
+  
+    <div class="container">
+      <span>This page was translated by the Zig community,
+        <a href="/zsf/">see the original version</a>
+        or
+        <a href="https://github.com/ziglang/www.ziglang.org/" class="external-link" target="_blank" rel="noopener">report errors</a>.</span>
+    </div>
+    <br>
+  
+  <span>此页面还提供以下语言的版本：</span>
+  <br>
+  <div>
+    <a href="/zsf/" style="white-space: nowrap;">English (original)</a>
+  
+    <a href="/es-AR/zsf/" style="white-space: nowrap;">Español</a>
+  
+    <a href="/ru-RU/zsf/" style="white-space: nowrap;">Русский</a>
+  
+    <a href="/it-IT/zsf/" style="white-space: nowrap;">Italiano</a>
+  
+    <a href="/de-DE/zsf/" style="white-space: nowrap;">Deutsch</a>
+  
+    <a href="/uk-UA/zsf/" style="white-space: nowrap;">Українська</a>
+  
+    <a href="/ja-JP/zsf/" style="white-space: nowrap;">日本語</a>
+  
+    <a href="/zh-CN/zsf/" style="white-space: nowrap;">中文</a>
+  
+    <a href="/ko-KR/zsf/" style="white-space: nowrap;">한국어</a>
+  </div>
+</div>
+    </div>
+  </body>
+</html>

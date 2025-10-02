@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head id="head">
+    <meta charset="utf-8">
+    <title id="title">
+      The Upcoming Release Postponed Two More Weeks and Lacks Async Functions
+      ⚡
+      Zig Programming Language
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.svg">
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <link type="text/css" rel="stylesheet" href="/css/navigation.css">
+    
+  <link type="text/css" rel="stylesheet" href="/css/home.css">
+  <style>
+    #footer p {
+      display: inline;
+    }
+  </style>
+
+  </head>
+  <body>
+    <div class="container">
+      <a href="/"><span id="header-image"></span></a>
+    </div>
+    <nav id="mobile-navbar" class="nav container">
+      <span style="overflow:hidden; max-width: 80%; display: inline-block; vertical-align:bottom;">2023-07-19
+      </span>
+      <label for="mobile-toggle" id="hamburger">
+        <svg style="width:2em;height:2em;" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"/>
+        </svg>
+      </label>
+    </nav>
+    <div id="mobile-subnav">
+      <input type="checkbox" name="mobile-toggle" id="mobile-toggle">
+      <div class="" id="menu">
+        
+          <a class="navbar-item" href="/download/">Download</a>
+        
+        
+          <a class="navbar-item" href="/learn/">Learn</a>
+        
+        
+          <a class="navbar-item" href="/news/">News</a>
+        
+        <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">Source</a>
+        <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">Join a Community</a>
+        
+          <a class="navbar-item" href="/zsf/">ZSF</a>
+        
+        
+          <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+        
+      </div>
+    </div>
+    <nav id="navbar" class="nav">
+      <div class="container" style="display:flex; justify-content: space-between;">
+        <div>
+          
+            <a class="navbar-item" href="/download/">Download</a>
+          
+          
+            <a class="navbar-item" href="/learn/">Learn</a>
+          
+          
+            <a class="navbar-item" href="/news/">News</a>
+          
+          
+            <a class="navbar-item" href="/zsf/">Zig Software Foundation</a>
+          
+          
+            <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+          
+          <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">Source</a>
+          <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">Join a Community</a>
+        </div>
+      </div>
+    </nav>
+    <div id="content" role="main">
+      
+  <div class="container">
+    
+      <a id="back" href="/news/">
+        ← Back to
+        <b>News</b>
+        page
+      </a>
+    
+    <h1 class="title">The Upcoming Release Postponed Two More Weeks and Lacks Async Functions</h1>
+    <h3>July 19, 2023</h3>
+    
+    <p>Hello everyone,</p><p>I’ve been saying the upcoming 0.11.0 release of Zig would have <a href="https://github.com/ziglang/zig/issues/6025" target="_blank">async/await/suspend/resume</a> for 9 months now. You can probably find 10 different places where I promised in writing or in front of a camera that this next release would have this feature.</p><p>Well, today I am reneging. Sorry about that. Feel free to be annoyed at me, that’s totally fair given the situation.</p><p>I do have a big chunk of the work implemented in <a href="https://github.com/ziglang/zig/tree/stage2-async" target="_blank">a branch</a>, however, each time I pressed forward there, I realized that, to do things properly, I would need to first switch tasks and improve the codebase. This resulted in, for example, <a href="https://github.com/ziglang/zig/pull/15569" target="_blank">the massive InternPool changeset</a> which is mostly invisible to Zig users but accomplishes all of these things:</p><ul><li>makes async functions easier to implement</li><li>makes semantic analysis more contributor-friendly and less bug-prone</li><li>takes a big step towards incremental compilation</li><li>further reduces memory requirements of the compiler</li></ul><p>Even after those changes landed, when I cracked open the async functions branch again, I was compelled to <a href="https://github.com/ziglang/zig/pull/16318" target="_blank">rework generic function calls</a>. This accomplished more of those same four bullet points, but, it used up the time that I had allocated to work on async functions, and now the release is upon us.</p><p>I could delay the release yet again, however, it is a reality that most real-world Zig projects today do not depend on these experimental features, and the bottom line is that the project will benefit more from releasing now than from waiting until async function support is restored.</p><p>So! The only things left to do for the release are as follows:</p><ol><li>Type up the release notes. Soooo many release notes… dear lord have mercy on my soul</li><li>Triage the remaining issues in the <a href="https://github.com/ziglang/zig/milestone/17" target="_blank">0.11.0 milestone</a>. Most issues will be punted to 0.12.0 or 0.11.1.</li><li>Solve the remaining critical issues.</li><li>Merge some PRs that have been patiently waiting for attention. I’m looking at you, <a href="https://github.com/ziglang/zig/pull/15382" target="_blank">#15382</a>.</li></ol><p>With that in mind, I’ve pegged <strong>Thursday, August 3rd, 2023</strong> as the 0.11.0 release date. There should be no further delays after this point, because all four of those items above can be squished to fit the timeline to the extent necessary. Remember that there will be a bugfix release, so if your project has trouble with 0.11.0, work with us on the issue tracker and we’ll get your bugs solved for the 0.11.1 release that will follow in 1-2 months.</p><p>I appreciate your grace in this matter. I don’t love failing to deliver a feature that I definitely promised, but I insist that the Zig compiler codebase is better off with the changes that we worked on instead. It will be worth it in the end.</p><p>Sincerely,<br> Andrew</p><p>P.S. I’m not on Twitter anymore - my goal is to instead channel that micro-blogging energy into regular blogging energy on <a href="https://andrewkelley.me/" target="_blank">my personal website</a> as well as posting Zig project news here on ziglang.org. I believe the RSS feed here works in case that’s something you want to subscribe to.</p>
+    <div style="margin-top:25px;">
+      
+    </div>
+  </div>
+
+    </div>
+    <div class="container" style="text-align: center; padding: 2em 0;">
+      <div id="languages-menu"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head id="head">
+    <meta charset="utf-8">
+    <title id="title">
+      The Zig Website Has Been Re-engineered
+      ⚡
+      Zig Programming Language
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.svg">
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <link type="text/css" rel="stylesheet" href="/css/navigation.css">
+    
+  <link type="text/css" rel="stylesheet" href="/css/home.css">
+  <style>
+    #footer p {
+      display: inline;
+    }
+  </style>
+
+  </head>
+  <body>
+    <div class="container">
+      <a href="/"><span id="header-image"></span></a>
+    </div>
+    <nav id="mobile-navbar" class="nav container">
+      <span style="overflow:hidden; max-width: 80%; display: inline-block; vertical-align:bottom;">ziglang.org reengineered
+      </span>
+      <label for="mobile-toggle" id="hamburger">
+        <svg style="width:2em;height:2em;" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"/>
+        </svg>
+      </label>
+    </nav>
+    <div id="mobile-subnav">
+      <input type="checkbox" name="mobile-toggle" id="mobile-toggle">
+      <div class="" id="menu">
+        
+          <a class="navbar-item" href="/download/">Download</a>
+        
+        
+          <a class="navbar-item" href="/learn/">Learn</a>
+        
+        
+          <a class="navbar-item" href="/news/">News</a>
+        
+        <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">Source</a>
+        <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">Join a Community</a>
+        
+          <a class="navbar-item" href="/zsf/">ZSF</a>
+        
+        
+          <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+        
+      </div>
+    </div>
+    <nav id="navbar" class="nav">
+      <div class="container" style="display:flex; justify-content: space-between;">
+        <div>
+          
+            <a class="navbar-item" href="/download/">Download</a>
+          
+          
+            <a class="navbar-item" href="/learn/">Learn</a>
+          
+          
+            <a class="navbar-item" href="/news/">News</a>
+          
+          
+            <a class="navbar-item" href="/zsf/">Zig Software Foundation</a>
+          
+          
+            <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+          
+          <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">Source</a>
+          <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">Join a Community</a>
+        </div>
+      </div>
+    </nav>
+    <div id="content" role="main">
+      
+  <div class="container">
+    
+      <a id="back" href="/news/">
+        ← Back to
+        <b>News</b>
+        page
+      </a>
+    
+    <h1 class="title">The Zig Website Has Been Re-engineered</h1>
+    <h3>September 30, 2024</h3>
+    
+    <p>Author: Loris Cro</p><p>As <a href="https://hachyderm.io/@Markus@social.linux.pizza/113132336874320907" target="_blank">some have already noticed</a>, when we announced in the last post that we moved ziglang.org off the cloud, we also moved the website from <a href="https://gohugo.io" target="_blank">Hugo</a> to <a href="https://zine-ssg.io" target="_blank">Zine</a>, a static site generator written in Zig by yours truly (with the help of a few very kind contributors).</p><p>While most of the speed improvement comes from having an overall saner deployment architecture, Zine does play a role simply by properly leveraging the Zig cache system to avoid re-generating pages that have not changed.</p><p>That said, this is not the main benefit of switching to Zine. As somebody who has spent a bunch of time working on this website, my favorite change is how content that has complex layouting needs has turned out. You can read more on this general topic <a href="https://zine-ssg.io/docs/supermd/" target="_blank">here</a> (see the ‘two columns’ example).</p><p>That, and the fact that <a href="https://kristoff.it/blog/first-html-lsp/" target="_blank">now I can get build errors when I write wrong HTML</a>.</p><h2>Introducing the Zig Devlog</h2><p>Over time many have asked where to go to get updates about the Zig project between releases. While the best answer to that question was, and still is, to look at the git commit log :^), we now have a “devlog”, a curated list of updates from the core team about recent changes to Zig.</p><p><a href="https://ziglang.org/devlog/" target="_blank">https://ziglang.org/devlog/</a></p><p>I’ve also written a blog post to encourage Zig community members to create similar setups their Zig projects, in order to start creating resilient communication channels between communities scattered across different social platforms.</p><p>You can read more in <a href="https://kristoff.it/blog/critical-social-infrastructure/" target="_blank">Critical Social Infrastructure for Zig Communities</a>.</p><p>Kind regards,<br>Loris</p>
+    <div style="margin-top:25px;">
+      
+    </div>
+  </div>
+
+    </div>
+    <div class="container" style="text-align: center; padding: 2em 0;">
+      <div id="languages-menu"></div>
+    </div>
+  </body>
+</html>

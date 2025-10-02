@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head id="head">
+    <meta charset="utf-8">
+    <title id="title">
+      Devlog
+      ⚡
+      Zig Programming Language
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.svg">
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <link type="text/css" rel="stylesheet" href="/css/navigation.css">
+    
+  <link type="text/css" rel="stylesheet" href="/css/home.css">
+  <style>
+    .changelist {
+    margin-top: 2em;
+  }
+  .changelist > div {
+    /* Right-left padding and right-left margin must be opposite to keep text aligned */
+    margin: 0 -20px;
+    padding: 5px 20px;
+    margin-bottom: 1em;
+  }
+  .changelist > div > h1 {
+    margin-top: 0;
+  }
+
+  .change {
+    margin-top: 2em;
+  }
+
+  div[id]:target {
+    animation: pulse-div 2s ease-in-out 1 forwards;
+  }
+
+  @keyframes pulse-div {
+    0%,
+    100% {
+      background-color: #eee;
+    }
+
+    50% {
+      background-color: #fff;
+    }
+  }
+
+  @media (prefers-color-scheme:dark) {
+    div[id]:target {
+      animation: pulse-div 2s ease-in-out 1 forwards;
+    }
+
+    @keyframes pulse-div {
+      0%,
+      100% {
+        background-color: #222;
+      }
+
+      50% {
+        background-color: #111;
+      }
+    }
+  }
+  </style>
+
+  </head>
+  <body>
+    <div class="container">
+      <a href="/"><span id="header-image"></span></a>
+    </div>
+    <nav id="mobile-navbar" class="nav container">
+      <span style="overflow:hidden; max-width: 80%; display: inline-block; vertical-align:bottom;">Devlog
+      </span>
+      <label for="mobile-toggle" id="hamburger">
+        <svg style="width:2em;height:2em;" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"/>
+        </svg>
+      </label>
+    </nav>
+    <div id="mobile-subnav">
+      <input type="checkbox" name="mobile-toggle" id="mobile-toggle">
+      <div class="" id="menu">
+        
+          <a class="navbar-item" href="/download/">Download</a>
+        
+        
+          <a class="navbar-item" href="/learn/">Learn</a>
+        
+        
+          <a class="navbar-item" href="/news/">News</a>
+        
+        <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">Source</a>
+        <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">Join a Community</a>
+        
+          <a class="navbar-item" href="/zsf/">ZSF</a>
+        
+        
+          <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+        
+      </div>
+    </div>
+    <nav id="navbar" class="nav">
+      <div class="container" style="display:flex; justify-content: space-between;">
+        <div>
+          
+            <a class="navbar-item" href="/download/">Download</a>
+          
+          
+            <a class="navbar-item" href="/learn/">Learn</a>
+          
+          
+            <a class="navbar-item" href="/news/">News</a>
+          
+          
+            <a class="navbar-item" href="/zsf/">Zig Software Foundation</a>
+          
+          
+            <a class="navbar-item" href="/devlog/2025/">Devlog</a>
+          
+          <a href="https://github.com/ziglang/zig" class="navbar-item external-link external-link-light">Source</a>
+          <a href="https://github.com/ziglang/zig/wiki/Community" class="navbar-item external-link external-link-light">Join a Community</a>
+        </div>
+      </div>
+    </nav>
+    <div id="content" role="main">
+      
+  <div class="container">
+    <h1 class="title">Devlog</h1>
+    <p>This page contains a curated list of recent changes to main branch Zig.</p>
+    <p>
+      Also available as an
+      <a href="/devlog/index.xml">RSS feed</a>.
+    </p>
+    <p>
+      This page contains entries for the year <span>2024</span>. Other years are available in
+      <a href="/devlog/">the Devlog archive page</a>.
+    </p>
+    <div class="changelist">
+      <div id="2024-12-25">
+        <span>December 25, 2024</span>
+        <h1><a href="#2024-12-25">For Christmas: Self-Referential Global Values
+</a></h1>
+        <p>Author: Matthew Lugg</p><p>I recently took it upon myself to tackle <a href="https://github.com/ziglang/zig/issues/131" target="_blank">issue #131</a>. This has been a long-standing bug in the compiler, dating way back to the earliest days of the C++ bootstrap compiler: it was the 9th oldest open issue in the Zig repository! Essentially, fixing it allows you to write code like this:</p><pre><code class="zig"><span class="keyword">const</span> <span class="constant variable_builtin type variable">S</span> <span class="operator">=</span> <span class="keyword_type">struct</span> <span class="punctuation_bracket">{</span> <span class="constant variable_builtin type variable_member variable">ptr</span><span class="punctuation_delimiter">:</span> <span class="operator">*</span><span class="keyword">const</span> <span class="constant variable_builtin type variable">S</span><span class="punctuation_delimiter">,</span> <span class="constant variable_builtin type variable_member variable">x</span><span class="punctuation_delimiter">:</span> <span class="type_builtin">u32</span> <span class="punctuation_bracket">}</span><span class="punctuation_delimiter">;</span>
+
+<span class="comment_documentation comment spell">// `foo` contains a pointer to itself</span>
+<span class="keyword">const</span> <span class="constant variable_builtin type variable">foo</span><span class="punctuation_delimiter">:</span> <span class="constant variable_builtin type variable">S</span> <span class="operator">=</span> <span class="punctuation_delimiter">.</span><span class="punctuation_bracket">{</span> <span class="punctuation_delimiter">.</span><span class="constant variable_builtin type variable_member variable">ptr</span> <span class="operator">=</span> <span class="operator">&amp;</span><span class="constant variable_builtin type variable">foo</span><span class="punctuation_delimiter">,</span> <span class="punctuation_delimiter">.</span><span class="constant variable_builtin type variable_member variable">x</span> <span class="operator">=</span> <span class="number">123</span> <span class="punctuation_bracket">}</span><span class="punctuation_delimiter">;</span>
+
+<span class="comment_documentation comment spell">// Or:</span>
+
+<span class="comment_documentation comment spell">// `a` contains a pointer to `b`, and...</span>
+<span class="comment_documentation comment spell">// `b` contains a pointer to `a`</span>
+<span class="keyword">const</span> <span class="constant variable_builtin type variable">a</span><span class="punctuation_delimiter">:</span> <span class="constant variable_builtin type variable">S</span> <span class="operator">=</span> <span class="punctuation_delimiter">.</span><span class="punctuation_bracket">{</span> <span class="punctuation_delimiter">.</span><span class="constant variable_builtin type variable_member variable">ptr</span> <span class="operator">=</span> <span class="operator">&amp;</span><span class="constant variable_builtin type variable">b</span><span class="punctuation_delimiter">,</span> <span class="punctuation_delimiter">.</span><span class="constant variable_builtin type variable_member variable">x</span> <span class="operator">=</span> <span class="number">123</span> <span class="punctuation_bracket">}</span><span class="punctuation_delimiter">;</span>
+<span class="keyword">const</span> <span class="constant variable_builtin type variable">b</span><span class="punctuation_delimiter">:</span> <span class="constant variable_builtin type variable">S</span> <span class="operator">=</span> <span class="punctuation_delimiter">.</span><span class="punctuation_bracket">{</span> <span class="punctuation_delimiter">.</span><span class="constant variable_builtin type variable_member variable">ptr</span> <span class="operator">=</span> <span class="operator">&amp;</span><span class="constant variable_builtin type variable">a</span><span class="punctuation_delimiter">,</span> <span class="punctuation_delimiter">.</span><span class="constant variable_builtin type variable_member variable">x</span> <span class="operator">=</span> <span class="number">456</span> <span class="punctuation_bracket">}</span><span class="punctuation_delimiter">;</span>
+</code></pre>
+<p>Previously, both of the examples above would have failed with a “dependency loop detected” error; now, they compile just as you expect (and the same works if they’re declared <code>var</code>, of course).</p><p>This issue had been open for so long because it actually requires a non-trivial extension to the compiler: separating semantic analysis for the <em>type</em> and <em>value</em> of container-level declarations. This is complicated further by the fact that some global declarations might not have a type annotation, and that some (such as <code>extern</code> declarations) have a <em>type</em> but no <em>value</em>. It also interacts with the work-in-progress incremental compilation feature in non-trivial ways, so we had to make sure we got that right. All in all, this resulted in a <a href="https://github.com/ziglang/zig/pull/22303" target="_blank">pretty bulky diff</a> to the compiler.</p><p>Regardless, the point is, this now works on Zig <code>master</code>! If you have a use case for it, feel free to give it a try – and please do open an issue if you encounter any problems along the way.</p><p>Merry Christmas to those who celebrate!</p>
+      </div>
+    
+      <div id="2024-11-19">
+        <span>November 19, 2024</span>
+        <h1><a href="#2024-11-19">Zig Bootstrap Porting Progress
+</a></h1>
+        <p>Author: Alex Rønne Petersen</p><p>The <a href="https://github.com/ziglang/zig-bootstrap" target="_blank">zig-bootstrap</a> project makes it possible to produce a Zig compiler to run on (almost) any target with minimal system dependencies on the build machine. As part of my recent port work on Zig, I made it a goal to get zig-bootstrap working on as many of our supported cross-compilation target triples (<code>zig targets | jq -r .libc[]</code>) as reasonably possible. I’m happy to report that this effort is now complete.</p><p>At time of writing, the list of target triples supported by zig-bootstrap is as follows:</p><ul><li><code>aarch64-linux-(gnu,musl)</code></li><li><code>aarch64-macos-none</code></li><li><code>aarch64-windows-gnu</code></li><li><code>aarch64_be-linux-(gnu,musl)</code></li><li><code>arm[eb]-linux-(gnu,musl)eabi[hf]</code></li><li><code>loongarch64-linux-(gnu,gnusf,musl)</code></li><li><code>mips[el]-linux-(gnu,musl)eabi[hf]</code></li><li><code>mips64[el]-linux-(gnu,musl)abi(64,n32)</code></li><li><code>powerpc-linux-(gnu,musl)eabi[hf]</code></li><li><code>powerpc64-linux-musl</code></li><li><code>powerpc64le-linux-(gnu,musl)</code></li><li><code>riscv(32,64)-linux-(gnu,musl)</code></li><li><code>s390x-linux-(gnu,musl)</code></li><li><code>thumb[eb]-linux-musleabi[hf]</code></li><li><code>thumb-windows-gnu</code></li><li><code>x86-linux-(gnu,musl)</code></li><li><code>x86-windows-gnu</code></li><li><code>x86_64-linux-(gnu,musl)[x32]</code></li><li><code>x86_64-macos-none</code></li><li><code>x86_64-windows-gnu</code></li></ul><p><a href="https://github.com/ziglang/zig-bootstrap/blob/master/README.md#supported-triples" target="_blank">The latest list can be found here.</a></p><p>If you’ve been itching to run Zig on some unusual or obscure target, please take zig-bootstrap for a spin and see how it works for you. If you run into any build issues, please report those on the <a href="https://github.com/ziglang/zig-bootstrap" target="_blank">zig-bootstrap</a> repository; issues with running the built compiler should be reported on <a href="https://github.com/ziglang/zig" target="_blank">ziglang/zig</a>.</p>
+      </div>
+    
+      <div id="2024-11-04">
+        <span>November 04, 2024</span>
+        <h1><a href="#2024-11-04">The Unreasonable Effectiveness of Naming Integers
+</a></h1>
+        <p>Author: Andrew Kelley</p><p>Lately my Zig code has started to look like this in all my projects:</p><pre><code class="zig"><span class="comment_documentation comment spell">/// Uniquely identifies a section index across all objects. Each Object has a section_start field.</span>
+<span class="comment_documentation comment spell">/// By subtracting that value from this one, the Object section index is obtained.</span>
+<span class="keyword">const</span> <span class="constant variable_builtin type variable">SectionIndex</span> <span class="operator">=</span> <span class="keyword_type">enum</span><span class="punctuation_bracket">(</span><span class="type_builtin">u32</span><span class="punctuation_bracket">)</span> <span class="punctuation_bracket">{</span>
+    <span class="constant variable_builtin type variable">_</span><span class="punctuation_delimiter">,</span>
+<span class="punctuation_bracket">}</span><span class="punctuation_delimiter">;</span>
+
+<span class="comment_documentation comment spell">/// Index into object_function_imports</span>
+<span class="keyword_modifier">pub</span> <span class="keyword">const</span> <span class="constant variable_builtin type variable">ObjectFunctionImportIndex</span> <span class="operator">=</span> <span class="keyword_type">enum</span><span class="punctuation_bracket">(</span><span class="type_builtin">u32</span><span class="punctuation_bracket">)</span> <span class="punctuation_bracket">{</span>
+    <span class="constant variable_builtin type variable">_</span><span class="punctuation_delimiter">,</span>
+<span class="punctuation_bracket">}</span><span class="punctuation_delimiter">;</span>
+
+<span class="comment_documentation comment spell">/// Index into `object_global_imports`</span>
+<span class="keyword_modifier">pub</span> <span class="keyword">const</span> <span class="constant variable_builtin type variable">ObjectGlobalImportIndex</span> <span class="operator">=</span> <span class="keyword_type">enum</span><span class="punctuation_bracket">(</span><span class="type_builtin">u32</span><span class="punctuation_bracket">)</span> <span class="punctuation_bracket">{</span>
+    <span class="constant variable_builtin type variable">_</span><span class="punctuation_delimiter">,</span>
+<span class="punctuation_bracket">}</span><span class="punctuation_delimiter">;</span>
+
+<span class="comment_documentation comment spell">/// Index into object_table_imports.</span>
+<span class="keyword_modifier">pub</span> <span class="keyword">const</span> <span class="constant variable_builtin type variable">ObjectTableImportIndex</span> <span class="operator">=</span> <span class="keyword_type">enum</span><span class="punctuation_bracket">(</span><span class="type_builtin">u32</span><span class="punctuation_bracket">)</span> <span class="punctuation_bracket">{</span>
+    <span class="constant variable_builtin type variable">_</span><span class="punctuation_delimiter">,</span>
+<span class="punctuation_bracket">}</span><span class="punctuation_delimiter">;</span>
+
+<span class="comment_documentation comment spell">/// Index into `function_imports`.</span>
+<span class="keyword_modifier">pub</span> <span class="keyword">const</span> <span class="constant variable_builtin type variable">FunctionImportIndex</span> <span class="operator">=</span> <span class="keyword_type">enum</span><span class="punctuation_bracket">(</span><span class="type_builtin">u32</span><span class="punctuation_bracket">)</span> <span class="punctuation_bracket">{</span>
+    <span class="constant variable_builtin type variable">_</span><span class="punctuation_delimiter">,</span>
+<span class="punctuation_bracket">}</span><span class="punctuation_delimiter">;</span>
+
+<span class="comment_documentation comment spell">/// Index into `global_imports`.</span>
+<span class="keyword_modifier">pub</span> <span class="keyword">const</span> <span class="constant variable_builtin type variable">GlobalImportIndex</span> <span class="operator">=</span> <span class="keyword_type">enum</span><span class="punctuation_bracket">(</span><span class="type_builtin">u32</span><span class="punctuation_bracket">)</span> <span class="punctuation_bracket">{</span>
+    <span class="constant variable_builtin type variable">_</span><span class="punctuation_delimiter">,</span>
+<span class="punctuation_bracket">}</span><span class="punctuation_delimiter">;</span>
+
+<span class="comment_documentation comment spell">/// Index into `table_imports`.</span>
+<span class="keyword_modifier">pub</span> <span class="keyword">const</span> <span class="constant variable_builtin type variable">TableImportIndex</span> <span class="operator">=</span> <span class="keyword_type">enum</span><span class="punctuation_bracket">(</span><span class="type_builtin">u32</span><span class="punctuation_bracket">)</span> <span class="punctuation_bracket">{</span>
+    <span class="constant variable_builtin type variable">_</span><span class="punctuation_delimiter">,</span>
+<span class="punctuation_bracket">}</span><span class="punctuation_delimiter">;</span>
+
+<span class="comment_documentation comment spell">/// Index into `memory_imports`.</span>
+<span class="keyword_modifier">pub</span> <span class="keyword">const</span> <span class="constant variable_builtin type variable">MemoryImportIndex</span> <span class="operator">=</span> <span class="keyword_type">enum</span><span class="punctuation_bracket">(</span><span class="type_builtin">u32</span><span class="punctuation_bracket">)</span> <span class="punctuation_bracket">{</span>
+    <span class="constant variable_builtin type variable">_</span><span class="punctuation_delimiter">,</span>
+<span class="punctuation_bracket">}</span><span class="punctuation_delimiter">;</span>
+
+<span class="comment_documentation comment spell">/// Index into `output_globals`.</span>
+<span class="keyword_modifier">pub</span> <span class="keyword">const</span> <span class="constant variable_builtin type variable">GlobalIndex</span> <span class="operator">=</span> <span class="keyword_type">enum</span><span class="punctuation_bracket">(</span><span class="type_builtin">u32</span><span class="punctuation_bracket">)</span> <span class="punctuation_bracket">{</span>
+    <span class="constant variable_builtin type variable">_</span><span class="punctuation_delimiter">,</span>
+<span class="punctuation_bracket">}</span><span class="punctuation_delimiter">;</span>
+
+<span class="comment_documentation comment spell">/// Index into `functions`.</span>
+<span class="keyword_modifier">pub</span> <span class="keyword">const</span> <span class="constant variable_builtin type variable">FunctionIndex</span> <span class="operator">=</span> <span class="keyword_type">enum</span><span class="punctuation_bracket">(</span><span class="type_builtin">u32</span><span class="punctuation_bracket">)</span> <span class="punctuation_bracket">{</span>
+    <span class="constant variable_builtin type variable">_</span><span class="punctuation_delimiter">,</span>
+<span class="punctuation_bracket">}</span><span class="punctuation_delimiter">;</span>
+
+<span class="comment_documentation comment spell">/// Index into object_functions</span>
+<span class="keyword_modifier">pub</span> <span class="keyword">const</span> <span class="constant variable_builtin type variable">ObjectFunctionIndex</span> <span class="operator">=</span> <span class="keyword_type">enum</span><span class="punctuation_bracket">(</span><span class="type_builtin">u32</span><span class="punctuation_bracket">)</span> <span class="punctuation_bracket">{</span>
+    <span class="constant variable_builtin type variable">_</span><span class="punctuation_delimiter">,</span>
+
+    <span class="keyword_modifier">pub</span> <span class="keyword_function">fn</span> <span class="constant variable_builtin type variable function">toOptional</span><span class="punctuation_bracket">(</span><span class="constant variable_builtin variable_parameter variable type">i</span><span class="punctuation_delimiter">:</span> <span class="constant variable_builtin type variable">ObjectFunctionIndex</span><span class="punctuation_bracket">)</span> <span class="constant variable_builtin type variable">OptionalObjectFunctionIndex</span> <span class="punctuation_bracket">{</span>
+        <span class="keyword">const</span> <span class="module constant variable_builtin type variable">result</span><span class="punctuation_delimiter">:</span> <span class="module constant variable_builtin type variable">OptionalObjectFunctionIndex</span> <span class="operator">=</span> <span class="function_builtin keyword_import">@enumFromInt</span><span class="punctuation_bracket">(</span><span class="function_builtin">@intFromEnum</span><span class="punctuation_bracket">(</span><span class="constant variable_builtin type variable">i</span><span class="punctuation_bracket">)</span><span class="punctuation_bracket">)</span><span class="punctuation_delimiter">;</span>
+        <span class="constant variable_builtin function_call variable type">assert</span><span class="punctuation_bracket">(</span><span class="constant variable_builtin type variable">result</span> <span class="operator">!=</span> <span class="punctuation_delimiter">.</span><span class="constant variable_builtin type variable">none</span><span class="punctuation_bracket">)</span><span class="punctuation_delimiter">;</span>
+        <span class="keyword_return">return</span> <span class="constant variable_builtin type variable">result</span><span class="punctuation_delimiter">;</span>
+    <span class="punctuation_bracket">}</span>
+<span class="punctuation_bracket">}</span><span class="punctuation_delimiter">;</span>
+
+<span class="comment_documentation comment spell">/// Index into object_functions, or null.</span>
+<span class="keyword_modifier">pub</span> <span class="keyword">const</span> <span class="constant variable_builtin type variable">OptionalObjectFunctionIndex</span> <span class="operator">=</span> <span class="keyword_type">enum</span><span class="punctuation_bracket">(</span><span class="type_builtin">u32</span><span class="punctuation_bracket">)</span> <span class="punctuation_bracket">{</span>
+    <span class="constant variable_builtin type variable">none</span> <span class="operator">=</span> <span class="constant variable_builtin type variable">std</span><span class="punctuation_delimiter">.</span><span class="constant variable_builtin type variable_member variable">math</span><span class="punctuation_delimiter">.</span><span class="type constant variable_builtin function_call variable_member variable">maxInt</span><span class="punctuation_bracket">(</span><span class="type_builtin">u32</span><span class="punctuation_bracket">)</span><span class="punctuation_delimiter">,</span>
+    <span class="constant variable_builtin type variable">_</span><span class="punctuation_delimiter">,</span>
+
+    <span class="keyword_modifier">pub</span> <span class="keyword_function">fn</span> <span class="constant variable_builtin type variable function">unwrap</span><span class="punctuation_bracket">(</span><span class="constant variable_builtin variable_parameter variable type">i</span><span class="punctuation_delimiter">:</span> <span class="constant variable_builtin type variable">OptionalObjectFunctionIndex</span><span class="punctuation_bracket">)</span> <span class="operator">?</span><span class="constant variable_builtin type variable">ObjectFunctionIndex</span> <span class="punctuation_bracket">{</span>
+        <span class="keyword_conditional">if</span> <span class="punctuation_bracket">(</span><span class="constant variable_builtin type variable">i</span> <span class="operator">==</span> <span class="punctuation_delimiter">.</span><span class="constant variable_builtin type variable">none</span><span class="punctuation_bracket">)</span> <span class="keyword_return">return</span> <span class="constant_builtin">null</span><span class="punctuation_delimiter">;</span>
+        <span class="keyword_return">return</span> <span class="function_builtin">@enumFromInt</span><span class="punctuation_bracket">(</span><span class="function_builtin">@intFromEnum</span><span class="punctuation_bracket">(</span><span class="constant variable_builtin type variable">i</span><span class="punctuation_bracket">)</span><span class="punctuation_bracket">)</span><span class="punctuation_delimiter">;</span>
+    <span class="punctuation_bracket">}</span>
+<span class="punctuation_bracket">}</span><span class="punctuation_delimiter">;</span>
+</code></pre>
+<p>It’s uncanny how effective it is to avoid bugs by simply naming integers and thereby giving Zig’s type system a chance to catch mistakes. It’s extremely annoying and time consuming to troubleshoot this kind of mistake at runtime, but it’s <em>trivial</em> to solve when you get a compile error from a type mismatch.</p>
+      </div>
+    
+      <div id="2024-11-01">
+        <span>November 01, 2024</span>
+        <h1><a href="#2024-11-01">Anonymous Struct Types Removed
+</a></h1>
+        <p>Author: Matthew Lugg</p><p>Rejoice, ye faithful; the days of undocumented structural aggregate types are over!</p><p>Until recently, Zig had the notion of an “anonymous struct type”. When you wrote <code>.{ .x = 123 }</code> with no <a href="https://ziglang.org/documentation/master/#Result-Types" target="_blank">result type</a>, it would give this value an “anonymous struct” type, which is a special kind of struct which can coerce to other types based on <em>structure</em> rather than identity. In other words, this worked:</p><pre><code class="zig"><span class="keyword">test</span> <span class="string">&quot;coerce anonymous struct&quot;</span> <span class="punctuation_bracket">{</span>
+    <span class="keyword">const</span> <span class="constant variable_builtin type variable">foo</span> <span class="operator">=</span> <span class="punctuation_delimiter">.</span><span class="punctuation_bracket">{</span> <span class="punctuation_delimiter">.</span><span class="constant variable_builtin type variable_member variable">x</span> <span class="operator">=</span> <span class="number">123</span> <span class="punctuation_bracket">}</span><span class="punctuation_delimiter">;</span>
+    <span class="keyword">const</span> <span class="constant variable_builtin type variable">S</span> <span class="operator">=</span> <span class="keyword_type">struct</span> <span class="punctuation_bracket">{</span> <span class="constant variable_builtin type variable_member variable">x</span><span class="punctuation_delimiter">:</span> <span class="operator">?</span><span class="type_builtin">u32</span> <span class="punctuation_bracket">}</span><span class="punctuation_delimiter">;</span>
+    <span class="comment_documentation comment spell">// It&apos;s true that `@TypeOf(foo) != S`, and yet...</span>
+    <span class="keyword">const</span> <span class="constant variable_builtin type variable">bar</span><span class="punctuation_delimiter">:</span> <span class="constant variable_builtin type variable">S</span> <span class="operator">=</span> <span class="constant variable_builtin type variable">foo</span><span class="punctuation_delimiter">;</span> <span class="comment_documentation comment spell">// ...this works!</span>
+    <span class="keyword_exception">try</span> <span class="constant variable_builtin type variable">std</span><span class="punctuation_delimiter">.</span><span class="constant variable_builtin type variable_member variable">testing</span><span class="punctuation_delimiter">.</span><span class="type constant variable_builtin function_call variable_member variable">expect</span><span class="punctuation_bracket">(</span><span class="constant variable_builtin type variable">bar</span><span class="punctuation_delimiter">.</span><span class="constant variable_builtin type variable_member variable">x</span><span class="operator">.?</span> <span class="operator">==</span> <span class="number">123</span><span class="punctuation_bracket">)</span><span class="punctuation_delimiter">;</span>
+<span class="punctuation_bracket">}</span>
+<span class="keyword">const</span> <span class="module constant variable_builtin type variable">std</span> <span class="operator">=</span> <span class="function_builtin keyword_import">@import</span><span class="punctuation_bracket">(</span><span class="string">&quot;std&quot;</span><span class="punctuation_bracket">)</span><span class="punctuation_delimiter">;</span>
+</code></pre>
+<p>A little bit of trivia: this existed because a long time ago, Zig didn’t actually have the concept of a “result type”, so <em>all</em> type annotations worked via coercions like that!</p><p>I <a href="https://github.com/ziglang/zig/issues/16865" target="_blank">proposed removing this system</a> last year, and finally got around to <a href="https://github.com/ziglang/zig/pull/21817" target="_blank">actually doing it</a> last week. You can still write <code>.{ .x = 123 }</code> without a result type, but it’s given a “normal” struct type, with no magical coercions allowed. So now, the above code example fails just like you’d expect:</p><pre><code>example.zig:5:20: error: expected type &apos;example.test.coerce anonymous struct.S&apos;, found &apos;example.test.coerce anonymous struct__struct_90&apos;
+    const bar: S = foo; // ...this works!
+                   ^~~
+example.zig:2:18: note: struct declared here
+    const foo = .{ .x = 123 };
+                ~^~~~~~~~~~~~
+example.zig:3:15: note: struct declared here
+    const S = struct { x: ?u32 };
+              ^~~~~~~~~~~~~~~~~~
+</code></pre><p>Good riddance!</p>
+      </div>
+    
+      <div id="2024-10-29">
+        <span>October 29, 2024</span>
+        <h1><a href="#2024-10-29">File Watching Implemented for kqueue
+</a></h1>
+        <p>Author: Andrew Kelley</p><p>I knocked out <a href="https://github.com/ziglang/zig/issues/20599" target="_blank">#20599</a> on a plane ride last week (coincidentally on the way to a <a href="https://bumblebeargames.com/pages/bumblebash-5" target="_blank">KQ tournament</a>), so if you’re tracking master branch, you can now use the <code>zig build --watch</code> feature on macOS, FreeBSD, OpenBSD, NetBSD, DragonFlyBSD, and Haiku.</p><p>This feature tracks all file system inputs, automatically repeating invalidated build steps. It can be quite handy when refactoring a codebase using a terminal-based workflow since it means seeing instant feedback when any build inputs - source code or otherwise - are updated.</p><p>KQueue allows placing a watch on an open directory handle, but the event does not indicate the name of the changed file within any given directory. This is no problem for the Zig Build System. If any directory that contains watched files are triggered, the respective steps are invalidated, and then those steps use fstat to determine if the cached artifacts are still valid.</p>
+      </div>
+    
+      <div id="2024-10-06">
+        <span>October 06, 2024</span>
+        <h1><a href="#2024-10-06">CI Coverage Added for Incremental Compilation
+</a></h1>
+        <p>Author: Matthew Lugg</p><p>Over the last few months, myself and Jakub have been working hard on incremental compilation, where the compiler can “remember” parts of a previous build and only re-compile the code that changed. We just hit an important milestone here: <strong>our CI test suite <a href="https://github.com/ziglang/zig/pull/21518" target="_blank">now includes</a> our “incremental compilation” tests!</strong> This set of tests is small right now, but will grow rapidly as we fix bugs and, eventually, fuzz test the implementation.</p><p>You can find all our incremental compilation test cases <a href="https://github.com/ziglang/zig/tree/148b5b4c7806a694084f1e6f9514b0333cb75c6a/test/incremental" target="_blank">here</a>. The CI runs all of them on <code>x86_64-linux</code> with the self-hosted x86_64 backend, as well as on a few targets with the C backend (<code>-ofmt=c</code>). It’s approaching the point where you <em>can</em> start to use incremental compilation in some very basic cases; for instance, I’ve recently managed to perform an incremental update on <a href="https://github.com/andrewrk/tetris" target="_blank">Andrew’s Tetris clone</a>.</p><p>If you’re using a <code>master</code> build of Zig on Linux on x86_64, you can try playing with incremental compilation <strong>right now</strong> with this command:</p><pre><code>zig build -fincremental --watch
+</code></pre><p>(Make sure your <code>Step.Compile</code> has <code>.use_llvm = false, .use_lld = false</code>, so Zig doesn’t try to use LLVM!)</p><p>Beware, though, that you’ll run into bugs pretty quickly, including false positive compile errors and even miscompilations; use at your own risk.</p>
+      </div>
+    
+      <div id="2024-09-30">
+        <span>September 30, 2024</span>
+        <h1><a href="#2024-09-30">New Devlog Structure
+</a></h1>
+        <p>Author: Loris Cro</p><p>The devlog has switched to a per-year pre-sharded structure to avoid the issue of having a page that grows indefinitely.</p><p><strong>NOTE:</strong> the RSS feed link has not changed. No action needed from RSS feed consumers. Cached links to older entries might become stale, but new entries from now on will have the correct link.</p><p>If you want to get a similar setup going for your personal blog, check out <a href="https://github.com/kristoff-it/zine-devlog-examples" target="_blank">https://github.com/kristoff-it/zine-devlog-examples</a></p>
+      </div>
+    
+      <div id="2024-09-24">
+        <span>September 24, 2024</span>
+        <h1><a href="#2024-09-24">loongarch64 added to the download page
+</a></h1>
+        <p>Author: Andrew Kelley</p><p>Thanks to contributions from <a href="https://github.com/yxd-ym" target="_blank">YANG Xudong</a> and <a href="https://www.alexrp.com/" target="_blank">Alex Rønne Petersen</a>, along with <a href="https://github.com/ziglang/zig/commit/c6ad4521c77372cb52adfb9a52b0854d830fed9c" target="_blank">upgrading to LLVM 19</a>, loongarch64 support in Zig is progressed enough that <a href="https://github.com/ziglang/zig-bootstrap" target="_blank">zig-bootstrap</a> works for this target. In celebration, I have added loongarch64-linux to <a href="/download/">the download page</a>.</p>
+      </div>
+    
+      <div id="2024-09-16">
+        <span>September 16, 2024</span>
+        <h1><a href="#2024-09-16">2024-09-16
+</a></h1>
+        <p>Author: Andrew Kelley</p><p>I’ve been porting stb_truetype.h to Zig on the side. Check out this snippet:</p><pre><code class="c">{
+    <span class="type">float</span> <span class="constant variable">sum</span> <span class="operator">=</span> <span class="number">0</span><span class="delimiter">;</span>
+    <span class="keyword">for</span> (<span class="constant variable">i</span><span class="operator">=</span><span class="number">0</span><span class="delimiter">;</span> <span class="constant variable">i</span> <span class="operator">&lt;</span> <span class="constant variable">result</span><span class="operator">-&gt;</span><span class="property">w</span><span class="delimiter">;</span> <span class="operator">++</span><span class="constant variable">i</span>) {
+      <span class="type">float</span> <span class="constant variable">k</span><span class="delimiter">;</span>
+      <span class="type">int</span> <span class="constant variable">m</span><span class="delimiter">;</span>
+      <span class="constant variable">sum</span> <span class="operator">+=</span> <span class="constant variable">scanline2</span>[<span class="constant variable">i</span>]<span class="delimiter">;</span>
+      <span class="constant variable">k</span> <span class="operator">=</span> <span class="constant variable">scanline</span>[<span class="constant variable">i</span>] <span class="operator">+</span> <span class="constant variable">sum</span><span class="delimiter">;</span>
+      <span class="constant variable">k</span> <span class="operator">=</span> (<span class="type">float</span>) <span class="constant variable function">STBTT_fabs</span>(<span class="constant variable">k</span>)<span class="operator">*</span><span class="number">255</span> <span class="operator">+</span> <span class="number">0.5f</span><span class="delimiter">;</span>
+      <span class="constant variable">m</span> <span class="operator">=</span> (<span class="type">int</span>) <span class="constant variable">k</span><span class="delimiter">;</span>
+      <span class="keyword">if</span> (<span class="constant variable">m</span> <span class="operator">&gt;</span> <span class="number">255</span>) <span class="constant variable">m</span> <span class="operator">=</span> <span class="number">255</span><span class="delimiter">;</span>
+      <span class="constant variable">result</span><span class="operator">-&gt;</span><span class="property">pixels</span>[<span class="constant variable">j</span><span class="operator">*</span><span class="constant variable">result</span><span class="operator">-&gt;</span><span class="property">stride</span> <span class="operator">+</span> <span class="constant variable">i</span>] <span class="operator">=</span> (<span class="type">unsigned </span><span class="type">char</span>) <span class="constant variable">m</span><span class="delimiter">;</span>
+    }
+}
+</code></pre>
+<p>⬇️</p><pre><code class="zig"><span class="punctuation_bracket">{</span>
+    <span class="keyword">var</span> <span class="constant variable_builtin type variable">sum</span><span class="punctuation_delimiter">:</span> <span class="type_builtin">f32</span> <span class="operator">=</span> <span class="number">0</span><span class="punctuation_delimiter">;</span>
+    <span class="keyword_repeat">for</span> <span class="punctuation_bracket">(</span><span class="constant variable_builtin type variable">scanline</span><span class="punctuation_delimiter">,</span> <span class="constant variable_builtin type variable">scanline2</span><span class="punctuation_delimiter">,</span> <span class="constant variable_builtin type variable">result</span><span class="punctuation_delimiter">.</span><span class="constant variable_builtin type variable_member variable">pixels</span><span class="punctuation_bracket">[</span><span class="constant variable_builtin type variable">j</span><span class="operator">*</span><span class="constant variable_builtin type variable">result</span><span class="punctuation_delimiter">.</span><span class="constant variable_builtin type variable_member variable">stride</span><span class="operator">..</span><span class="punctuation_bracket">]</span><span class="punctuation_bracket">[</span><span class="number">0</span><span class="operator">..</span><span class="constant variable_builtin type variable">result</span><span class="punctuation_delimiter">.</span><span class="constant variable_builtin type variable_member variable">w</span><span class="punctuation_bracket">]</span><span class="punctuation_bracket">)</span> <span class="punctuation_bracket operator">|</span><span class="constant variable_builtin type variable">s</span><span class="punctuation_delimiter">,</span> <span class="constant variable_builtin type variable">s2</span><span class="punctuation_delimiter">,</span> <span class="operator">*</span><span class="constant variable_builtin type variable">p</span><span class="punctuation_bracket operator">|</span> <span class="punctuation_bracket">{</span>
+        <span class="constant variable_builtin type variable">sum</span> <span class="operator">+=</span> <span class="constant variable_builtin type variable">s2</span><span class="punctuation_delimiter">;</span>
+        <span class="constant variable_builtin type variable">p</span><span class="operator">.*</span> <span class="operator">=</span> <span class="function_builtin">@min</span><span class="punctuation_bracket">(</span><span class="function_builtin">@abs</span><span class="punctuation_bracket">(</span><span class="constant variable_builtin type variable">s</span> <span class="operator">+</span> <span class="constant variable_builtin type variable">sum</span><span class="punctuation_bracket">)</span><span class="operator">*</span><span class="number">255</span> <span class="operator">+</span> <span class="number_float">0.5</span><span class="punctuation_delimiter">,</span> <span class="number">255</span><span class="punctuation_bracket">)</span><span class="punctuation_delimiter">;</span>
+    <span class="punctuation_bracket">}</span>
+<span class="punctuation_bracket">}</span>
+</code></pre>
+<p>Ahh, much better.</p>
+      </div>
+    
+      <div id="2024-09-11">
+        <span>September 11, 2024</span>
+        <h1><a href="#2024-09-11">Zig tokenizer updated to use labeled switch statements
+</a></h1>
+        <p>Author: Andrew Kelley</p><p>Now that Matthew landed <a href="https://github.com/ziglang/zig/pull/21257" target="_blank">labeled switch continue syntax</a>, it’s time to start using it.</p><p><a href="https://github.com/ziglang/zig/pull/21367" target="_blank">Eric Petersen swooped in for a first-time contribution</a>, updating Zig’s tokenizer to use the new syntax, measuring a 13% wall time performance increase for the <code>zig ast-check</code> command:</p><p><img src="/devlog/2024/perf.png" alt="perf benchmark screenshot"></p><p>This line of code tickles me:</p><pre><code class="zig"><span class="constant variable_builtin type variable_member variable">state</span><span class="punctuation_delimiter">:</span> <span class="keyword_conditional">switch</span> <span class="punctuation_bracket">(</span><span class="constant variable_builtin type variable">State</span><span class="punctuation_delimiter">.</span><span class="constant variable_builtin type variable_member variable">start</span><span class="punctuation_bracket">)</span> <span class="punctuation_bracket">{</span>
+</code></pre>
+
+      </div>
+    </div>
+  </div>
+
+    </div>
+    <div class="container" style="text-align: center; padding: 2em 0;">
+      <div id="languages-menu"></div>
+    </div>
+  </body>
+</html>
